@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Anatomy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #E8833A;
+    --orange-soft: #F5A962;
+    --lime: #A8D86E;
+    --lime-soft: #C5E89E;
+    --bg: #FAFAF8;
+    --glass-bg: rgba(255, 255, 255, 0.18);
+    --glass-border: rgba(255, 255, 255, 0.35);
+    --text-dark: #2A2A28;
+    --text-muted: #7A7A72;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Warm gradient underlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(168,216,110,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 70% 50% at 80% 20%, rgba(232,131,58,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #canvas-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* ===== OVERLAY UI ===== */
+  .page-title {
+    position: fixed;
+    top: 40px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .page-title h1 {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeDown 1s 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  .page-subtitle {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    opacity: 0;
+    margin-top: 6px;
+    animation: fadeDown 1s 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 0.7; transform: translateY(0); }
+  }
+
+  /* ===== TOOLTIP ===== */
+  #tooltip {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translate(-50%, -100%);
+  }
+
+  #tooltip.visible { opacity: 1; }
+
+  .tooltip-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    padding: 16px 22px;
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.06),
+      0 2px 8px rgba(0,0,0,0.04),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    min-width: 180px;
+    text-align: center;
+  }
+
+  .tooltip-name {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .tooltip-meta {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .tooltip-bar {
+    margin-top: 10px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--orange-soft), var(--lime));
+    opacity: 0.6;
+  }
+
+  .tooltip-size {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--orange);
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+  }
+
+  .tooltip-size span {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== LEGEND ===== */
+  .legend {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeDown 1s 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    pointer-events: none;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .legend-dot.orange {
+    background: linear-gradient(135deg, var(--orange), var(--orange-soft));
+  }
+
+  .legend-dot.lime {
+    background: linear-gradient(135deg, var(--lime), var(--lime-soft));
+  }
+
+  .legend-dot.glass {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  /* Canvas cursor */
+  #canvas-container canvas { cursor: default; }
+  body.hovering #canvas-container canvas { cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="page-title">
+  <h1>Kayu &amp; Kov &mdash; Project Anatomy</h1>
+  <div class="page-subtitle">Hover the bubbles to explore &middot; Scroll to zoom</div>
+</div>
+
+<div id="canvas-container"></div>
+
+<div id="tooltip">
+  <div class="tooltip-card">
+    <div class="tooltip-name" id="ttName"></div>
+    <div class="tooltip-meta" id="ttMeta"></div>
+    <div class="tooltip-bar"></div>
+    <div class="tooltip-size" id="ttSize"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot orange"></div>Largest</div>
+  <div class="legend-item"><div class="legend-dot lime"></div>Smallest</div>
+  <div class="legend-item"><div class="legend-dot glass"></div>Glassmorphic sphere</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+  // ========== FILE DATA ==========
+  const FILES = [
+    { name: 'verification.html',       bytes: 32657, ext: 'html', desc: 'QA verification dashboard' },
+    { name: 'profile-dimensions.json',  bytes: 25991, ext: 'json', desc: '55 profile dimension records' },
+    { name: 'shape-generators.js',      bytes: 18286, ext: 'js',   desc: '14 parameterized shape generators' },
+    { name: 'app.js',                   bytes: 17598, ext: 'js',   desc: 'Data-driven 3D product viewer' },
+    { name: 'styles.css',              bytes: 16034, ext: 'css',  desc: 'Apple-inspired catalogue styles' },
+    { name: 'data.js',                 bytes: 7829,  ext: 'js',   desc: '55 products with dimensions & prices' },
+    { name: 'index.html',              bytes: 6332,  ext: 'html', desc: 'Main catalogue entry point' },
+    { name: 'qa-verifier.js',          bytes: 5921,  ext: 'js',   desc: 'Model dimensional QA checker' },
+    { name: 'profile-specs.js',        bytes: 5222,  ext: 'js',   desc: 'PDF-extracted profile specifications' },
+  ];
+
+  const maxBytes = Math.max(...FILES.map(f => f.bytes));
+  const minBytes = Math.min(...FILES.map(f => f.bytes));
+
+  function sizeLabel(bytes) {
+    if (bytes >= 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return bytes + ' B';
+  }
+
+  // Map bytes to sphere radius: largest = 2.8, smallest = 0.9
+  function bytesToRadius(bytes) {
+    const t = (bytes - minBytes) / (maxBytes - minBytes);
+    return 0.9 + t * 1.9;
+  }
+
+  // Map bytes to color: largest = orange tint, smallest = lime tint
+  function bytesToColor(bytes) {
+    const t = (bytes - minBytes) / (maxBytes - minBytes);
+    // Orange: hsl(25, 80%, 56%)  Lime: hsl(88, 55%, 60%)
+    const h = 88 - t * 63;     // 88 (lime) -> 25 (orange)
+    const s = 55 + t * 25;     // 55% -> 80%
+    const l = 60 + (1 - t) * 8; // slightly lighter for small
+    return new THREE.Color(`hsl(${h}, ${s}%, ${l}%)`);
+  }
+
+  // ========== THREE.JS SETUP ==========
+  const container = document.getElementById('canvas-container');
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xFAFAF8);
+  scene.fog = new THREE.FogExp2(0xFAFAF8, 0.018);
+
+  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 200);
+  camera.position.set(0, 2, 18);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  container.appendChild(renderer.domElement);
+
+  // Controls
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.04;
+  controls.rotateSpeed = 0.4;
+  controls.enablePan = false;
+  controls.minDistance = 8;
+  controls.maxDistance = 30;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.3;
+  controls.target.set(0, 0.5, 0);
+
+  // Lighting — soft, diffused, calming
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+  scene.add(ambientLight);
+
+  const keyLight = new THREE.DirectionalLight(0xFFF5EB, 0.6);
+  keyLight.position.set(8, 12, 6);
+  scene.add(keyLight);
+
+  const fillLight = new THREE.DirectionalLight(0xE8F5E0, 0.3);
+  fillLight.position.set(-6, 8, -4);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.DirectionalLight(0xFFE8D0, 0.25);
+  rimLight.position.set(0, -4, 10);
+  scene.add(rimLight);
+
+  // ========== CREATE BUBBLES ==========
+  const bubbles = [];
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2(-999, -999);
+
+  // Fibonacci sphere layout — evenly spaced on a sphere shell
+  function fibSpherePoint(i, n, shellRadius) {
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+    const y = 1 - (i / (n - 1)) * 2;
+    const radiusAtY = Math.sqrt(1 - y * y);
+    const theta = goldenAngle * i;
+    return new THREE.Vector3(
+      Math.cos(theta) * radiusAtY * shellRadius,
+      y * shellRadius * 0.7,
+      Math.sin(theta) * radiusAtY * shellRadius
+    );
+  }
+
+  // Sort files descending (biggest first for center-ish placement)
+  const sorted = [...FILES].sort((a, b) => b.bytes - a.bytes);
+
+  sorted.forEach((file, i) => {
+    const radius = bytesToRadius(file.bytes);
+    const color = bytesToColor(file.bytes);
+
+    // Glassmorphic material — translucent, refractive feel
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: color,
+      transparent: true,
+      opacity: 0.35,
+      roughness: 0.08,
+      metalness: 0.0,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
+      transmission: 0.6,
+      ior: 1.15,
+      thickness: radius * 0.8,
+      envMapIntensity: 0.4,
+      side: THREE.FrontSide,
+    });
+
+    const geo = new THREE.SphereGeometry(radius, 64, 64);
+    const mesh = new THREE.Mesh(geo, mat);
+
+    // Position
+    const pos = fibSpherePoint(i, sorted.length, 6.5);
+    mesh.position.copy(pos);
+
+    // Animate-in offset
+    mesh.userData = {
+      file,
+      basePos: pos.clone(),
+      radius,
+      hovered: false,
+      hoverT: 0,          // 0 = idle, 1 = fully hovered
+      baseOpacity: 0.35,
+      phase: Math.random() * Math.PI * 2,
+      bobSpeed: 0.3 + Math.random() * 0.25,
+      bobAmp: 0.08 + Math.random() * 0.06,
+      entryDelay: i * 0.12,
+      entryProgress: 0,
+    };
+
+    scene.add(mesh);
+    bubbles.push(mesh);
+
+    // Inner glow sphere — slightly smaller, more opaque core
+    const innerMat = new THREE.MeshPhysicalMaterial({
+      color: color.clone().lerp(new THREE.Color(0xffffff), 0.4),
+      transparent: true,
+      opacity: 0.12,
+      roughness: 0.2,
+      metalness: 0.0,
+      side: THREE.BackSide,
+    });
+    const innerGeo = new THREE.SphereGeometry(radius * 0.85, 32, 32);
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    mesh.add(innerMesh);
+
+    // Highlight ring
+    const ringGeo = new THREE.RingGeometry(radius * 1.02, radius * 1.06, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.0,
+      side: THREE.DoubleSide,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.lookAt(camera.position);
+    mesh.add(ring);
+    mesh.userData.ring = ring;
+    mesh.userData.ringMat = ringMat;
+
+    // Create text label (canvas texture) — embedded "in jelly"
+    createBubbleLabel(mesh, file, radius);
+  });
+
+  // ========== TEXT LABELS AS SPRITE ==========
+  function createBubbleLabel(parentMesh, file, radius) {
+    const canvas = document.createElement('canvas');
+    const sz = 512;
+    canvas.width = sz;
+    canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Clear
+    ctx.clearRect(0, 0, sz, sz);
+
+    // Determine font size proportional to bubble radius
+    // Swiss style: clean, generous spacing, structured hierarchy
+    const nameFontSize = Math.round(14 + radius * 10);
+    const extFontSize = Math.round(10 + radius * 5);
+
+    // File name — Helvetica bold, centered
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Extension badge
+    ctx.font = `500 ${extFontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    const extText = '.' + file.ext.toUpperCase();
+    ctx.fillText(extText, sz / 2, sz / 2 - nameFontSize * 0.7);
+
+    // Filename (without extension)
+    const baseName = file.name.replace(/\.[^.]+$/, '');
+    ctx.font = `600 ${nameFontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.82)';
+
+    // Word-wrap if needed
+    const maxWidth = sz * 0.72;
+    const words = baseName.split(/[-_.]/);
+    let lines = [];
+    let currentLine = '';
+
+    words.forEach(word => {
+      const test = currentLine ? currentLine + '-' + word : word;
+      if (ctx.measureText(test).width > maxWidth && currentLine) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = test;
+      }
+    });
+    if (currentLine) lines.push(currentLine);
+
+    const lineHeight = nameFontSize * 1.15;
+    const startY = sz / 2 - ((lines.length - 1) * lineHeight) / 2 + nameFontSize * 0.1;
+
+    lines.forEach((line, li) => {
+      ctx.fillText(line, sz / 2, startY + li * lineHeight);
+    });
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+
+    const spriteMat = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 0.0,   // starts hidden, fades in on entry
+      depthWrite: false,
+      depthTest: false,
+    });
+
+    const sprite = new THREE.Sprite(spriteMat);
+    const spriteScale = radius * 1.6;
+    sprite.scale.set(spriteScale, spriteScale, 1);
+    sprite.position.set(0, 0, 0);
+
+    parentMesh.add(sprite);
+    parentMesh.userData.labelSprite = sprite;
+    parentMesh.userData.labelMat = spriteMat;
+  }
+
+  // ========== TOOLTIP ==========
+  const tooltip = document.getElementById('tooltip');
+  const ttName = document.getElementById('ttName');
+  const ttMeta = document.getElementById('ttMeta');
+  const ttSize = document.getElementById('ttSize');
+  let hoveredBubble = null;
+
+  // ========== MOUSE ==========
+  function onMouseMove(e) {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+    if (hoveredBubble) {
+      tooltip.style.left = e.clientX + 'px';
+      tooltip.style.top = (e.clientY - 20) + 'px';
+    }
+  }
+
+  function onTouchMove(e) {
+    if (e.touches.length === 1) {
+      const t = e.touches[0];
+      mouse.x = (t.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(t.clientY / window.innerHeight) * 2 + 1;
+    }
+  }
+
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  window.addEventListener('touchmove', onTouchMove, { passive: true });
+
+  // ========== RESIZE ==========
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // ========== ANIMATION LOOP ==========
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    const dt = Math.min(clock.getDelta(), 0.05);
+
+    // Raycast for hover detection
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(bubbles);
+
+    let newHovered = null;
+    if (intersects.length > 0) {
+      newHovered = intersects[0].object;
+    }
+
+    // Update hover state
+    if (newHovered !== hoveredBubble) {
+      if (hoveredBubble) {
+        hoveredBubble.userData.hovered = false;
+      }
+      hoveredBubble = newHovered;
+      if (hoveredBubble) {
+        hoveredBubble.userData.hovered = true;
+        const file = hoveredBubble.userData.file;
+        ttName.textContent = file.name;
+        ttMeta.textContent = file.desc;
+        ttSize.innerHTML = sizeLabel(file.bytes).replace(
+          /(\d+\.?\d*)\s*(KB|B)/,
+          '$1 <span>$2</span>'
+        );
+        tooltip.classList.add('visible');
+        document.body.classList.add('hovering');
+      } else {
+        tooltip.classList.remove('visible');
+        document.body.classList.remove('hovering');
+      }
+    }
+
+    // Animate each bubble
+    bubbles.forEach(bubble => {
+      const ud = bubble.userData;
+
+      // Entry animation (scale in from 0)
+      if (ud.entryProgress < 1) {
+        const entryT = Math.max(0, t - ud.entryDelay);
+        ud.entryProgress = Math.min(1, entryT / 0.9);
+        const ease = 1 - Math.pow(1 - ud.entryProgress, 3); // ease out cubic
+        bubble.scale.setScalar(ease);
+
+        // Label fade in
+        if (ud.labelMat) {
+          ud.labelMat.opacity = ease * 0.85;
+        }
+      }
+
+      // Gentle floating bob
+      const bob = Math.sin(t * ud.bobSpeed + ud.phase) * ud.bobAmp;
+      const bobX = Math.cos(t * ud.bobSpeed * 0.7 + ud.phase * 1.3) * ud.bobAmp * 0.5;
+      bubble.position.x = ud.basePos.x + bobX;
+      bubble.position.y = ud.basePos.y + bob;
+      bubble.position.z = ud.basePos.z + Math.sin(t * ud.bobSpeed * 0.5 + ud.phase * 0.7) * ud.bobAmp * 0.3;
+
+      // Hover transition (smooth lerp)
+      const targetHoverT = ud.hovered ? 1 : 0;
+      ud.hoverT += (targetHoverT - ud.hoverT) * 0.08;
+
+      // On hover: scale up, increase opacity, brighten
+      const hoverScale = 1 + ud.hoverT * 0.18;
+      if (ud.entryProgress >= 1) {
+        bubble.scale.setScalar(hoverScale);
+      }
+
+      // Material hover response
+      bubble.material.opacity = ud.baseOpacity + ud.hoverT * 0.25;
+      bubble.material.transmission = 0.6 - ud.hoverT * 0.3;
+      bubble.material.clearcoatRoughness = 0.05 + ud.hoverT * 0.1;
+
+      // Ring glow on hover
+      if (ud.ringMat) {
+        ud.ringMat.opacity = ud.hoverT * 0.3;
+        ud.ring.lookAt(camera.position);
+      }
+
+      // Label visibility: always subtly visible, brighter on hover
+      if (ud.labelMat && ud.entryProgress >= 1) {
+        ud.labelMat.opacity = 0.55 + ud.hoverT * 0.4;
+      }
+
+      // Non-hovered dimming when something else is hovered
+      if (hoveredBubble && !ud.hovered) {
+        bubble.material.opacity = ud.baseOpacity * 0.5 + (1 - ud.hoverT) * ud.baseOpacity * 0.2;
+        if (ud.labelMat && ud.entryProgress >= 1) {
+          ud.labelMat.opacity = 0.25;
+        }
+      } else if (!hoveredBubble && ud.entryProgress >= 1) {
+        bubble.material.opacity = ud.baseOpacity;
+        if (ud.labelMat) {
+          ud.labelMat.opacity = 0.55;
+        }
+      }
+    });
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})();
+</script>
+</body>
+</html>

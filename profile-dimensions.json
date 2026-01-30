@@ -1,0 +1,1111 @@
+{
+  "meta": {
+    "source": "123kayu.pdf",
+    "version": "1.0.0",
+    "units": "mm",
+    "profileCount": 55,
+    "lastVerified": "2026-01-27T00:00:00Z",
+    "verifiedCount": 53,
+    "pendingCount": 2,
+    "pendingIds": [20, 21],
+    "verificationMethod": "Claude Vision analysis of 123kayu.pdf (10 pages)",
+    "corrections": [
+      "ID 2: Changed from 1 hole (84x34) to 2 chambers (36x34 each, 12mm divider) per PDF"
+    ],
+    "shapeTypes": [
+      "rectangle",
+      "hollow_rectangle",
+      "ellipse",
+      "pill",
+      "cylinder_solid",
+      "cylinder_hollow",
+      "l_angle",
+      "c_channel",
+      "i_beam",
+      "fluted",
+      "serrated",
+      "cladding",
+      "stepped",
+      "railing"
+    ]
+  },
+  "profiles": {
+    "1": {
+      "id": 1,
+      "name": "Fluted Profile-3",
+      "code": "4400000665",
+      "category": "fluted",
+      "price": 348,
+      "shapeType": "fluted",
+      "dimensions": {
+        "width": 145,
+        "height": 18
+      },
+      "params": {
+        "baseThickness": 8,
+        "humpCount": 4,
+        "humpRadius": 6.5,
+        "valleyDepth": 9
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "4 rounded wave humps on flat base, R6.5 curves, 35mm hump spacing"
+    },
+    "2": {
+      "id": 2,
+      "name": "Hollow Box Profile",
+      "code": "4400000661",
+      "category": "hollow-box",
+      "price": 395,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 50
+      },
+      "params": {
+        "wallThickness": 8,
+        "holes": [
+          { "x": 8, "y": 8, "width": 36, "height": 34 },
+          { "x": 56, "y": 8, "width": 36, "height": 34 }
+        ]
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Two chambers: 8mm wall | 36mm chamber | 12mm divider | 36mm chamber | 8mm wall"
+    },
+    "3": {
+      "id": 3,
+      "name": "Cladding Profile",
+      "code": "4400000664",
+      "category": "cladding",
+      "price": 184,
+      "shapeType": "cladding",
+      "dimensions": {
+        "width": 112,
+        "height": 15
+      },
+      "params": {
+        "tongueLeft": 14.3,
+        "mainSections": [36.3, 36.3],
+        "tongueRight": 9,
+        "stepHeight": 6,
+        "grooveWidth": 5
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Tongue and groove interlocking panel, sections: 14.3|36.3|36.3|9mm"
+    },
+    "4": {
+      "id": 4,
+      "name": "C Channel Profile",
+      "code": "4400000660",
+      "category": "c-channel",
+      "price": 170,
+      "shapeType": "c_channel",
+      "dimensions": {
+        "width": 50,
+        "height": 50,
+        "thickness": 6
+      },
+      "params": {
+        "wallThickness": 6,
+        "flangeDepth": 6,
+        "rounded": false
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Square C-channel, open on one side"
+    },
+    "5": {
+      "id": 5,
+      "name": "Rod Profile",
+      "code": "4400000668",
+      "category": "rod",
+      "price": 173,
+      "shapeType": "cylinder_solid",
+      "dimensions": {
+        "diameter": 25
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Solid cylindrical rod, 25mm diameter"
+    },
+    "6": {
+      "id": 6,
+      "name": "C Channel Profile",
+      "code": "4400000670",
+      "category": "c-channel",
+      "price": 157,
+      "shapeType": "c_channel",
+      "dimensions": {
+        "width": 100,
+        "height": 30,
+        "thickness": 16
+      },
+      "params": {
+        "wallThickness": 6,
+        "flangeDepth": 16,
+        "rounded": false
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Wide shallow C-channel, 16mm flange depth inward"
+    },
+    "7": {
+      "id": 7,
+      "name": "Serrated Profile",
+      "code": "4400000671",
+      "category": "serrated",
+      "price": 399,
+      "shapeType": "serrated",
+      "dimensions": {
+        "width": 100,
+        "height": 20
+      },
+      "params": {
+        "toothWidth": 10,
+        "toothHeight": 4,
+        "gapWidth": 3,
+        "baseHeight": 16
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Rectangular teeth on flat base, 10mm teeth with 3mm gaps"
+    },
+    "8": {
+      "id": 8,
+      "name": "Strip",
+      "code": "4400000685",
+      "category": "strip",
+      "price": 308,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 50,
+        "height": 25
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Solid rectangular bar"
+    },
+    "9": {
+      "id": 9,
+      "name": "Sheet Profile",
+      "code": "4400000680",
+      "category": "sheet",
+      "price": 169,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 8
+      },
+      "params": {},
+      "extrudeDepth": 40,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Thin flat rectangular plate"
+    },
+    "10": {
+      "id": 10,
+      "name": "Sheet Profile",
+      "code": "4400000681",
+      "category": "sheet",
+      "price": 210,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 10
+      },
+      "params": {},
+      "extrudeDepth": 40,
+      "verified": true,
+      "pdfPage": 1,
+      "notes": "Thin flat rectangular plate"
+    },
+    "11": {
+      "id": 11,
+      "name": "Sheet Profile",
+      "code": "4400000689",
+      "category": "sheet",
+      "price": 252,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 12
+      },
+      "params": {},
+      "extrudeDepth": 40,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Thin flat rectangular plate"
+    },
+    "12": {
+      "id": 12,
+      "name": "Sheet Profile",
+      "code": "4400000688",
+      "category": "sheet",
+      "price": 254,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 8
+      },
+      "params": {},
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Thin flat rectangular plate"
+    },
+    "13": {
+      "id": 13,
+      "name": "Sheet Profile",
+      "code": "4400000687",
+      "category": "sheet",
+      "price": 318,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 10
+      },
+      "params": {},
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Thin flat rectangular plate"
+    },
+    "14": {
+      "id": 14,
+      "name": "Sheet Profile",
+      "code": "4400000686",
+      "category": "sheet",
+      "price": 378,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 12
+      },
+      "params": {},
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Thin flat rectangular plate"
+    },
+    "15": {
+      "id": 15,
+      "name": "Cladding Profile",
+      "code": "4400000690",
+      "category": "cladding",
+      "price": 117,
+      "shapeType": "cladding",
+      "dimensions": {
+        "width": 58,
+        "height": 15
+      },
+      "params": {
+        "tongueLeft": 9,
+        "mainSections": [40],
+        "tongueRight": 9,
+        "stepHeight": 6,
+        "grooveWidth": 5
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Small cladding, 40mm visible section"
+    },
+    "16": {
+      "id": 16,
+      "name": "Cladding Profile",
+      "code": "4400000691",
+      "category": "cladding",
+      "price": 185,
+      "shapeType": "cladding",
+      "dimensions": {
+        "width": 98,
+        "height": 15
+      },
+      "params": {
+        "tongueLeft": 9,
+        "mainSections": [80],
+        "tongueRight": 9,
+        "stepHeight": 6,
+        "grooveWidth": 5
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Medium cladding, 80mm visible section"
+    },
+    "17": {
+      "id": 17,
+      "name": "Louver",
+      "code": "4400000051",
+      "category": "louver",
+      "price": 350,
+      "shapeType": "pill",
+      "dimensions": {
+        "width": 150,
+        "height": 35
+      },
+      "params": {
+        "endRadius": 17.5,
+        "wallThickness": 4,
+        "chambers": 4,
+        "midWallThickness": 6,
+        "endWallThickness": 10
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Pill/capsule outer shape with 4 internal rectangular chambers"
+    },
+    "18": {
+      "id": 18,
+      "name": "Hollow Box",
+      "code": "4400000010",
+      "category": "hollow-box",
+      "price": 380,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 25
+      },
+      "params": {
+        "wallThickness": 4,
+        "holes": [
+          { "x": 10, "y": 4, "width": 39.5, "height": 17 },
+          { "x": 55.5, "y": 4, "width": 39, "height": 17 },
+          { "x": 100.5, "y": 4, "width": 39.5, "height": 17 }
+        ]
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "3 chambers: 10|39.5|6|39|6|39.5|10mm pattern"
+    },
+    "19": {
+      "id": 19,
+      "name": "Solid Box",
+      "code": "4400000011",
+      "category": "solid-box",
+      "price": 685,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 25
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Solid filled rectangular bar, no hollow"
+    },
+    "20": {
+      "id": 20,
+      "name": "Door Profile",
+      "code": "4400000040",
+      "category": "door",
+      "price": 200,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 20
+      },
+      "params": {
+        "wallThickness": 4,
+        "holes": [
+          { "x": 20.5, "y": 4, "width": 6, "height": 12 },
+          { "x": 47, "y": 4, "width": 6, "height": 12 },
+          { "x": 73.5, "y": 4, "width": 6, "height": 12 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": false,
+      "pdfPage": 2,
+      "notes": "100x20mm with 3 vertical channels, 6mm wide each, evenly spaced. PDF annotations show 6mm/6mm/41mm layout - needs human review of exact channel positions"
+    },
+    "21": {
+      "id": 21,
+      "name": "Door Profile",
+      "code": "4400000054",
+      "category": "door",
+      "price": 274,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 20
+      },
+      "params": {
+        "wallThickness": 4,
+        "holes": [
+          { "x": 12, "y": 4, "width": 10, "height": 12 },
+          { "x": 28, "y": 4, "width": 39, "height": 12 },
+          { "x": 73, "y": 4, "width": 15, "height": 12 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": false,
+      "pdfPage": 2,
+      "notes": "100x20x6mm variant, different channel layout with larger middle section. PDF shows 6mm/10mm/39mm/6mm annotations - needs human review of exact hole positions"
+    },
+    "22": {
+      "id": 22,
+      "name": "Door Profile Solid",
+      "code": "4400000031",
+      "category": "door",
+      "price": 397,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 20
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 2,
+      "notes": "Solid 100x20mm door profile, no internal channels"
+    },
+    "23": {
+      "id": 23,
+      "name": "Door Profile",
+      "code": "4400000265",
+      "category": "door",
+      "price": 315,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 85,
+        "height": 31
+      },
+      "params": {
+        "wallThickness": 6,
+        "holes": [
+          { "x": 12, "y": 6, "width": 61, "height": 19 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "85x31mm with internal notch/channel"
+    },
+    "24": {
+      "id": 24,
+      "name": "Door Frame Profile",
+      "code": "4400000025",
+      "category": "door",
+      "price": 347,
+      "shapeType": "stepped",
+      "dimensions": {
+        "width": 85,
+        "height": 31
+      },
+      "params": {
+        "stepX": 61,
+        "stepY": 11,
+        "stepDirection": "top-right"
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "L-shaped stepped profile, 61mm top section with 20mm step"
+    },
+    "25": {
+      "id": 25,
+      "name": "Single Door Frame",
+      "code": "4400000044",
+      "category": "door",
+      "price": 335,
+      "shapeType": "stepped",
+      "dimensions": {
+        "width": 85,
+        "height": 31
+      },
+      "params": {
+        "stepX": 50,
+        "stepY": 12.4,
+        "stepDirection": "top-right"
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "L-shaped with 35mm step, narrower step than door frame"
+    },
+    "26": {
+      "id": 26,
+      "name": "Sheet Profile",
+      "code": "4400000052",
+      "category": "sheet",
+      "price": 134,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 6
+      },
+      "params": {},
+      "extrudeDepth": 40,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Thin flat rectangular plate"
+    },
+    "27": {
+      "id": 27,
+      "name": "Sheet Profile",
+      "code": "4400000020",
+      "category": "sheet",
+      "price": 437,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 200,
+        "height": 11
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Wide sheet"
+    },
+    "28": {
+      "id": 28,
+      "name": "Sheet Profile",
+      "code": "4400000029",
+      "category": "sheet",
+      "price": 304,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 200,
+        "height": 7
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Wide thin sheet"
+    },
+    "29": {
+      "id": 29,
+      "name": "Sheet Profile",
+      "code": "4400000034",
+      "category": "sheet",
+      "price": 899,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 400,
+        "height": 11
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Extra wide sheet"
+    },
+    "30": {
+      "id": 30,
+      "name": "Sheet Profile",
+      "code": "4400000035",
+      "category": "sheet",
+      "price": 518,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 400,
+        "height": 7
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Extra wide thin sheet"
+    },
+    "31": {
+      "id": 31,
+      "name": "Strip",
+      "code": "4400000583",
+      "category": "strip",
+      "price": 119,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 55,
+        "height": 10
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Solid rectangular bar"
+    },
+    "32": {
+      "id": 32,
+      "name": "Strip Profile",
+      "code": "4400000053",
+      "category": "strip",
+      "price": 187,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 80,
+        "height": 11
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Solid rectangular bar"
+    },
+    "33": {
+      "id": 33,
+      "name": "Strip",
+      "code": "4400000027",
+      "category": "strip",
+      "price": 265,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 40,
+        "height": 20
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Solid rectangular bar"
+    },
+    "34": {
+      "id": 34,
+      "name": "Hollow Strip Profile",
+      "code": "4400000055",
+      "category": "hollow-strip",
+      "price": 160,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 40,
+        "height": 20
+      },
+      "params": {
+        "wallThickness": 6,
+        "holes": [
+          { "x": 8, "y": 6, "width": 24, "height": 8 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Hollow with 24x8mm internal hole"
+    },
+    "35": {
+      "id": 35,
+      "name": "Hollow Strip",
+      "code": "4400000048",
+      "category": "hollow-strip",
+      "price": 187,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 50,
+        "height": 25
+      },
+      "params": {
+        "wallThickness": 5,
+        "holes": [
+          { "x": 6, "y": 5, "width": 38, "height": 15 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Hollow with 38x15mm internal hole"
+    },
+    "36": {
+      "id": 36,
+      "name": "Strip",
+      "code": "4400000047",
+      "category": "strip",
+      "price": 108,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 45,
+        "height": 10
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 3,
+      "notes": "Solid rectangular bar"
+    },
+    "37": {
+      "id": 37,
+      "name": "L-Angle",
+      "code": "4400000024",
+      "category": "l-angle",
+      "price": 69,
+      "shapeType": "l_angle",
+      "dimensions": {
+        "width": 30,
+        "height": 30,
+        "thickness": 4
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "L-shaped angle bracket, equal legs"
+    },
+    "38": {
+      "id": 38,
+      "name": "L-Angle",
+      "code": "4400000045",
+      "category": "l-angle",
+      "price": 81,
+      "shapeType": "l_angle",
+      "dimensions": {
+        "width": 40,
+        "height": 40,
+        "thickness": 4
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "L-shaped angle bracket, equal legs"
+    },
+    "39": {
+      "id": 39,
+      "name": "Louver",
+      "code": "4400000005",
+      "category": "louver",
+      "price": 115,
+      "shapeType": "ellipse",
+      "dimensions": {
+        "width": 75,
+        "height": 20
+      },
+      "params": {
+        "hollow": true,
+        "wallThickness": 4,
+        "innerMarginX": 6
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Elliptical outer shape with single oval internal cavity"
+    },
+    "40": {
+      "id": 40,
+      "name": "Solid Louver",
+      "code": "4400000043",
+      "category": "solid-louver",
+      "price": 278,
+      "shapeType": "ellipse",
+      "dimensions": {
+        "width": 75,
+        "height": 20
+      },
+      "params": {
+        "hollow": false
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Same elliptical shape as louver 75x20 but solid, no internal cavity"
+    },
+    "41": {
+      "id": 41,
+      "name": "Round Pipe",
+      "code": "4400000036",
+      "category": "round-pipe",
+      "price": 383,
+      "shapeType": "cylinder_hollow",
+      "dimensions": {
+        "diameter": 80,
+        "wallThickness": 10
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Hollow cylindrical pipe, 80mm outer diameter, 10mm wall"
+    },
+    "42": {
+      "id": 42,
+      "name": "C-Channel",
+      "code": "4400000582",
+      "category": "c-channel",
+      "price": 164,
+      "shapeType": "c_channel",
+      "dimensions": {
+        "width": 100,
+        "height": 30,
+        "thickness": 6
+      },
+      "params": {
+        "wallThickness": 6,
+        "flangeDepth": 6,
+        "rounded": false
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Wide C-channel, standard proportions"
+    },
+    "43": {
+      "id": 43,
+      "name": "C-Channel",
+      "code": "4400000012",
+      "category": "c-channel",
+      "price": 164,
+      "shapeType": "c_channel",
+      "dimensions": {
+        "width": 84,
+        "height": 30,
+        "thickness": 6
+      },
+      "params": {
+        "wallThickness": 6,
+        "flangeDepth": 6,
+        "rounded": true,
+        "cornerRadius": 6
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Medium C-channel with ROUNDED inner corners, R6"
+    },
+    "44": {
+      "id": 44,
+      "name": "I-Beam Profile",
+      "code": "4400000590",
+      "category": "i-beam",
+      "price": 80,
+      "shapeType": "i_beam",
+      "dimensions": {
+        "width": 38,
+        "height": 8
+      },
+      "params": {
+        "flangeThickness": 2,
+        "webThickness": 4
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "I-shaped cross section, 38mm wide, 8mm total height"
+    },
+    "45": {
+      "id": 45,
+      "name": "Rod Profile",
+      "code": "4400000007",
+      "category": "rod",
+      "price": 53,
+      "shapeType": "cylinder_solid",
+      "dimensions": {
+        "diameter": 9
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Solid cylindrical rod, 9mm diameter"
+    },
+    "46": {
+      "id": 46,
+      "name": "Rod Profile",
+      "code": "4400000026",
+      "category": "rod",
+      "price": 48,
+      "shapeType": "cylinder_solid",
+      "dimensions": {
+        "diameter": 8
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Solid cylindrical rod, 8mm diameter"
+    },
+    "47": {
+      "id": 47,
+      "name": "Rod Profile",
+      "code": "4400000667",
+      "category": "rod",
+      "price": 46,
+      "shapeType": "cylinder_solid",
+      "dimensions": {
+        "diameter": 6
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Solid cylindrical rod, 6mm diameter"
+    },
+    "48": {
+      "id": 48,
+      "name": "Square Profile",
+      "code": "4400000058",
+      "category": "square",
+      "price": 233,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 50,
+        "height": 50
+      },
+      "params": {
+        "wallThickness": 6,
+        "holes": [
+          { "x": 6, "y": 6, "width": 38, "height": 38 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Hollow square tube, 6mm walls"
+    },
+    "49": {
+      "id": 49,
+      "name": "Strip Profile",
+      "code": "4400000057",
+      "category": "strip",
+      "price": 119,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 80,
+        "height": 6
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 4,
+      "notes": "Solid rectangular bar"
+    },
+    "50": {
+      "id": 50,
+      "name": "Square Profile",
+      "code": "4400000578",
+      "category": "square",
+      "price": 573,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 100,
+        "height": 100
+      },
+      "params": {
+        "wallThickness": 8,
+        "holes": [
+          { "x": 8, "y": 8, "width": 84, "height": 84 }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "Large hollow square tube, 8mm walls"
+    },
+    "51": {
+      "id": 51,
+      "name": "Square Box Profile",
+      "code": "4400000586",
+      "category": "square",
+      "price": 1290,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 150
+      },
+      "params": {
+        "wallThickness": 10,
+        "xBracing": true,
+        "braceThickness": 10,
+        "holes": [
+          { "type": "triangle", "points": [[20, 10], [140, 10], [75, 65]], "label": "bottom" },
+          { "type": "triangle", "points": [[20, 140], [75, 85], [130, 140]], "label": "top" },
+          { "type": "triangle", "points": [[10, 20], [65, 75], [10, 130]], "label": "left" },
+          { "type": "triangle", "points": [[140, 20], [140, 130], [85, 75]], "label": "right" }
+        ]
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "150x150mm with DIAGONAL X-BRACING inside, 10mm walls and braces"
+    },
+    "52": {
+      "id": 52,
+      "name": "Strip Profile",
+      "code": "4400000581",
+      "category": "strip",
+      "price": 104,
+      "shapeType": "rectangle",
+      "dimensions": {
+        "width": 60,
+        "height": 6
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "Solid rectangular bar"
+    },
+    "53": {
+      "id": 53,
+      "name": "Railing Profile",
+      "code": "4400000060",
+      "category": "railing",
+      "price": 257,
+      "shapeType": "railing",
+      "dimensions": {
+        "width": 65,
+        "height": 32.5
+      },
+      "params": {
+        "topWidth": 50,
+        "sideMargin": 7.5,
+        "stemWidth": 20,
+        "stemHeightRatio": 0.4
+      },
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "Dome/arch shaped top with narrow stem, mushroom cap profile"
+    },
+    "54": {
+      "id": 54,
+      "name": "Hollow Box Profile",
+      "code": "4400000591",
+      "category": "hollow-box",
+      "price": 625,
+      "shapeType": "hollow_rectangle",
+      "dimensions": {
+        "width": 150,
+        "height": 50
+      },
+      "params": {
+        "wallThickness": 14,
+        "holes": [
+          { "x": 14, "y": 14, "width": 122, "height": 22 }
+        ]
+      },
+      "extrudeDepth": 60,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "Large hollow box, 14mm walls"
+    },
+    "55": {
+      "id": 55,
+      "name": "Round Pipe Profile",
+      "code": "4400000588",
+      "category": "round-pipe",
+      "price": 752,
+      "shapeType": "cylinder_hollow",
+      "dimensions": {
+        "diameter": 150,
+        "wallThickness": 10
+      },
+      "params": {},
+      "extrudeDepth": 80,
+      "verified": true,
+      "pdfPage": 5,
+      "notes": "Large hollow pipe, 150mm diameter, 10mm wall"
+    }
+  }
+}
