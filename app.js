@@ -1,9 +1,9 @@
 // Kayu & Kov 2025 - Mobile Catalogue
-// Data-driven 3D product viewer using profile-dimensions.json + shape-generators.js
-// All measurements in millimeters matching PDF specifications exactly (123kayu.pdf)
+// OBJ-based 3D product viewer — all 55 profiles loaded from designer Blender models
+// OBJ files: assets/models/profile_01.obj … profile_55.obj
 
 // ========== PROFILE DIMENSIONS LOADER ==========
-// Loaded from profile-dimensions.json via fetch, with inline fallback
+// Loaded from profile-dimensions.json for product metadata (names, codes, categories, verified status)
 
 let profileDimensions = null;
 
@@ -16,7 +16,6 @@ async function loadProfileDimensions() {
     return profileDimensions;
   } catch (e) {
     console.warn('Could not load profile-dimensions.json, building from product data:', e.message);
-    // Fallback: build minimal dimension map from products array
     profileDimensions = {};
     products.forEach(p => {
       profileDimensions[p.id] = {
@@ -25,40 +24,12 @@ async function loadProfileDimensions() {
         code: p.code,
         category: p.category,
         price: p.price,
-        shapeType: categoryToShapeType(p.category),
         dimensions: parseDimensionString(p.dimensions),
-        params: {},
-        extrudeDepth: 60,
         verified: false
       };
     });
     return profileDimensions;
   }
-}
-
-// Fallback helper: map category to shape type
-function categoryToShapeType(category) {
-  const map = {
-    'sheet': 'rectangle',
-    'strip': 'rectangle',
-    'solid-box': 'rectangle',
-    'hollow-box': 'hollow_rectangle',
-    'hollow-strip': 'hollow_rectangle',
-    'square': 'hollow_rectangle',
-    'door': 'hollow_rectangle',
-    'louver': 'pill',
-    'solid-louver': 'ellipse',
-    'rod': 'cylinder_solid',
-    'round-pipe': 'cylinder_hollow',
-    'l-angle': 'l_angle',
-    'c-channel': 'c_channel',
-    'i-beam': 'i_beam',
-    'fluted': 'fluted',
-    'serrated': 'serrated',
-    'cladding': 'cladding',
-    'railing': 'railing'
-  };
-  return map[category] || 'rectangle';
 }
 
 // Fallback helper: parse "100 x 50mm" or "25mm diameter" into dimensions object
@@ -79,90 +50,11 @@ function parseDimensionString(dimStr) {
   return { width: 100, height: 20 };
 }
 
-// ========== QA VERIFICATION SYSTEM ==========
-
-const qaVerifier = {
-  toleranceMM: 0.5,
-  results: new Map(),
-
-  verify(mesh, productId, expectedSpecs) {
-    if (!mesh || !mesh.geometry) {
-      return { passed: false, error: 'Invalid mesh' };
-    }
-
-    mesh.geometry.computeBoundingBox();
-    const box = mesh.geometry.boundingBox;
-
-    const actual = {
-      x: Math.abs(box.max.x - box.min.x),
-      y: Math.abs(box.max.y - box.min.y),
-      z: Math.abs(box.max.z - box.min.z)
-    };
-
-    const checks = [];
-    let allPassed = true;
-
-    if (expectedSpecs.width) {
-      const diff = Math.abs(actual.x - expectedSpecs.width);
-      const passed = diff <= this.toleranceMM;
-      if (!passed) allPassed = false;
-      checks.push({
-        axis: 'X (Width)', expected: expectedSpecs.width,
-        actual: actual.x.toFixed(2), diff: diff.toFixed(2), passed
-      });
-    }
-
-    if (expectedSpecs.height) {
-      const diff = Math.abs(actual.y - expectedSpecs.height);
-      const passed = diff <= this.toleranceMM;
-      if (!passed) allPassed = false;
-      checks.push({
-        axis: 'Y (Height)', expected: expectedSpecs.height,
-        actual: actual.y.toFixed(2), diff: diff.toFixed(2), passed
-      });
-    }
-
-    if (expectedSpecs.depth) {
-      const diff = Math.abs(actual.z - expectedSpecs.depth);
-      const passed = diff <= this.toleranceMM;
-      if (!passed) allPassed = false;
-      checks.push({
-        axis: 'Z (Depth)', expected: expectedSpecs.depth,
-        actual: actual.z.toFixed(2), diff: diff.toFixed(2), passed
-      });
-    }
-
-    // Check diameter for cylindrical profiles
-    if (expectedSpecs.diameter) {
-      const measuredD = Math.max(actual.x, actual.z);
-      const diff = Math.abs(measuredD - expectedSpecs.diameter);
-      const passed = diff <= this.toleranceMM;
-      if (!passed) allPassed = false;
-      checks.push({
-        axis: 'Diameter', expected: expectedSpecs.diameter,
-        actual: measuredD.toFixed(2), diff: diff.toFixed(2), passed
-      });
-    }
-
-    const result = { productId, passed: allPassed, checks, timestamp: Date.now() };
-    this.results.set(productId, result);
-    return result;
-  },
-
-  getReport() {
-    const all = Array.from(this.results.values());
-    return {
-      total: all.length,
-      passed: all.filter(r => r.passed).length,
-      failed: all.filter(r => !r.passed).length,
-      details: all
-    };
-  }
-};
-
 // ========== THREE.JS SCENE MANAGEMENT ==========
 
 const viewers = new Map();
+const snapshotCache = new Map(); // Global: productId → PNG dataURL (persists across re-renders)
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
 
 // Check WebGL availability
 function isWebGLAvailable() {
@@ -231,6 +123,8 @@ function getCategoryIcon(category) {
   return icons[category] || '▮';
 }
 
+// ========== 3D VIEWER — OBJ LOADER ==========
+
 function create3DViewer(container, productId) {
   console.log(`[3D] Creating viewer for product ${productId}...`);
 
@@ -248,6 +142,13 @@ function create3DViewer(container, productId) {
     return null;
   }
 
+  // Check if OBJLoader is available
+  if (typeof THREE.OBJLoader === 'undefined') {
+    console.error('[3D] THREE.OBJLoader is undefined - loader not loaded');
+    showViewerError(container, '3D model loader not available');
+    return null;
+  }
+
   // Check WebGL availability
   if (!isWebGLAvailable()) {
     console.warn('[3D] WebGL not available on this device');
@@ -255,12 +156,9 @@ function create3DViewer(container, productId) {
     return null;
   }
 
-  console.log(`[3D] Prerequisites OK for product ${productId}`);
-
   // Ensure container has dimensions
   let containerRect = container.getBoundingClientRect();
   if (containerRect.width === 0 || containerRect.height === 0) {
-    // Force layout calculation
     container.style.minHeight = '200px';
     containerRect = container.getBoundingClientRect();
   }
@@ -268,36 +166,27 @@ function create3DViewer(container, productId) {
   const width = containerRect.width || 300;
   const height = containerRect.height || 200;
 
-  // Validate dimensions
   if (width < 10 || height < 10) {
     console.warn(`Container too small: ${width}x${height}`);
     showFallbackPlaceholder(container, productId);
     return null;
   }
 
-  // Look up profile dimensions from loaded data
-  const dims = profileDimensions ? profileDimensions[productId] : null;
-
-  if (!dims) {
-    console.warn(`No profile dimensions for product ${productId}`);
-    showViewerError(container, 'Profile data missing');
-    return null;
-  }
-
-  // Wrap everything in try-catch for robust error handling
   try {
-    // Create scene
+    // Scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x1A2634);
 
-    // Create camera
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    // Camera
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2000);
+    camera.position.set(120, 80, 120);
+    camera.lookAt(0, 0, 0);
 
-    // Create renderer with error handling
+    // Renderer
     let renderer;
     try {
       renderer = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: !isMobile,  // Skip antialiasing on mobile for performance
         alpha: true,
         powerPreference: 'high-performance',
         failIfMajorPerformanceCaveat: false
@@ -308,7 +197,6 @@ function create3DViewer(container, productId) {
       return null;
     }
 
-    // Check if context was actually created
     if (!renderer.getContext()) {
       console.error('WebGL context is null');
       renderer.dispose();
@@ -317,27 +205,36 @@ function create3DViewer(container, productId) {
     }
 
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     container.appendChild(renderer.domElement);
 
-    // Handle WebGL context loss - show placeholder instead of white box
+    // Handle WebGL context loss
+    let animationId;
+    let isDestroyed = false;
+
     renderer.domElement.addEventListener('webglcontextlost', (event) => {
       event.preventDefault();
       console.warn(`[3D] WebGL context lost for product ${productId}`);
       if (animationId) cancelAnimationFrame(animationId);
-
-      // Hide canvas and show placeholder
       renderer.domElement.style.display = 'none';
-      const lostPlaceholder = document.createElement('div');
-      lostPlaceholder.className = 'viewer-paused context-lost';
-      lostPlaceholder.innerHTML = '<span>3D paused</span>';
-      container.appendChild(lostPlaceholder);
+      // Show cached snapshot if available, otherwise a minimal placeholder
+      const cached = snapshotCache.get(String(productId));
+      if (cached) {
+        const img = document.createElement('img');
+        img.src = cached;
+        img.className = 'context-lost';
+        img.style.cssText = 'width:100%;height:100%;object-fit:contain;position:absolute;top:0;left:0;';
+        container.appendChild(img);
+      } else {
+        const lostPlaceholder = document.createElement('div');
+        lostPlaceholder.className = 'viewer-paused context-lost';
+        lostPlaceholder.innerHTML = '<div class="spinner"></div>';
+        container.appendChild(lostPlaceholder);
+      }
     });
 
     renderer.domElement.addEventListener('webglcontextrestored', () => {
       console.log(`[3D] WebGL context restored for product ${productId}`);
-      // Remove placeholder and show canvas
       container.querySelector('.context-lost')?.remove();
       renderer.domElement.style.display = '';
       animate();
@@ -349,115 +246,101 @@ function create3DViewer(container, productId) {
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
     directionalLight.position.set(50, 100, 50);
-    directionalLight.castShadow = true;
     scene.add(directionalLight);
 
     const fillLight = new THREE.DirectionalLight(0xE8833A, 0.3);
     fillLight.position.set(-50, 50, -50);
     scene.add(fillLight);
 
-    // Material - Wood appearance
+    // Material — Wood appearance
     const material = new THREE.MeshStandardMaterial({
       color: 0xA67C52,
       roughness: 0.7,
       metalness: 0.1
     });
 
-    // Generate mesh from profile dimensions using shape generators
-    console.log(`[3D] Generating mesh for product ${productId}, shapeType: ${dims.shapeType}`);
-    let mesh, profileData;
-    try {
-      const result = createProfileMesh(dims, material);
-      mesh = result.mesh;
-      profileData = result.profileData;
-      console.log(`[3D] Mesh generated successfully for product ${productId}`);
-    } catch (e) {
-      console.error(`[3D] Mesh generation failed for product ${productId}:`, e);
-      renderer.dispose();
-      container.removeChild(renderer.domElement);
-      showViewerError(container, 'Shape generation failed');
-      return null;
-    }
-
-    if (!mesh || !mesh.geometry) {
-      console.error(`Invalid mesh for product ${productId}`);
-      renderer.dispose();
-      container.removeChild(renderer.domElement);
-      showViewerError(container, 'Invalid 3D model');
-      return null;
-    }
-
-    scene.add(mesh);
-
-    // Position camera to fit object
-    mesh.geometry.computeBoundingBox();
-    const box = mesh.geometry.boundingBox;
-
-    if (!box || !box.min || !box.max) {
-      console.error(`Invalid bounding box for product ${productId}`);
-      renderer.dispose();
-      container.removeChild(renderer.domElement);
-      showViewerError(container, 'Model bounds error');
-      return null;
-    }
-
-    const size = new THREE.Vector3();
-    box.getSize(size);
-    const maxDim = Math.max(size.x, size.y, size.z);
-
-    if (maxDim === 0 || !isFinite(maxDim)) {
-      console.error(`Invalid model dimensions for product ${productId}`);
-      renderer.dispose();
-      container.removeChild(renderer.domElement);
-      showViewerError(container, 'Invalid dimensions');
-      return null;
-    }
-
-    const fov = camera.fov * (Math.PI / 180);
-    const cameraZ = Math.abs(maxDim / Math.sin(fov / 2)) * 0.68;
-    camera.position.set(cameraZ * 0.7, cameraZ * 0.5, cameraZ * 0.7);
-    camera.lookAt(0, 0, 0);
-
-    // OrbitControls
+    // Controls
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.rotateSpeed = 0.8;
     controls.enableZoom = false;
     controls.enablePan = false;
-    controls.autoRotate = true;
+    controls.autoRotate = false;
     controls.autoRotateSpeed = 1;
-
-    controls.addEventListener('start', () => {
-      controls.autoRotate = false;
-    });
-
-    // QA Verification
-    if (profileData && profileData.specs) {
-      const qaResult = qaVerifier.verify(mesh, productId, profileData.specs);
-      if (!qaResult.passed) {
-        console.warn(`QA FAIL for product ${productId}:`, qaResult.checks);
-      }
-    }
+    controls.addEventListener('start', () => { controls.autoRotate = false; });
 
     // Animation loop
-    let animationId;
-    let isDestroyed = false;
+    let loadedObject = null;
 
     function animate() {
       if (isDestroyed) return;
       animationId = requestAnimationFrame(animate);
+      if (!pageVisible) return; // Skip rendering when tab is hidden (saves GPU/battery)
       controls.update();
-      try {
-        renderer.render(scene, camera);
-      } catch (e) {
-        console.error('Render error:', e);
-        cancelAnimationFrame(animationId);
-      }
+      try { renderer.render(scene, camera); } catch (e) { cancelAnimationFrame(animationId); }
     }
     animate();
 
-    // Handle resize
+    // Load OBJ model
+    const objPath = `assets/models/profile_${String(productId).padStart(2, '0')}.obj`;
+    const loader = new THREE.OBJLoader();
+    loader.load(
+      objPath,
+      (object) => {
+        if (isDestroyed) return;
+
+        // Apply wood material to all meshes
+        object.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
+
+        // Scale: Blender metres → millimetres
+        object.scale.set(1000, 1000, 1000);
+
+        // No rotation needed — OBJ Y-up matches Three.js Y-up
+
+        // Center at origin
+        object.updateMatrixWorld(true);
+        const box = new THREE.Box3().setFromObject(object);
+        const center = box.getCenter(new THREE.Vector3());
+        object.position.sub(center);
+
+        scene.add(object);
+        loadedObject = object;
+
+        // Auto-fit camera to model size
+        const size = new THREE.Vector3();
+        box.getSize(size);
+        const maxDim = Math.max(size.x, size.y, size.z);
+
+        if (maxDim > 0 && isFinite(maxDim)) {
+          const fov = camera.fov * (Math.PI / 180);
+          const cameraZ = Math.abs(maxDim / Math.sin(fov / 2)) * 0.68;
+          camera.position.set(cameraZ * 0.7, cameraZ * 0.5, cameraZ * 0.7);
+          camera.lookAt(0, 0, 0);
+        }
+
+        // Pre-cache a snapshot so we have a frozen image if this viewer is later destroyed
+        try {
+          renderer.render(scene, camera);
+          snapshotCache.set(String(productId), renderer.domElement.toDataURL('image/png'));
+        } catch (e) { /* snapshot optional */ }
+
+        console.log(`[3D] OBJ loaded: product ${productId} — ${size.x.toFixed(1)}×${size.y.toFixed(1)}×${size.z.toFixed(1)}mm`);
+      },
+      undefined,
+      (err) => {
+        if (!isDestroyed) {
+          console.error(`[3D] OBJ load error for product ${productId}:`, err);
+          showViewerError(container, 'Failed to load 3D model');
+        }
+      }
+    );
+
+    // Responsive resize
     const resizeObserver = new ResizeObserver(entries => {
       if (isDestroyed) return;
       for (const entry of entries) {
@@ -472,23 +355,25 @@ function create3DViewer(container, productId) {
     });
     resizeObserver.observe(container);
 
-    console.log(`[3D] Viewer created successfully for product ${productId}`);
+    console.log(`[3D] Viewer created for product ${productId}`);
 
     return {
-      scene, camera, renderer, controls, mesh,
+      scene, camera, renderer, controls, mesh: null,
       destroy: () => {
         isDestroyed = true;
         if (animationId) cancelAnimationFrame(animationId);
         resizeObserver.disconnect();
         controls.dispose();
 
-        // Dispose geometry and material
-        if (mesh) {
-          if (mesh.geometry) mesh.geometry.dispose();
-          if (mesh.material) mesh.material.dispose();
+        if (loadedObject) {
+          loadedObject.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+              if (child.geometry) child.geometry.dispose();
+              if (child.material) child.material.dispose();
+            }
+          });
         }
 
-        // Force lose context to free up WebGL resources immediately
         const gl = renderer.getContext();
         if (gl) {
           const ext = gl.getExtension('WEBGL_lose_context');
@@ -496,13 +381,8 @@ function create3DViewer(container, productId) {
         }
 
         renderer.dispose();
-
-        // Remove canvas and any placeholders
-        if (container.contains(renderer.domElement)) {
-          container.removeChild(renderer.domElement);
-        }
+        if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
         container.querySelector('.context-lost')?.remove();
-
         console.log(`[3D] Viewer destroyed for product ${productId}`);
       }
     };
@@ -585,24 +465,18 @@ function renderProducts(filteredProducts) {
     grid.innerHTML = filteredProducts.map(renderProductCard).join('');
 
     // Lazy-load 3D viewers via IntersectionObserver
-    // Only animate on hover/touch to save resources
-    const MAX_ACTIVE_VIEWERS = 8;
+    const MAX_ACTIVE_VIEWERS = isMobile ? 4 : 8;
     const activeViewerQueue = [];
     const pendingCreation = new Set();
-    const snapshotCache = new Map();
 
     const viewerContainers = document.querySelectorAll('.profile-3d-viewer');
 
     function captureSnapshot(viewer, productId) {
+      // Try to update the cached snapshot with the latest frame
       try {
         viewer.renderer.render(viewer.scene, viewer.camera);
-        const dataUrl = viewer.renderer.domElement.toDataURL('image/png');
-        snapshotCache.set(productId, dataUrl);
-        return dataUrl;
-      } catch (e) {
-        console.warn(`[3D] Could not capture snapshot for ${productId}:`, e);
-        return null;
-      }
+        snapshotCache.set(productId, viewer.renderer.domElement.toDataURL('image/png'));
+      } catch (e) { /* pre-cached snapshot from OBJ load still available */ }
     }
 
     function showSnapshot(container, productId) {
@@ -611,6 +485,7 @@ function renderProducts(filteredProducts) {
         const img = document.createElement('img');
         img.src = dataUrl;
         img.className = 'viewer-snapshot';
+        img.style.cssText = 'width:100%;height:100%;object-fit:contain;position:absolute;top:0;left:0;';
         img.alt = 'Product preview';
         container.appendChild(img);
         return true;
@@ -642,10 +517,11 @@ function renderProducts(filteredProducts) {
 
           const oldContainer = document.querySelector(`.profile-3d-viewer[data-product-id="${oldestId}"]`);
           if (oldContainer) {
+            // Show cached snapshot (frozen frame) or a loading spinner
             if (!showSnapshot(oldContainer, oldestId)) {
               const placeholder = document.createElement('div');
-              placeholder.className = 'viewer-paused';
-              placeholder.innerHTML = '<span>Scroll to load</span>';
+              placeholder.className = 'viewer-loading';
+              placeholder.innerHTML = '<div class="spinner"></div>';
               oldContainer.appendChild(placeholder);
             }
             observer.unobserve(oldContainer);
@@ -777,14 +653,9 @@ function openModal(productId) {
     modalViewer = null;
   }
 
-  // Get dimension details from JSON
   const dims = profileDimensions ? profileDimensions[productId] : null;
-  const shapeInfo = dims
+  const verifiedInfo = dims
     ? `<div class="detail-row">
-        <span class="detail-label">Shape Type</span>
-        <span class="detail-value">${dims.shapeType.replace(/_/g, ' ')}</span>
-      </div>
-      <div class="detail-row">
         <span class="detail-label">Verified</span>
         <span class="detail-value">${dims.verified ? 'Yes' : 'Pending'}</span>
       </div>`
@@ -812,7 +683,7 @@ function openModal(productId) {
         <span class="detail-label">Product Code</span>
         <span class="detail-value code">${product.code}</span>
       </div>
-      ${shapeInfo}
+      ${verifiedInfo}
       <div class="detail-row">
         <span class="price-label">/RFT</span>
         <span class="detail-value price">&#8377;${formatPrice(product.price)}</span>
@@ -823,7 +694,6 @@ function openModal(productId) {
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 
-  // Use requestAnimationFrame + setTimeout for reliable container dimensions
   requestAnimationFrame(() => {
     setTimeout(() => {
       const container = modalBody.querySelector('.modal-3d-viewer');
@@ -875,35 +745,36 @@ function createScrollToTop() {
   });
 }
 
-// ========== QA CONSOLE COMMAND ==========
+// ========== PAGE VISIBILITY — pause rendering when tab is hidden (saves battery) ==========
 
-window.runQAReport = function() {
-  const report = qaVerifier.getReport();
-  console.log('=== QA VERIFICATION REPORT ===');
-  console.log(`Total: ${report.total} | Passed: ${report.passed} | Failed: ${report.failed}`);
-  report.details.forEach(d => {
-    console.log(`Product ${d.productId}: ${d.passed ? 'PASS' : 'FAIL'}`);
-    d.checks.forEach(c => {
-      console.log(`  ${c.axis}: Expected ${c.expected}mm, Got ${c.actual}mm (diff: ${c.diff}mm) ${c.passed ? 'PASS' : 'FAIL'}`);
+let pageVisible = true;
+
+document.addEventListener('visibilitychange', () => {
+  pageVisible = !document.hidden;
+  if (pageVisible) {
+    // Resume all active viewers
+    viewers.forEach(viewer => {
+      if (viewer.controls) viewer.controls.update();
     });
-  });
-  return report;
-};
+  }
+});
 
 // ========== INIT ==========
 
 async function init() {
-  // Load profile dimensions from JSON first
+  // Load profile dimensions for product metadata
   await loadProfileDimensions();
 
-  // Check if Three.js loaded
-  const threeReady = typeof THREE !== 'undefined' && typeof THREE.OrbitControls !== 'undefined';
+  // Check 3D prerequisites
+  const threeReady = typeof THREE !== 'undefined'
+    && typeof THREE.OrbitControls !== 'undefined'
+    && typeof THREE.OBJLoader !== 'undefined';
 
   if (!threeReady) {
-    console.error('Three.js or OrbitControls not loaded - 3D viewers will show fallbacks');
+    console.error('Three.js, OrbitControls, or OBJLoader not loaded - 3D viewers will show fallbacks');
   }
 
-  // Then render the UI
+  // Render UI
   renderProducts(products);
   document.querySelector('.category-scroll').addEventListener('click', handleCategoryClick);
   document.getElementById('searchInput').addEventListener('input', handleSearch);
@@ -911,10 +782,7 @@ async function init() {
 
   console.log(`Kayu & Kov Catalogue: ${products.length} products loaded`);
   console.log(`Profile dimensions: ${profileDimensions ? Object.keys(profileDimensions).length : 0} profiles`);
-  console.log(`3D rendering: ${threeReady ? 'enabled' : 'DISABLED - libraries not loaded'}`);
-  if (threeReady) {
-    console.log('Run window.runQAReport() in console to see QA verification results');
-  }
+  console.log(`3D rendering: ${threeReady ? 'enabled (OBJ models)' : 'DISABLED - libraries not loaded'}`);
 }
 
 document.addEventListener('DOMContentLoaded', init);

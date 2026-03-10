@@ -467,7 +467,79 @@ const ShapeGenerators = {
   },
 
   // =====================================================================
-  // 14. RAILING - Dome/arch shaped top with narrow stem
+  // 14. LOUVER_ELLIPTIC - True elliptical louver slat with 4 through-chambers
+  //     Outer cross-section: mathematical ellipse (not pill/capsule shape)
+  //     Window cutouts follow the inner ellipse curve — adaptive to overall form
+  //     Used by: Louver 150×35mm (code 4400000051)
+  // =====================================================================
+  louver_elliptic(dims) {
+    const { width: w, height: h } = dims.dimensions;
+    const p = dims.params;
+    const hw = w / 2;   // outer X semi-axis
+    const hh = h / 2;   // outer Y semi-axis
+
+    const wallTop      = p.wallThickness || 6;   // top/bottom wall thickness
+    const endWall      = p.endWall       || 15;  // left/right end wall thickness
+    const ribW         = p.ribWidth      || 6;   // internal rib width
+    const chamberCount = p.chambers      || 4;
+    const bevel        = p.bevel         || 7;
+
+    // ── outer ellipse, centered at origin, CCW winding ──
+    const segments = 80;
+    const outerPts = [];
+    for (let i = 0; i <= segments; i++) {
+      const a = (i / segments) * Math.PI * 2;
+      outerPts.push(new THREE.Vector2(hw * Math.cos(a), hh * Math.sin(a)));
+    }
+    const shape = new THREE.Shape(outerPts);
+
+    // ── window / hole geometry ──
+    const innerHH   = hh - wallTop;       // inner Y semi-axis (after wall)
+    const innerLeft  = -(hw - endWall);
+    const innerRight =   hw - endWall;
+    const innerSpan  = innerRight - innerLeft;
+    const ribCount   = chamberCount - 1;
+    const chamberW   = (innerSpan - ribCount * ribW) / chamberCount;
+
+    for (let i = 0; i < chamberCount; i++) {
+      const xL = innerLeft + i * (chamberW + ribW);
+      const xR = xL + chamberW;
+
+      // Skip any window where the ellipse is too narrow at either end
+      const yL = innerHH * Math.sqrt(Math.max(0, 1 - (xL / hw) ** 2));
+      const yR = innerHH * Math.sqrt(Math.max(0, 1 - (xR / hw) ** 2));
+      if (Math.min(yL, yR) <= 0.5) continue;
+
+      const hole = new THREE.Path();
+      const steps = 16;
+
+      // Top edge: left → right, tracing the inner ellipse arc (CW for a hole)
+      hole.moveTo(xL, yL);
+      for (let j = 1; j <= steps; j++) {
+        const x = xL + (xR - xL) * (j / steps);
+        const y = innerHH * Math.sqrt(Math.max(0, 1 - (x / hw) ** 2));
+        hole.lineTo(x, y);
+      }
+      // Bottom edge: right → left, mirrored inner ellipse arc
+      for (let j = steps; j >= 0; j--) {
+        const x = xL + (xR - xL) * (j / steps);
+        const y = -innerHH * Math.sqrt(Math.max(0, 1 - (x / hw) ** 2));
+        hole.lineTo(x, y);
+      }
+      hole.closePath();   // closes the left vertical edge
+      shape.holes.push(hole);
+    }
+
+    return {
+      shape,
+      depth: dims.extrudeDepth,
+      bevelSize: bevel,
+      specs: { width: w, height: h, depth: dims.extrudeDepth }
+    };
+  },
+
+  // =====================================================================
+  // 15. RAILING - Dome/arch shaped top with narrow stem
   //     Used by: railing (65x32.5mm)
   // =====================================================================
   railing(dims) {
@@ -544,13 +616,14 @@ function createProfileMesh(profileDims, material) {
       mesh = new THREE.Mesh(geometry, material);
     }
   } else {
-    // Extruded profile shape
+    // Extruded profile shape — use large bevel if the generator specifies one
+    const bvSize = profileData.bevelSize || 0;
     const geometry = new THREE.ExtrudeGeometry(profileData.shape, {
-      depth: profileData.depth,
+      depth: bvSize > 0 ? Math.max(1, profileData.depth - bvSize * 2) : profileData.depth,
       bevelEnabled: true,
-      bevelThickness: 0.3,
-      bevelSize: 0.3,
-      bevelSegments: 2
+      bevelThickness: bvSize > 0 ? bvSize        : 0.3,
+      bevelSize:      bvSize > 0 ? bvSize * 0.55 : 0.3,
+      bevelSegments:  bvSize > 0 ? 6             : 2
     });
     mesh = new THREE.Mesh(geometry, material);
   }

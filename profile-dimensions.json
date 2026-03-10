@@ -351,22 +351,22 @@
       "code": "4400000051",
       "category": "louver",
       "price": 350,
-      "shapeType": "pill",
+      "shapeType": "louver_elliptic",
       "dimensions": {
         "width": 150,
         "height": 35
       },
       "params": {
-        "endRadius": 17.5,
-        "wallThickness": 4,
+        "wallThickness": 6,
+        "endWall": 15,
+        "ribWidth": 6,
         "chambers": 4,
-        "midWallThickness": 6,
-        "endWallThickness": 10
+        "bevel": 7
       },
-      "extrudeDepth": 80,
+      "extrudeDepth": 82,
       "verified": true,
       "pdfPage": 2,
-      "notes": "Pill/capsule outer shape with 4 internal rectangular chambers"
+      "notes": "True elliptical louver slat — 4 through-chambers, windows follow inner ellipse curve, 7mm edge bevel"
     },
     "18": {
       "id": 18,
