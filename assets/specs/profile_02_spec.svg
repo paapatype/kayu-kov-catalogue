@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280" fill="none">
+  <!--
+    Hollow Box Profile 100 x 50mm — Cross-Section
+    Scale: 2px per mm
+    Overall: 100mm wide (200px) x 50mm tall (100px)
+    Walls: 6mm (12px)
+    3 internal chambers separated by 2 ribs (6mm each)
+    Width breakdown: 6 + ch + 6 + ch + 6 + ch + 6 = 100
+      4 walls/ribs = 24mm, 3 chambers = 76mm, each chamber = 25.33mm ≈ 25.3mm
+    Height: 6 top + 38 chamber + 6 bottom = 50mm
+    Chamber px: 25.3mm ≈ 50.7px each
+    Ribs at: x=12 to x=62.7 (ch1), x=74.7 to x=125.3 (ch2), x=137.3 to x=188 (ch3)
+  -->
+
+  <g transform="translate(130, 50)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Outer rectangle -->
+    <rect x="0" y="0" width="200" height="100"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" rx="1"/>
+
+    <!-- Chamber voids (navy fill) -->
+    <!-- Chamber 1: x=12, w=50.7 -->
+    <rect x="12" y="12" width="50.7" height="76" fill="#1E2D3D" rx="1.5"/>
+    <!-- Chamber 2: x=74.7, w=50.7 -->
+    <rect x="74.7" y="12" width="50.7" height="76" fill="#1E2D3D" rx="1.5"/>
+    <!-- Chamber 3: x=137.3, w=50.7 -->
+    <rect x="137.3" y="12" width="50.7" height="76" fill="#1E2D3D" rx="1.5"/>
+
+    <!-- Chamber outlines -->
+    <rect x="12" y="12" width="50.7" height="76" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1.5"/>
+    <rect x="74.7" y="12" width="50.7" height="76" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1.5"/>
+    <rect x="137.3" y="12" width="50.7" height="76" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1.5"/>
+
+    <!-- Subtle hatching on solid material -->
+    <g opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <!-- Top wall -->
+      <line x1="0" y1="5" x2="5" y2="0"/><line x1="0" y1="12" x2="12" y2="0"/>
+      <line x1="20" y1="12" x2="32" y2="0"/><line x1="40" y1="12" x2="52" y2="0"/>
+      <line x1="60" y1="12" x2="72" y2="0"/><line x1="80" y1="12" x2="92" y2="0"/>
+      <line x1="100" y1="12" x2="112" y2="0"/><line x1="120" y1="12" x2="132" y2="0"/>
+      <line x1="140" y1="12" x2="152" y2="0"/><line x1="160" y1="12" x2="172" y2="0"/>
+      <line x1="180" y1="12" x2="192" y2="0"/><line x1="192" y1="12" x2="200" y2="4"/>
+      <!-- Bottom wall -->
+      <line x1="0" y1="95" x2="8" y2="88"/><line x1="0" y1="100" x2="12" y2="88"/>
+      <line x1="20" y1="100" x2="32" y2="88"/><line x1="40" y1="100" x2="52" y2="88"/>
+      <line x1="60" y1="100" x2="72" y2="88"/><line x1="80" y1="100" x2="92" y2="88"/>
+      <line x1="100" y1="100" x2="112" y2="88"/><line x1="120" y1="100" x2="132" y2="88"/>
+      <line x1="140" y1="100" x2="152" y2="88"/><line x1="160" y1="100" x2="172" y2="88"/>
+      <line x1="180" y1="100" x2="192" y2="88"/><line x1="192" y1="100" x2="200" y2="92"/>
+      <!-- Left wall -->
+      <line x1="0" y1="25" x2="12" y2="13"/><line x1="0" y1="40" x2="12" y2="28"/>
+      <line x1="0" y1="55" x2="12" y2="43"/><line x1="0" y1="70" x2="12" y2="58"/>
+      <line x1="0" y1="85" x2="12" y2="73"/>
+      <!-- Right wall -->
+      <line x1="188" y1="25" x2="200" y2="13"/><line x1="188" y1="40" x2="200" y2="28"/>
+      <line x1="188" y1="55" x2="200" y2="43"/><line x1="188" y1="70" x2="200" y2="58"/>
+      <line x1="188" y1="85" x2="200" y2="73"/>
+      <!-- Rib 1 (x=62.7 to 74.7) -->
+      <line x1="62.7" y1="25" x2="74.7" y2="13"/><line x1="62.7" y1="40" x2="74.7" y2="28"/>
+      <line x1="62.7" y1="55" x2="74.7" y2="43"/><line x1="62.7" y1="70" x2="74.7" y2="58"/>
+      <line x1="62.7" y1="85" x2="74.7" y2="73"/>
+      <!-- Rib 2 (x=125.3 to 137.3) -->
+      <line x1="125.3" y1="25" x2="137.3" y2="13"/><line x1="125.3" y1="40" x2="137.3" y2="28"/>
+      <line x1="125.3" y1="55" x2="137.3" y2="43"/><line x1="125.3" y1="70" x2="137.3" y2="58"/>
+      <line x1="125.3" y1="85" x2="137.3" y2="73"/>
+    </g>
+
+    <!-- Center axis -->
+    <line x1="100" y1="-4" x2="100" y2="104" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM ROW 1: Overall width 100mm -->
+    <line x1="0" y1="106" x2="0" y2="117" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="200" y1="106" x2="200" y2="117" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="114" x2="86" y2="114" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="114" y1="114" x2="200" y2="114" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,114 5,112 5,116" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="200,114 195,112 195,116" fill="rgba(255,255,255,0.4)"/>
+    <text x="100" y="118" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">100</text>
+
+    <!-- BOTTOM ROW 2: Wall thickness 6mm left -->
+    <line x1="0" y1="126" x2="0" y2="135" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="12" y1="126" x2="12" y2="135" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="0" y1="132" x2="12" y2="132" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="0,132 4,130.5 4,133.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="12,132 8,130.5 8,133.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="6" y="145" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+
+    <!-- BOTTOM ROW 2: Rib thickness 6mm -->
+    <line x1="62.7" y1="126" x2="62.7" y2="135" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="74.7" y1="126" x2="74.7" y2="135" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="62.7" y1="132" x2="74.7" y2="132" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <text x="68.7" y="145" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+
+    <!-- RIGHT: Overall height 50mm -->
+    <line x1="206" y1="0" x2="217" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="206" y1="100" x2="217" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="214" y1="0" x2="214" y2="43" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="214" y1="57" x2="214" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="214,0 212,5 216,5" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="214,100 212,95 216,95" fill="rgba(255,255,255,0.4)"/>
+    <text x="214" y="54" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">50</text>
+
+    <!-- RIGHT: Wall thickness 6mm top -->
+    <line x1="230" y1="0" x2="241" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="230" y1="12" x2="241" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="238" y1="0" x2="238" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="238,0 236.5,3 239.5,3" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="238,12 236.5,9 239.5,9" fill="rgba(255,255,255,0.3)"/>
+    <text x="248" y="9" text-anchor="start" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+  </g>
+
+  <!-- Unit note -->
+  <text x="250" y="230" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

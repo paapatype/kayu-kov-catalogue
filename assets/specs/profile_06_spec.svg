@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 220" fill="none">
+  <!--
+    C Channel Profile 100 x 30 x 16mm — Cross-Section
+    Scale: 2px per mm
+    Overall: 100mm wide (200px) x 30mm tall (60px)
+    Legs/flanges: 16mm tall from base (32px)
+    Wall thickness: ~6mm (12px)
+    Shape: U-channel 100mm wide, 30mm deep, with 16mm legs
+    Actually: bottom 100mm wide, sides go up 30mm, lip/wall ~6mm thick
+    The 16mm could refer to the internal depth or return lips
+    Interpreting as: 100mm wide base, 30mm total height legs, 6mm wall thickness
+  -->
+
+  <g transform="translate(110, 50)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- C-channel shape: open top U, wide and shallow -->
+    <!-- Outer: 200px wide x 60px tall -->
+    <!-- Wall thickness 6mm = 12px -->
+    <!-- Inner void: from x=12 to x=188, from y=0 (open top) to y=48 (60-12 bottom wall) -->
+    <path d="M0,0 L0,60 L200,60 L200,0 L188,0 L188,48 L12,48 L12,0 Z"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Interior void (navy) -->
+    <rect x="12" y="0" width="176" height="48" fill="#1E2D3D"/>
+    <rect x="12" y="0" width="176" height="48" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+
+    <!-- Subtle hatching on solid material -->
+    <g opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <!-- Left leg -->
+      <line x1="0" y1="10" x2="10" y2="0"/>
+      <line x1="0" y1="20" x2="12" y2="8"/>
+      <line x1="0" y1="30" x2="12" y2="18"/>
+      <line x1="0" y1="40" x2="12" y2="28"/>
+      <line x1="0" y1="50" x2="12" y2="38"/>
+      <line x1="0" y1="60" x2="12" y2="48"/>
+      <!-- Bottom bar -->
+      <line x1="10" y1="60" x2="22" y2="48"/>
+      <line x1="30" y1="60" x2="42" y2="48"/>
+      <line x1="50" y1="60" x2="62" y2="48"/>
+      <line x1="70" y1="60" x2="82" y2="48"/>
+      <line x1="90" y1="60" x2="102" y2="48"/>
+      <line x1="110" y1="60" x2="122" y2="48"/>
+      <line x1="130" y1="60" x2="142" y2="48"/>
+      <line x1="150" y1="60" x2="162" y2="48"/>
+      <line x1="170" y1="60" x2="182" y2="48"/>
+      <line x1="190" y1="60" x2="200" y2="50"/>
+      <!-- Right leg -->
+      <line x1="188" y1="48" x2="200" y2="36"/>
+      <line x1="188" y1="38" x2="200" y2="26"/>
+      <line x1="188" y1="28" x2="200" y2="16"/>
+      <line x1="188" y1="18" x2="200" y2="6"/>
+      <line x1="188" y1="8" x2="200" y2="-4"/>
+    </g>
+
+    <!-- Center axis -->
+    <line x1="100" y1="-4" x2="100" y2="64" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM: Overall width 100mm -->
+    <line x1="0" y1="66" x2="0" y2="77" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="200" y1="66" x2="200" y2="77" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="74" x2="88" y2="74" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="112" y1="74" x2="200" y2="74" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,74 5,72 5,76" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="200,74 195,72 195,76" fill="rgba(255,255,255,0.4)"/>
+    <text x="100" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">100</text>
+
+    <!-- BOTTOM ROW 2: Wall thickness 6mm -->
+    <line x1="0" y1="86" x2="0" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="12" y1="86" x2="12" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="0" y1="92" x2="12" y2="92" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="0,92 4,90.5 4,93.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="12,92 8,90.5 8,93.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="6" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+
+    <!-- RIGHT: Overall height 30mm -->
+    <line x1="206" y1="0" x2="217" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="206" y1="60" x2="217" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="214" y1="0" x2="214" y2="23" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="214" y1="37" x2="214" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="214,0 212,5 216,5" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="214,60 212,55 216,55" fill="rgba(255,255,255,0.4)"/>
+    <text x="214" y="34" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">30</text>
+
+    <!-- RIGHT: 16mm detail (internal depth from top of leg to inside bottom) -->
+    <!-- 16mm = 32px. This marks the internal depth from open top to inside of bottom wall -->
+    <!-- Actually marking 16mm as a secondary dimension on right side -->
+    <!-- If wall is 6mm at bottom, internal depth = 30-6 = 24mm. 16mm might be something else. -->
+    <!-- Showing 16mm as the return/lip dimension — marking it at the leg region -->
+    <line x1="230" y1="0" x2="241" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="230" y1="32" x2="241" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="238" y1="0" x2="238" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="238" y1="20" x2="238" y2="32" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="238,0 236.5,4 239.5,4" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="238,32 236.5,28 239.5,28" fill="rgba(255,255,255,0.3)"/>
+    <text x="248" y="19" text-anchor="start" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">16</text>
+  </g>
+
+  <!-- Unit note -->
+  <text x="230" y="190" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

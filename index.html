@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#1A2634">
+  <meta name="description" content="Kayu &amp; Kov — Premium WPC wood profiles catalogue. 55 products with interactive 3D views.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Kayu & Kov - Product Catalogue 2025</title>
@@ -13,8 +14,12 @@
   <!-- Header -->
   <header class="header">
     <div class="header-content">
-      <img src="assets/logo-transparent.png" alt="Kayu & Kov" class="logo">
+      <img src="assets/logo-transparent.png" alt="Kayu & Kov" class="logo" id="headerLogo" style="cursor:pointer">
       <span class="header-title">Catalogue 2025</span>
+      <nav class="page-nav">
+        <a href="index.html" class="active">Catalogue</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
     </div>
   </header>
 
@@ -35,11 +40,13 @@
       <button class="category-btn active" data-category="all">All</button>
       <button class="category-btn" data-category="sheet">Sheets</button>
       <button class="category-btn" data-category="strip">Strips</button>
+      <button class="category-btn" data-category="hollow-strip">Hollow Strip</button>
       <button class="category-btn" data-category="door">Door</button>
       <button class="category-btn" data-category="hollow-box">Hollow Box</button>
       <button class="category-btn" data-category="c-channel">C-Channel</button>
       <button class="category-btn" data-category="cladding">Cladding</button>
       <button class="category-btn" data-category="louver">Louver</button>
+      <button class="category-btn" data-category="solid-louver">Solid Louver</button>
       <button class="category-btn" data-category="rod">Rod</button>
       <button class="category-btn" data-category="square">Square</button>
       <button class="category-btn" data-category="round-pipe">Round Pipe</button>
@@ -69,9 +76,8 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <img src="assets/logo-mark.png" alt="&" class="footer-mark">
+        <img src="assets/logo-transparent.png" alt="Kayu & Kov" class="footer-brand-logo">
       </div>
-      <h3 class="footer-title">Kayu <span class="orange">&</span> Kov</h3>
       <p class="footer-address">
         No.274/17, New Guddahalli<br>
         Mysore Road, Bangalore Urban<br>

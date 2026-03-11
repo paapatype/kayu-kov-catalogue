@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 135" fill="none">
+  <!--
+    Sheet Profile 200 x 11mm — Cross-Section
+    Scale: 2px per mm
+    Rectangle: 400px wide x 22px tall
+  -->
+  <defs>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <g transform="translate(55, 30)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Solid material fill -->
+    <rect x="0" y="0" width="400" height="22"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Diagonal hatching on solid material -->
+    <rect x="0" y="0" width="400" height="22" fill="url(#hatch)"/>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM: Overall width 200mm -->
+    <line x1="0" y1="27" x2="0" y2="38" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="400" y1="27" x2="400" y2="38" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="35" x2="186" y2="35" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="214" y1="35" x2="400" y2="35" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,35 5,33 5,37" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="400,35 395,33 395,37" fill="rgba(255,255,255,0.4)"/>
+    <text x="200" y="39" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">200</text>
+
+    <!-- RIGHT: Overall height 11mm -->
+    <line x1="405" y1="0" x2="416" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="405" y1="22" x2="416" y2="22" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="413" y1="0" x2="413" y2="5" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="413" y1="17" x2="413" y2="22" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="413,0 411,4 415,4" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="413,22 411,18 415,18" fill="rgba(255,255,255,0.4)"/>
+    <text x="430" y="14" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">11</text>
+
+    <!-- Center axis -->
+    <line x1="200" y1="-4" x2="200" y2="26" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="255" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

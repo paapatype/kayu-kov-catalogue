@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1A2634">
+  <meta name="description" content="Kayu &amp; Kov — Gallery of installed applications and real-world use cases.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Gallery — Kayu & Kov</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <img src="assets/logo-transparent.png" alt="Kayu & Kov" class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">
+      <span class="header-title">Catalogue 2025</span>
+      <nav class="page-nav">
+        <a href="index.html">Catalogue</a>
+        <a href="gallery.html" class="active">Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="gallery-hero">
+    <h1>Gallery</h1>
+    <p>Installed applications and real-world use cases of Kayu & Kov WPC profiles across landscaping, construction, and furniture.</p>
+  </section>
+
+  <!-- Filter bar -->
+  <nav class="gallery-filter">
+    <div class="gallery-filter-scroll" id="galleryFilterScroll">
+      <!-- Buttons injected by JS -->
+    </div>
+  </nav>
+
+  <!-- Count -->
+  <div class="gallery-count" id="galleryCount"></div>
+
+  <!-- Gallery grid -->
+  <main class="gallery-grid" id="galleryGrid">
+    <!-- Cards injected by JS -->
+  </main>
+
+  <!-- Footer (matches index.html) -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/logo-transparent.png" alt="Kayu & Kov" class="footer-brand-logo">
+      </div>
+      <p class="footer-address">
+        No.274/17, New Guddahalli<br>
+        Mysore Road, Bangalore Urban<br>
+        Karnataka 560026, India
+      </p>
+      <div class="footer-contact">
+        <a href="tel:+918026744030" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +91 80 26744030
+        </a>
+        <a href="tel:+919449697772" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <path d="M12 18h.01"/>
+          </svg>
+          +91 9449697772
+        </a>
+        <a href="mailto:info@kayuandkov.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          info@kayuandkov.com
+        </a>
+        <a href="https://www.kayuandkov.com" target="_blank" rel="noopener" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          kayuandkov.com
+        </a>
+      </div>
+      <div class="footer-notes">
+        <p>Kindly Note</p>
+        <ol>
+          <li>GST 18% Additional as actual</li>
+          <li>Transportation charges additional as actual</li>
+          <li>Installation charges additional as actual</li>
+        </ol>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; 2025 Kayu & Kov. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+    <button class="lightbox-nav prev" id="lbPrev" onclick="navigateLightbox(-1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="lightbox-content" id="lightboxContent">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div id="lightboxImageWrap"></div>
+      <div class="lightbox-caption">
+        <div class="lightbox-caption-title" id="lbTitle"></div>
+        <div class="lightbox-caption-meta" id="lbMeta"></div>
+      </div>
+    </div>
+    <button class="lightbox-nav next" id="lbNext" onclick="navigateLightbox(1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <script src="gallery-data.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

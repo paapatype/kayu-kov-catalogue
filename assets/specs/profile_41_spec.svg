@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" fill="none">
+  <!--
+    Round Pipe Profile 80 x 10mm — Cross-Section
+    Scale: 2px per mm
+    Outer circle: diameter 80mm, radius 40mm = 80px
+    Inner circle: diameter 60mm, radius 30mm = 60px
+    Wall thickness: 10mm = 20px
+  -->
+
+  <g transform="translate(180, 120)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Outer circle (solid material fill) -->
+    <circle cx="0" cy="0" r="80"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Inner circle (void) -->
+    <circle cx="0" cy="0" r="60"
+      fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+
+    <!-- Inner circle dashed outline (wall boundary) -->
+    <circle cx="0" cy="0" r="60"
+      fill="none" stroke="rgba(232,131,58,0.3)" stroke-width="0.7" stroke-dasharray="4,3"/>
+
+    <!-- Subtle hatching on solid ring -->
+    <g opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <line x1="-80" y1="-75" x2="-65" y2="-85"/><line x1="-40" y1="-75" x2="-25" y2="-85"/>
+      <line x1="0" y1="-75" x2="15" y2="-85"/><line x1="40" y1="-75" x2="55" y2="-85"/>
+      <line x1="-80" y1="75" x2="-65" y2="85"/><line x1="-40" y1="75" x2="-25" y2="85"/>
+      <line x1="0" y1="75" x2="15" y2="85"/><line x1="40" y1="75" x2="55" y2="85"/>
+      <line x1="-85" y1="-30" x2="-75" y2="-15"/><line x1="-85" y1="30" x2="-75" y2="45"/>
+      <line x1="75" y1="-30" x2="85" y2="-15"/><line x1="75" y1="30" x2="85" y2="45"/>
+    </g>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM: Overall diameter 80mm -->
+    <line x1="-80" y1="85" x2="-80" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="80" y1="85" x2="80" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="-80" y1="96" x2="-12" y2="96" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="12" y1="96" x2="80" y2="96" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="-80,96 -75,94 -75,98" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="80,96 75,94 75,98" fill="rgba(255,255,255,0.4)"/>
+    <text x="0" y="100" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">80</text>
+
+    <!-- Outer diameter label -->
+    <line x1="50" y1="-62" x2="75" y2="-90" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <circle cx="50" cy="-62" r="1.5" fill="rgba(255,255,255,0.4)"/>
+    <text x="77" y="-92" text-anchor="start" font-family="-apple-system,sans-serif" font-size="10" fill="rgba(255,255,255,0.5)">&#x2300;80</text>
+
+    <!-- Inner diameter label -->
+    <line x1="40" y1="-45" x2="75" y2="-76" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <circle cx="40" cy="-45" r="1.5" fill="rgba(255,255,255,0.4)"/>
+    <text x="77" y="-78" text-anchor="start" font-family="-apple-system,sans-serif" font-size="10" fill="rgba(255,255,255,0.5)">&#x2300;60</text>
+
+    <!-- Wall thickness 10mm (right side) -->
+    <line x1="65" y1="0" x2="65" y2="15" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="85" y1="0" x2="85" y2="15" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="60" y1="8" x2="90" y2="8" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="60,8 64,6.5 64,9.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="90,8 86,6.5 86,9.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="95" y="11" text-anchor="start" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">10</text>
+
+    <!-- Center crosshair -->
+    <line x1="-8" y1="0" x2="8" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+    <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="180" y="280" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

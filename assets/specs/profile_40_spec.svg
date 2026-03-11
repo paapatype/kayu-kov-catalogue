@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 180" fill="none">
+  <!--
+    Solid Louver Profile 75 x 20mm — Cross-Section
+    Scale: 2px per mm → rx=75px, ry=20px (150px wide, 40px tall)
+    Solid filled ellipse (no internal chambers)
+  -->
+  <defs>
+    <clipPath id="solidEllipseClip">
+      <ellipse cx="150" cy="35" rx="75" ry="20"/>
+    </clipPath>
+    <pattern id="hatch40" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#E8833A" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <g transform="translate(80, 40)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Solid ellipse fill -->
+    <ellipse cx="150" cy="20" rx="75" ry="20"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Solid hatching throughout -->
+    <g clip-path="url(#solidEllipseClip)" transform="translate(0,-15)">
+      <line x1="60" y1="10" x2="80" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="60" y1="20" x2="90" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="60" y1="30" x2="100" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="60" y1="40" x2="110" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="60" y1="50" x2="120" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="60" y1="60" x2="130" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="70" y1="60" x2="140" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="80" y1="60" x2="150" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="90" y1="60" x2="160" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="100" y1="60" x2="170" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="110" y1="60" x2="180" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="120" y1="60" x2="190" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="130" y1="60" x2="200" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="140" y1="60" x2="210" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="150" y1="60" x2="220" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="160" y1="60" x2="230" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="170" y1="60" x2="240" y2="-10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="180" y1="60" x2="240" y2="0" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="190" y1="60" x2="240" y2="10" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="200" y1="60" x2="240" y2="20" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="210" y1="60" x2="240" y2="30" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="220" y1="60" x2="240" y2="40" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+      <line x1="230" y1="60" x2="240" y2="50" stroke="#E8833A" stroke-width="0.5" opacity="0.06"/>
+    </g>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM: Overall width 75mm -->
+    <line x1="75" y1="45" x2="75" y2="54" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="225" y1="45" x2="225" y2="54" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="75" y1="51" x2="138" y2="51" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="162" y1="51" x2="225" y2="51" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="75,51 80,49 80,53" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="225,51 220,49 220,53" fill="rgba(255,255,255,0.4)"/>
+    <text x="150" y="55" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">75</text>
+
+    <!-- RIGHT: Overall height 20mm -->
+    <line x1="230" y1="0" x2="241" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="230" y1="40" x2="241" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="238" y1="0" x2="238" y2="13" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="238" y1="27" x2="238" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="238,0 236,5 240,5" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="238,40 236,35 240,35" fill="rgba(255,255,255,0.4)"/>
+    <text x="238" y="23" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">20</text>
+
+    <!-- Center axis -->
+    <line x1="150" y1="-4" x2="150" y2="44" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="230" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

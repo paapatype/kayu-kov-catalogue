@@ -55,6 +55,7 @@ function parseDimensionString(dimStr) {
 const viewers = new Map();
 const snapshotCache = new Map(); // Global: productId → PNG dataURL (persists across re-renders)
 const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
+let hintShownCount = 0; // Only show drag hint on first few cards
 
 // Check WebGL availability
 function isWebGLAvailable() {
@@ -206,6 +207,8 @@ function create3DViewer(container, productId) {
 
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    // Hide canvas until OBJ model is loaded (prevents empty-scene flash)
+    renderer.domElement.style.opacity = '0';
     container.appendChild(renderer.domElement);
 
     // Handle WebGL context loss
@@ -329,6 +332,24 @@ function create3DViewer(container, productId) {
           snapshotCache.set(String(productId), renderer.domElement.toDataURL('image/png'));
         } catch (e) { /* snapshot optional */ }
 
+        // Reveal canvas now that the model is rendered
+        renderer.domElement.style.transition = 'opacity 0.35s ease-out';
+        renderer.domElement.style.opacity = '1';
+
+        // Show a discreet drag hint on the first few cards
+        if (hintShownCount < 3) {
+          hintShownCount++;
+          const hint = document.createElement('div');
+          hint.className = 'viewer-drag-hint';
+          hint.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 8v8M8 12h8"/></svg> Drag to rotate`;
+          container.appendChild(hint);
+          // Fade out after 2.5s then remove
+          setTimeout(() => {
+            hint.style.opacity = '0';
+            setTimeout(() => hint.remove(), 500);
+          }, 2500);
+        }
+
         console.log(`[3D] OBJ loaded: product ${productId} — ${size.x.toFixed(1)}×${size.y.toFixed(1)}×${size.z.toFixed(1)}mm`);
       },
       undefined,
@@ -409,19 +430,16 @@ function formatCategory(category) {
 // ========== RENDER FUNCTIONS ==========
 
 function renderProductCard(product) {
-  const dims = profileDimensions ? profileDimensions[product.id] : null;
-  const verified = dims && dims.verified;
-  const verifiedBadge = verified
-    ? '<span class="verified-badge" title="Dimensions verified">&#10003;</span>'
-    : '';
-
   return `
     <article class="product-card" data-id="${product.id}" data-category="${product.category}">
       <div class="card-header" onclick="openModal(${product.id})">
-        <span class="serial-badge">${product.id}</span>
-        <span class="category-tag">${formatCategory(product.category)} ${verifiedBadge}</span>
+        <div class="card-title-row">
+          <span class="serial-badge">${product.id}</span>
+          <h3 class="product-name">${product.name}</h3>
+        </div>
+        <span class="category-tag">${formatCategory(product.category)}</span>
       </div>
-      <h3 class="product-name" onclick="openModal(${product.id})">${product.name}</h3>
+
       <div class="profile-3d-viewer"
            data-product-id="${product.id}">
         <div class="viewer-loading">
@@ -613,6 +631,33 @@ function filterProducts(category, searchTerm) {
 function updateDisplay() {
   const filtered = filterProducts(currentCategory, currentSearch);
   renderProducts(filtered);
+
+  // Show/hide active filter indicator
+  const header = document.querySelector('.products-header');
+  const existing = header.querySelector('.active-filter');
+  if (existing) existing.remove();
+
+  if (currentCategory !== 'all' || currentSearch) {
+    const label = currentSearch
+      ? `"${currentSearch}"`
+      : formatCategory(currentCategory);
+    const indicator = document.createElement('button');
+    indicator.className = 'active-filter';
+    indicator.innerHTML = `${label} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+    indicator.onclick = resetToAll;
+    header.appendChild(indicator);
+  }
+}
+
+function resetToAll() {
+  currentCategory = 'all';
+  currentSearch = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.category === 'all');
+  });
+  updateDisplay();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function handleCategoryClick(e) {
@@ -653,11 +698,69 @@ function openModal(productId) {
     modalViewer = null;
   }
 
-  const dims = profileDimensions ? profileDimensions[productId] : null;
-  const verifiedInfo = dims
-    ? `<div class="detail-row">
-        <span class="detail-label">Verified</span>
-        <span class="detail-value">${dims.verified ? 'Yes' : 'Pending'}</span>
+  // Check if a spec drawing exists for this product
+  const specProducts = {
+    1: 'profile_01_spec.svg',
+    2: 'profile_02_spec.svg',
+    3: 'profile_03_spec.svg',
+    4: 'profile_04_spec.svg',
+    5: 'profile_05_spec.svg',
+    6: 'profile_06_spec.svg',
+    7: 'profile_07_spec.svg',
+    8: 'profile_08_spec.svg',
+    9: 'profile_09_spec.svg',
+    10: 'profile_10_spec.svg',
+    11: 'profile_11_spec.svg',
+    12: 'profile_12_spec.svg',
+    13: 'profile_13_spec.svg',
+    14: 'profile_14_spec.svg',
+    15: 'profile_15_spec.svg',
+    16: 'profile_16_spec.svg',
+    17: 'profile_17_spec.svg',
+    18: 'profile_18_spec.svg',
+    19: 'profile_19_spec.svg',
+    20: 'profile_20_spec.svg',
+    21: 'profile_21_spec.svg',
+    22: 'profile_22_spec.svg',
+    23: 'profile_23_spec.svg',
+    24: 'profile_24_spec.svg',
+    25: 'profile_25_spec.svg',
+    26: 'profile_26_spec.svg',
+    27: 'profile_27_spec.svg',
+    28: 'profile_28_spec.svg',
+    29: 'profile_29_spec.svg',
+    30: 'profile_30_spec.svg',
+    31: 'profile_31_spec.svg',
+    32: 'profile_32_spec.svg',
+    33: 'profile_33_spec.svg',
+    34: 'profile_34_spec.svg',
+    35: 'profile_35_spec.svg',
+    36: 'profile_36_spec.svg',
+    37: 'profile_37_spec.svg',
+    38: 'profile_38_spec.svg',
+    39: 'profile_39_spec.svg',
+    40: 'profile_40_spec.svg',
+    41: 'profile_41_spec.svg',
+    42: 'profile_42_spec.svg',
+    43: 'profile_43_spec.svg',
+    44: 'profile_44_spec.svg',
+    45: 'profile_45_spec.svg',
+    46: 'profile_46_spec.svg',
+    47: 'profile_47_spec.svg',
+    48: 'profile_48_spec.svg',
+    49: 'profile_49_spec.svg',
+    50: 'profile_50_spec.svg',
+    51: 'profile_51_spec.svg',
+    52: 'profile_52_spec.svg',
+    53: 'profile_53_spec.svg',
+    54: 'profile_54_spec.svg',
+    55: 'profile_55_spec.svg',
+  };
+  const specFile = specProducts[product.id];
+  const specSection = specFile
+    ? `<div class="spec-drawing">
+        <div class="spec-label">Cross-Section Drawing</div>
+        <img src="assets/specs/${specFile}" alt="${product.name} cross-section" class="spec-img">
       </div>`
     : '';
 
@@ -674,6 +777,7 @@ function openModal(productId) {
       <div class="viewer-loading"><div class="spinner"></div></div>
     </div>
     <div class="viewer-hint">Drag to rotate &bull; Double-tap to reset</div>
+    ${specSection}
     <div class="modal-details">
       <div class="detail-row">
         <span class="detail-label">Dimensions</span>
@@ -683,7 +787,6 @@ function openModal(productId) {
         <span class="detail-label">Product Code</span>
         <span class="detail-value code">${product.code}</span>
       </div>
-      ${verifiedInfo}
       <div class="detail-row">
         <span class="price-label">/RFT</span>
         <span class="detail-value price">&#8377;${formatPrice(product.price)}</span>
@@ -778,6 +881,7 @@ async function init() {
   renderProducts(products);
   document.querySelector('.category-scroll').addEventListener('click', handleCategoryClick);
   document.getElementById('searchInput').addEventListener('input', handleSearch);
+  document.getElementById('headerLogo').addEventListener('click', resetToAll);
   createScrollToTop();
 
   console.log(`Kayu & Kov Catalogue: ${products.length} products loaded`);

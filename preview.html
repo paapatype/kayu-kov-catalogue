@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayu & Kov — Preview Viewer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1A2634; color: #fff; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
+    .toolbar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 20px; background: #15202C; border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .toolbar h1 { font-size: 14px; font-weight: 600; color: #E8833A; white-space: nowrap; }
+    .nav-btn {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      color: #fff; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: rgba(232,131,58,0.2); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .product-select {
+      background: #15202C; color: #fff; border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 10px; border-radius: 6px; font-size: 13px; flex: 1; max-width: 360px;
+    }
+    .product-info {
+      margin-left: auto; text-align: right; font-size: 12px; color: rgba(255,255,255,0.5);
+    }
+    .product-info .name { font-size: 15px; font-weight: 600; color: #fff; }
+    .product-info .dims { color: #E8833A; }
+
+    .panels {
+      display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 52px); min-height: 500px;
+    }
+    .panel {
+      display: flex; flex-direction: column; position: relative;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .panel-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35); padding: 10px 16px; background: rgba(0,0,0,0.15);
+    }
+    .viewer-3d { flex: 1; position: relative; overflow: hidden; }
+    .viewer-3d canvas { display: block; width: 100% !important; height: 100% !important; }
+    .spec-panel { flex: 1; display: flex; align-items: center; justify-content: center; background: #1E2D3D; padding: 20px; }
+    .spec-panel img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .spec-missing { color: rgba(255,255,255,0.25); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>Preview</h1>
+    <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">&larr; Prev</button>
+    <select class="product-select" id="productSelect" onchange="loadProduct(+this.value)"></select>
+    <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Next &rarr;</button>
+    <div class="product-info">
+      <div class="name" id="pName"></div>
+      <div class="dims" id="pDims"></div>
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-label">3D Model</div>
+      <div class="viewer-3d" id="viewer3d"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">Cross-Section Spec Drawing</div>
+      <div class="spec-panel" id="specPanel"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="data.js"></script>
+  <script>
+    let currentId = 1;
+    let viewer = null;
+
+    // Populate dropdown
+    const select = document.getElementById('productSelect');
+    products.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.id}. ${p.name} — ${p.dimensions}`;
+      select.appendChild(opt);
+    });
+
+    function navigate(dir) {
+      const idx = products.findIndex(p => p.id === currentId);
+      const next = idx + dir;
+      if (next >= 0 && next < products.length) {
+        currentId = products[next].id;
+        select.value = currentId;
+        loadProduct(currentId);
+      }
+    }
+
+    function loadProduct(id) {
+      currentId = id;
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+
+      document.getElementById('pName').textContent = product.name;
+      document.getElementById('pDims').textContent = product.dimensions;
+      document.getElementById('prevBtn').disabled = products.findIndex(p => p.id === id) === 0;
+      document.getElementById('nextBtn').disabled = products.findIndex(p => p.id === id) === products.length - 1;
+      select.value = id;
+
+      // Load 3D model
+      load3DModel(id);
+
+      // Load spec SVG
+      const specPanel = document.getElementById('specPanel');
+      const specPath = `assets/specs/profile_${String(id).padStart(2, '0')}_spec.svg`;
+      specPanel.innerHTML = `<img src="${specPath}" alt="Spec drawing" onerror="this.outerHTML='<div class=spec-missing>No spec drawing</div>'">`;
+    }
+
+    function load3DModel(productId) {
+      const container = document.getElementById('viewer3d');
+
+      // Destroy previous
+      if (viewer) {
+        viewer.destroy();
+        viewer = null;
+      }
+      // Clear container except label
+      while (container.children.length > 0) container.removeChild(container.lastChild);
+
+      const width = container.clientWidth || 400;
+      const height = container.clientHeight || 400;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x1A2634);
+
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2000);
+      camera.position.set(120, 80, 120);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // Lighting
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      dirLight.position.set(50, 100, 50);
+      scene.add(dirLight);
+      const fillLight = new THREE.DirectionalLight(0xE8833A, 0.3);
+      fillLight.position.set(-50, 50, -50);
+      scene.add(fillLight);
+
+      const material = new THREE.MeshStandardMaterial({ color: 0xA67C52, roughness: 0.7, metalness: 0.1 });
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.rotateSpeed = 0.8;
+      controls.enableZoom = true;
+      controls.enablePan = false;
+
+      let animId;
+      let destroyed = false;
+
+      function animate() {
+        if (destroyed) return;
+        animId = requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Load OBJ
+      const objPath = `assets/models/profile_${String(productId).padStart(2, '0')}.obj`;
+      new THREE.OBJLoader().load(objPath, (object) => {
+        if (destroyed) return;
+        object.traverse(child => { if (child instanceof THREE.Mesh) child.material = material; });
+        object.scale.set(1000, 1000, 1000);
+        object.updateMatrixWorld(true);
+        const box = new THREE.Box3().setFromObject(object);
+        const center = box.getCenter(new THREE.Vector3());
+        object.position.sub(center);
+        scene.add(object);
+
+        const size = new THREE.Vector3();
+        box.getSize(size);
+        const maxDim = Math.max(size.x, size.y, size.z);
+        if (maxDim > 0 && isFinite(maxDim)) {
+          const fov = camera.fov * (Math.PI / 180);
+          const cameraZ = Math.abs(maxDim / Math.sin(fov / 2)) * 0.68;
+          camera.position.set(cameraZ * 0.7, cameraZ * 0.5, cameraZ * 0.7);
+          camera.lookAt(0, 0, 0);
+        }
+      }, undefined, (err) => {
+        console.error('Failed to load', objPath, err);
+      });
+
+      // Handle resize
+      function onResize() {
+        if (destroyed) return;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      }
+      window.addEventListener('resize', onResize);
+
+      viewer = {
+        destroy() {
+          destroyed = true;
+          cancelAnimationFrame(animId);
+          window.removeEventListener('resize', onResize);
+          renderer.dispose();
+          scene.clear();
+        }
+      };
+    }
+
+    // Start with product 1
+    loadProduct(1);
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" fill="none">
+  <!--
+    I-Beam Profile 38 x 8mm — Cross-Section
+    Scale: 2px per mm
+    Overall: 38mm wide (76px) x 8mm tall (16px)
+    Top flange: 38mm x 1mm, Bottom flange: 38mm x 1mm
+    Web: 24mm wide x 6mm tall (centered)
+    Flange overhang: (38-24)/2 = 7mm each side
+  -->
+
+  <g transform="translate(130, 50)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- I-beam shape: outer path -->
+    <!-- Top flange: x0,y0 -> x76,y0 -> x76,y2 -> step in -> x52,y2 -> x52,y14 -> x76,y14 -> x76,y16 -> x0,y16 -> x0,y14 -> x24,y14 -> x24,y2 -> x0,y2 -> close -->
+    <!-- Flange overhang left = 7mm = 14px, web starts at x14, web ends at x62 (24mm=48px centered) -->
+    <!-- Wait: (38-24)/2 = 7mm = 14px. Web from x14 to x62 -->
+    <path d="M0,0 L76,0 L76,2 L62,2 L62,14 L76,14 L76,16 L0,16 L0,14 L14,14 L14,2 L0,2 Z"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Notch voids (navy fill for the cut-out areas) -->
+    <!-- Top-left notch: x0,y2 to x14,y2 ... but these are outside the shape, not voids inside -->
+    <!-- The I-beam is already drawn as a single path with the correct shape -->
+    <!-- The "voids" are the areas outside the web between flanges — already excluded by the path -->
+
+    <!-- Subtle hatching on solid material -->
+    <g opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <line x1="0" y1="5" x2="5" y2="0"/>
+      <line x1="0" y1="10" x2="10" y2="0"/>
+      <line x1="0" y1="15" x2="15" y2="0"/>
+      <line x1="5" y1="16" x2="20" y2="1"/>
+      <line x1="15" y1="16" x2="25" y2="6"/>
+      <line x1="50" y1="16" x2="60" y2="6"/>
+      <line x1="60" y1="16" x2="76" y2="0"/>
+      <line x1="65" y1="16" x2="76" y2="5"/>
+      <line x1="70" y1="16" x2="76" y2="10"/>
+    </g>
+
+    <!-- Center axis -->
+    <line x1="38" y1="-4" x2="38" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM ROW 1: Overall width 38mm -->
+    <line x1="0" y1="22" x2="0" y2="33" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="76" y1="22" x2="76" y2="33" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="30" x2="28" y2="30" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="48" y1="30" x2="76" y2="30" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,30 5,28 5,32" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="76,30 71,28 71,32" fill="rgba(255,255,255,0.4)"/>
+    <text x="38" y="34" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">38</text>
+
+    <!-- BOTTOM ROW 2: Web width 24mm -->
+    <line x1="14" y1="42" x2="14" y2="51" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="62" y1="42" x2="62" y2="51" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="14" y1="48" x2="28" y2="48" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="48" y1="48" x2="62" y2="48" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="14,48 18,46.5 18,49.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="62,48 58,46.5 58,49.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="38" y="52" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">24</text>
+
+    <!-- BOTTOM ROW 2: Flange overhang 7mm left -->
+    <line x1="0" y1="42" x2="0" y2="51" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="0" y1="48" x2="14" y2="48" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="0,48 4,46.5 4,49.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="14,48 10,46.5 10,49.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="7" y="61" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">7</text>
+
+    <!-- BOTTOM ROW 2: Flange overhang 7mm right -->
+    <line x1="76" y1="42" x2="76" y2="51" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="62" y1="48" x2="76" y2="48" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="62,48 66,46.5 66,49.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="76,48 72,46.5 72,49.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="69" y="61" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">7</text>
+
+    <!-- RIGHT: Overall height 8mm -->
+    <line x1="82" y1="0" x2="93" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="82" y1="16" x2="93" y2="16" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="90" y1="0" x2="90" y2="4" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="90" y1="12" x2="90" y2="16" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="90,0 88,4 92,4" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="90,16 88,12 92,12" fill="rgba(255,255,255,0.4)"/>
+    <text x="100" y="11" text-anchor="start" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">8</text>
+
+    <!-- RIGHT: Web height 6mm -->
+    <line x1="108" y1="2" x2="119" y2="2" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="108" y1="14" x2="119" y2="14" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="116" y1="2" x2="116" y2="5" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="116" y1="11" x2="116" y2="14" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="116,2 114.5,5 117.5,5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="116,14 114.5,11 117.5,11" fill="rgba(255,255,255,0.3)"/>
+    <text x="126" y="11" text-anchor="start" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+  </g>
+
+  <!-- Unit note -->
+  <text x="180" y="178" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

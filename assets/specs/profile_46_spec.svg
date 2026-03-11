@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" fill="none">
+  <!--
+    Rod Profile 8mm diameter — Cross-Section
+    Scale: 6px per mm → radius 24px, diameter 48px
+    (Upscaled for visibility, labeled in real mm)
+  -->
+  <defs>
+    <pattern id="hatch46" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#E8833A" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <g>
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Solid circle fill -->
+    <circle cx="100" cy="60" r="24"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Hatching on solid material -->
+    <circle cx="100" cy="60" r="24" fill="url(#hatch46)"/>
+
+    <!-- Center crosshair -->
+    <line x1="100" y1="55" x2="100" y2="65" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="95" y1="60" x2="105" y2="60" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- Diameter dimension: horizontal through center -->
+    <line x1="76" y1="60" x2="92" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="108" y1="60" x2="124" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="76,60 81,58 81,62" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="124,60 119,58 119,62" fill="rgba(255,255,255,0.4)"/>
+    <!-- Extension lines -->
+    <line x1="76" y1="50" x2="76" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="124" y1="50" x2="124" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <text x="100" y="64" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">Dia. 8</text>
+
+    <!-- Bottom overall dimension -->
+    <line x1="76" y1="89" x2="76" y2="99" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="124" y1="89" x2="124" y2="99" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="76" y1="96" x2="93" y2="96" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="107" y1="96" x2="124" y2="96" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="76,96 81,94 81,98" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="124,96 119,94 119,98" fill="rgba(255,255,255,0.4)"/>
+    <text x="100" y="100" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">8</text>
+
+    <!-- Center axis vertical -->
+    <line x1="100" y1="30" x2="100" y2="89" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="100" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 160" fill="none">
+  <!--
+    Serrated Profile 100 x 20mm — Cross-Section
+    Scale: 2px per mm
+    Rectangle: 200px x 40px with zigzag serrations on top face
+  -->
+  <defs>
+    <clipPath id="solidArea">
+      <rect x="0" y="0" width="200" height="48"/>
+    </clipPath>
+  </defs>
+
+  <g transform="translate(55, 35)">
+    <!-- Base rectangle — material fill -->
+    <rect x="0" y="8" width="200" height="32"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" rx="1"/>
+
+    <!-- Serrated teeth on top face -->
+    <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8 L 200 8 L 0 8 Z"
+      fill="rgba(196,129,58,0.15)"/>
+
+    <!-- Left/right edge strokes -->
+    <line x1="0" y1="8" x2="0" y2="40" stroke="#E8833A" stroke-width="1.8"/>
+    <line x1="200" y1="8" x2="200" y2="40" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Subtle hatching -->
+    <g clip-path="url(#solidArea)" opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <line x1="-10" y1="10" x2="10" y2="-10"/><line x1="-10" y1="20" x2="20" y2="-10"/>
+      <line x1="-10" y1="30" x2="30" y2="-10"/><line x1="-10" y1="40" x2="40" y2="-10"/>
+      <line x1="-10" y1="50" x2="50" y2="-10"/>
+      <line x1="160" y1="50" x2="210" y2="0"/><line x1="170" y1="50" x2="210" y2="10"/>
+      <line x1="180" y1="50" x2="210" y2="20"/><line x1="190" y1="50" x2="210" y2="30"/>
+    </g>
+
+    <!-- BOTTOM: Overall width 100mm -->
+    <line x1="0" y1="45" x2="0" y2="56" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="200" y1="45" x2="200" y2="56" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="53" x2="87" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="113" y1="53" x2="200" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,53 5,51 5,55" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="200,53 195,51 195,55" fill="rgba(255,255,255,0.4)"/>
+    <text x="100" y="57" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">100</text>
+
+    <!-- RIGHT: Overall height 20mm -->
+    <line x1="205" y1="0" x2="216" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="205" y1="40" x2="216" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="213" y1="0" x2="213" y2="13" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="213" y1="27" x2="213" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="213,0 211,4 215,4" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="213,40 211,36 215,36" fill="rgba(255,255,255,0.4)"/>
+    <text x="228" y="23" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">20</text>
+
+    <!-- Center axis -->
+    <line x1="100" y1="-4" x2="100" y2="44" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="180" y="135" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

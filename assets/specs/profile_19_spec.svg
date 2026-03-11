@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 160" fill="none">
+  <!--
+    Solid Box Profile 150 x 25mm — Cross-Section
+    Scale: 2px per mm
+    Solid rectangle: 300px x 50px (no voids)
+  -->
+  <defs>
+    <clipPath id="solidArea">
+      <rect x="0" y="0" width="300" height="50"/>
+    </clipPath>
+    <pattern id="diagHatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#E8833A" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <g transform="translate(50, 30)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- Solid rectangle — material fill -->
+    <rect x="0" y="0" width="300" height="50"
+      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" rx="1"/>
+
+    <!-- Diagonal hatching for solid material -->
+    <rect x="0" y="0" width="300" height="50" fill="url(#diagHatch)" rx="1"/>
+
+    <!-- Additional subtle hatching lines -->
+    <g clip-path="url(#solidArea)" opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <line x1="-10" y1="10" x2="10" y2="-10"/><line x1="-10" y1="20" x2="20" y2="-10"/>
+      <line x1="-10" y1="30" x2="30" y2="-10"/><line x1="-10" y1="40" x2="40" y2="-10"/>
+      <line x1="-10" y1="50" x2="50" y2="-10"/><line x1="-10" y1="60" x2="60" y2="-10"/>
+      <line x1="240" y1="60" x2="310" y2="-10"/><line x1="250" y1="60" x2="310" y2="0"/>
+      <line x1="260" y1="60" x2="310" y2="10"/><line x1="270" y1="60" x2="310" y2="20"/>
+      <line x1="280" y1="60" x2="310" y2="30"/><line x1="290" y1="60" x2="310" y2="40"/>
+    </g>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- BOTTOM: Overall width 150mm -->
+    <line x1="0" y1="55" x2="0" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="300" y1="55" x2="300" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="63" x2="136" y2="63" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="164" y1="63" x2="300" y2="63" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,63 5,61 5,65" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="300,63 295,61 295,65" fill="rgba(255,255,255,0.4)"/>
+    <text x="150" y="67" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">150</text>
+
+    <!-- RIGHT: Overall height 25mm -->
+    <line x1="305" y1="0" x2="316" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="305" y1="50" x2="316" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="313" y1="0" x2="313" y2="18" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="313" y1="32" x2="313" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="313,0 311,5 315,5" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="313,50 311,45 315,45" fill="rgba(255,255,255,0.4)"/>
+    <text x="313" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">25</text>
+
+    <!-- Center axis -->
+    <line x1="150" y1="-4" x2="150" y2="54" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="220" y="135" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>

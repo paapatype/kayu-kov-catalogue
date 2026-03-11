@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none">
+  <!--
+    Fluted Profile-3  145 x 18mm — Cross-Section
+    Scale: 2px per mm  →  290px wide, 36px tall
+
+    Structure (from reference image):
+    - Flat bottom plate, full width
+    - 3 deep channels cut from top, opening upward
+    - Channels separated by narrow webs rising to full height
+    - Top surface has rounded corners (R6.5)
+    - Channel bottoms have R6.0 curves
+
+    Key dims: 145mm overall, 18mm height, 35mm channel spacing,
+    9mm channel top width, 8mm edge thickness, 5mm web width, R6.5/R6.0
+
+    Layout at 2px/mm (left to right):
+    - Left edge solid: ~16mm = 32px
+    - Channel 1: 9mm wide at top = 18px
+    - Web: 5mm = 10px
+    - Channel 2: 9mm = 18px
+    - Web: 5mm = 10px
+    - Channel 3: 9mm = 18px
+    - Right edge solid: ~16mm = 32px
+    But 32+18+10+18+10+18+32 = 138mm... need to account for curves.
+
+    From reference: 35mm center-to-center spacing between channels.
+    3 channels means 2 gaps of 35mm = 70mm between first and last center.
+    Channels centered at: 37.5mm, 72.5mm, 107.5mm (symmetrical about 72.5)
+
+    At 2px/mm: centers at 75, 145, 215
+    Channel width at top: 9mm = 18px, so ±9px from center
+    Channel depth: about 10mm from top (goes down to bottom plate)
+    Bottom plate: 8mm = 16px from bottom
+    Top edge: 8mm = 16px from top to channel start
+  -->
+
+  <defs>
+    <clipPath id="profileClip">
+      <rect x="0" y="0" width="290" height="36"/>
+    </clipPath>
+  </defs>
+
+  <g transform="translate(70, 50)">
+    <!-- ===== PROFILE CROSS-SECTION ===== -->
+
+    <!-- The fluted profile as a single path
+         Top edge at y=0, bottom at y=36
+         Channels cut from BOTTOM of the top section upward
+         Actually from the reference: channels open downward between top and bottom plates
+
+         Profile shape: castle-battlement cross section
+         Top plate: y=0 to y=16 (8mm)
+         Bottom plate: y=20 to y=36 (8mm)
+         Connecting webs: y=0 to y=36 at edges and between channels
+         Channels: rectangular voids from y=16 to y=20 — NO that's only 2mm
+
+         Looking at reference again more carefully:
+         The brown shape shows thick top edge, then walls go DOWN,
+         curve inward at bottom (R6.0), flat bottom, curve back up.
+         Like a comb facing down with 3 gaps.
+
+         Height breakdown: 18mm total
+         - Top solid runs full width: 8mm from top
+         - Then 3 channels drop down, each ~10mm deep
+         - Bottom of channels is at 8mm from bottom of profile
+         - But wait: the channels don't go all the way to the bottom
+
+         Actually I think the shape is:
+         - Flat top plate 8mm thick across full width
+         - From the bottom of the top plate, walls descend to form channels
+         - The bottom closes off at 8mm from the bottom
+         - Middle section between top and bottom = 18-8-8 = 2mm ... too thin
+
+         OR: Re-reading the dims on the right side of reference:
+         5.0 is between the two 8.0 markers, and they're stacked:
+         8.0 (top) + 5.0 (middle) + 8.0 (bottom)
+         But these overlap: maybe 8.0 is measured from top to channel ceiling,
+         5.0 is the web between channels (horizontal), 8.0 from channel floor to bottom.
+
+         Most likely: The profile is like interlocking fingers:
+         - Top: solid 8mm strip
+         - Bottom: solid 8mm strip
+         - Vertical webs connecting them, 5mm wide
+         - Open channels between webs, about 10mm wide at top
+
+         Channel height = 18 - 8(top) - 8(bottom) ... but that leaves only 2mm.
+
+         Let me look at the IMAGE shape: it clearly shows deep channels,
+         about half the total height. So maybe:
+         - The 8.0 on the left is the HEIGHT of the top edge where there are no channels
+         - The channels cut about 10mm deep from the top
+         - Bottom plate is 8mm
+         - The profile is 18mm total, channels go from y=0 down to y=26 (13mm),
+           leaving 5mm of bottom plate? No...
+
+         Simplest interpretation matching the image shape:
+         The profile viewed from the side looks like a rectangular bar with
+         3 U-shaped notches cut into the TOP surface. The notches are deep.
+
+         Top surface: at y=0
+         Bottom surface: at y=36 (18mm)
+         Left/right edges: vertical walls full height
+
+         Channel openings: at the TOP, 9mm wide
+         Channel depth: about 10mm (down to y=20)
+         Between channels: 5mm wide webs, full height
+         Edge walls: wider
+
+         So the solid material is:
+         - Bottom plate y=20 to y=36 (8mm) - full width
+         - Left edge wall: x=0 to x=~32, full height
+         - Web 1: between ch1 and ch2
+         - Web 2: between ch2 and ch3
+         - Right edge wall: full height
+         - Top edge regions above channels are OPEN (channels open to top)
+
+         YES! That matches the image: channels open UPWARD from the top.
+         The brown shape in the reference has scalloped/curved cutouts on top.
+    -->
+
+    <!-- Profile as single continuous path with channels opening from top -->
+    <path d="
+      M 0,36
+      L 0,3
+      Q 0,0 3,0
+      L 63,0
+      Q 66,0 66,3
+      L 66,14
+      Q 66,20 72,20
+      L 78,20
+      Q 84,20 84,14
+      L 84,3
+      Q 84,0 87,0
+      L 128,0
+      Q 131,0 131,3
+      L 131,14
+      Q 131,20 137,20
+      L 153,20
+      Q 159,20 159,14
+      L 159,3
+      Q 159,0 162,0
+      L 203,0
+      Q 206,0 206,3
+      L 206,14
+      Q 206,20 212,20
+      L 218,20
+      Q 224,20 224,14
+      L 224,3
+      Q 224,0 227,0
+      L 287,0
+      Q 290,0 290,3
+      L 290,36
+      Z
+    " fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+
+    <!-- Channel voids (dark fill) -->
+    <path d="M 66,0 L 66,14 Q 66,20 72,20 L 78,20 Q 84,20 84,14 L 84,0 Z"
+      fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+    <path d="M 131,0 L 131,14 Q 131,20 137,20 L 153,20 Q 159,20 159,14 L 159,0 Z"
+      fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+    <path d="M 206,0 L 206,14 Q 206,20 212,20 L 218,20 Q 224,20 224,14 L 224,0 Z"
+      fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+
+    <!-- Subtle hatching on solid material -->
+    <g clip-path="url(#profileClip)" opacity="0.06" stroke="#E8833A" stroke-width="0.5">
+      <line x1="-5" y1="8" x2="8" y2="-5"/><line x1="-5" y1="18" x2="18" y2="-5"/>
+      <line x1="-5" y1="28" x2="28" y2="-5"/><line x1="-5" y1="38" x2="38" y2="-5"/>
+      <line x1="255" y1="42" x2="296" y2="1"/><line x1="265" y1="42" x2="296" y2="11"/>
+      <line x1="275" y1="42" x2="296" y2="21"/><line x1="285" y1="42" x2="296" y2="31"/>
+    </g>
+
+    <!-- ===== DIMENSION LINES ===== -->
+
+    <!-- TOP: 35.0mm channel center-to-center spacing -->
+    <line x1="75" y1="-5" x2="75" y2="-18" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="145" y1="-5" x2="145" y2="-18" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="75" y1="-14" x2="100" y2="-14" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <line x1="120" y1="-14" x2="145" y2="-14" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <polygon points="75,-14 79,-15.5 79,-12.5" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="145,-14 141,-15.5 141,-12.5" fill="rgba(255,255,255,0.3)"/>
+    <text x="110" y="-17" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">35.0</text>
+
+    <!-- BOTTOM ROW 1: Overall width 145.0mm -->
+    <line x1="0" y1="41" x2="0" y2="52" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="290" y1="41" x2="290" y2="52" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="0" y1="49" x2="131" y2="49" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="159" y1="49" x2="290" y2="49" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="0,49 5,47 5,51" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="290,49 285,47 285,51" fill="rgba(255,255,255,0.4)"/>
+    <text x="145" y="53" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">145.0</text>
+
+    <!-- BOTTOM ROW 2: Channel width 9.0 (on channel 1) -->
+    <line x1="66" y1="58" x2="66" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="84" y1="58" x2="84" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="66" y1="65" x2="84" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <text x="75" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">9.0</text>
+
+    <!-- Channel width 9.0 (on channel 2) -->
+    <line x1="131" y1="58" x2="131" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="159" y1="58" x2="159" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="131" y1="65" x2="159" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <text x="145" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">9.0</text>
+
+    <!-- RIGHT SIDE: Overall height 18.0mm -->
+    <line x1="296" y1="0" x2="310" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="296" y1="36" x2="310" y2="36" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="306" y1="0" x2="306" y2="12" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="306" y1="24" x2="306" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="306,0 304,5 308,5" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="306,36 304,31 308,31" fill="rgba(255,255,255,0.4)"/>
+    <text x="306" y="21" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">18.0</text>
+
+    <!-- RIGHT: 8.0 top section -->
+    <line x1="320" y1="0" x2="336" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="320" y1="16" x2="336" y2="16" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="330" y1="0" x2="330" y2="16" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="330,0 328.5,3 331.5,3" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="330,16 328.5,13 331.5,13" fill="rgba(255,255,255,0.3)"/>
+    <text x="342" y="11" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
+
+    <!-- RIGHT: 5.0 middle (web connector height) -->
+    <line x1="320" y1="16" x2="336" y2="16" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="320" y1="26" x2="336" y2="26" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="330" y1="16" x2="330" y2="26" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="330,16 328.5,19 331.5,19" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="330,26 328.5,23 331.5,23" fill="rgba(255,255,255,0.3)"/>
+    <text x="342" y="24" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">5.0</text>
+
+    <!-- RIGHT: 8.0 bottom section -->
+    <line x1="320" y1="20" x2="336" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="320" y1="36" x2="336" y2="36" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="330" y1="20" x2="330" y2="36" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="330,20 328.5,23 331.5,23" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="330,36 328.5,33 331.5,33" fill="rgba(255,255,255,0.3)"/>
+    <text x="342" y="31" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
+
+    <!-- LEFT: 8.0 edge height callout -->
+    <line x1="-6" y1="0" x2="-18" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="-6" y1="16" x2="-18" y2="16" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <line x1="-14" y1="0" x2="-14" y2="16" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <polygon points="-14,0 -15.5,3 -12.5,3" fill="rgba(255,255,255,0.3)"/>
+    <polygon points="-14,16 -15.5,13 -12.5,13" fill="rgba(255,255,255,0.3)"/>
+    <text x="-25" y="11" text-anchor="end" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
+
+    <!-- R6.5 callout (top-left corner) -->
+    <line x1="4" y1="4" x2="-22" y2="-14" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <text x="-25" y="-12" text-anchor="end" font-family="-apple-system,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.5)">R6.5</text>
+
+    <!-- R6.0 callout (channel bottom curve) -->
+    <line x1="72" y1="20" x2="72" y2="38" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+    <text x="72" y="44" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.5)">R6.0</text>
+
+    <!-- Center axis (dashed) -->
+    <line x1="145" y1="-20" x2="145" y2="42" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+  </g>
+
+  <!-- Unit note -->
+  <text x="240" y="188" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+</svg>
