@@ -5,7 +5,7 @@ let filteredItems = [...galleryItems];
 let lightboxIndex = -1;
 
 // Featured items — first item of each category gets a wider card on "All" view
-const featuredIds = new Set([1, 20, 30]);
+const featuredIds = new Set([1, 33, 53, 68, 94]);
 
 // ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
@@ -68,7 +68,6 @@ function renderGallery() {
         <div class="gallery-card-info">
           <div class="gallery-card-category">${catLabel}</div>
           <div class="gallery-card-title">${item.title}</div>
-          <div class="gallery-card-app">${item.application}</div>
         </div>
       </article>`;
   }).join('');
@@ -79,7 +78,7 @@ function imageMarkup(item) {
   // Use a real <img> tag — if the file is missing the onerror shows a placeholder
   return `<img src="${item.image}" alt="${item.title}"
     loading="lazy"
-    onerror="this.outerHTML = placeholderHTML('${item.application}')">`;
+    onerror="this.outerHTML = placeholderHTML('${item.title}')">`;
 }
 
 // Placeholder SVG + label for missing images
@@ -108,7 +107,7 @@ function openLightbox(index) {
     onerror="this.outerHTML = lightboxPlaceholderHTML()">`;
 
   document.getElementById('lbTitle').textContent = item.title;
-  document.getElementById('lbMeta').textContent = `${catLabel} · ${item.application}`;
+  document.getElementById('lbMeta').textContent = catLabel;
 
   document.getElementById('lbPrev').style.display = index > 0 ? '' : 'none';
   document.getElementById('lbNext').style.display = index < filteredItems.length - 1 ? '' : 'none';
