@@ -285,8 +285,66 @@ function create3DViewer(container, productId) {
     }
     animate();
 
-    // Load OBJ model
-    const objPath = `assets/models/profile_${String(productId).padStart(2, '0')}.obj`;
+    // Load OBJ model — filenames include descriptive suffixes
+    const objFileNames = {
+      1: 'profile_01_fluted_145x18.obj',
+      2: 'profile_02_hollow_box_100x50.obj',
+      3: 'profile_03_cladding_112x15.obj',
+      4: 'profile_04_C_channel_50x50x6.obj',
+      5: 'profile_05_rod_25mm.obj',
+      6: 'profile_06_C_channel_100x30x16.obj',
+      7: 'profile_07_serrated_100x20.obj',
+      8: 'profile_08_strip_50x25.obj',
+      9: 'profile_09_sheet_100x8.obj',
+      10: 'profile_10_sheet_100x10.obj',
+      11: 'profile_11_sheet_100x12.obj',
+      12: 'profile_12_sheet_150x8.obj',
+      13: 'profile_13_sheet_150x10.obj',
+      14: 'profile_14_sheet_150x12.obj',
+      15: 'profile_15_cladding_58x15.obj',
+      16: 'profile_16_cladding_98x15.obj',
+      17: 'profile_17_louver_150x35.obj',
+      18: 'profile_18_hollow_box_150x25.obj',
+      19: 'profile_19_solid_box_150x25.obj',
+      20: 'profile_20_door_100x20.obj',
+      21: 'profile_21_door_100x20x6.obj',
+      22: 'profile_22_door_solid_100x20.obj',
+      23: 'profile_23_door_85x31.obj',
+      24: 'profile_24_door_frame_85x31.obj',
+      25: 'profile_25_single_door_frame_85x31.obj',
+      26: 'profile_26_sheet_100x6.obj',
+      27: 'profile_27_sheet_200x11.obj',
+      28: 'profile_28_sheet_200x7.obj',
+      29: 'profile_29_sheet_400x11.obj',
+      30: 'profile_30_sheet_400x7.obj',
+      31: 'profile_31_strip_55x10.obj',
+      32: 'profile_32_strip_80x11.obj',
+      33: 'profile_33_strip_40x20.obj',
+      34: 'profile_34_hollow_strip_40x20.obj',
+      35: 'profile_35_hollow_strip_50x25.obj',
+      36: 'profile_36_strip_45x10.obj',
+      37: 'profile_37_L-angle_30x30x4.obj',
+      38: 'profile_38_L-angle_40x40x4.obj',
+      39: 'profile_39_louver_75x20.obj',
+      40: 'profile_40_solid_louver_75x20.obj',
+      41: 'profile_41_round_pipe_80x10.obj',
+      42: 'profile_42_C-channel_100x30x6.obj',
+      43: 'profile_43_C-channel_84x30x6.obj',
+      44: 'profile_44_I-beam_38x6.obj',
+      45: 'profile_45_rod_9mm.obj',
+      46: 'profile_46_rod_8mm.obj',
+      47: 'profile_47_rod_6mm.obj',
+      48: 'profile_48_square_50x50x6.obj',
+      49: 'profile_49_strip_80x6.obj',
+      50: 'profile_50_square_100x100x8.obj',
+      51: 'profile_51_square_box_150x150.obj',
+      52: 'profile_52_strip_60x6.obj',
+      53: 'profile_53_railing_65x32.5.obj',
+      54: 'profile_54_hollow_box_150x50.obj',
+      55: 'profile_55_round_pipe_150x10.obj'
+    };
+    const objFile = objFileNames[productId] || `profile_${String(productId).padStart(2, '0')}.obj`;
+    const objPath = `assets/models/${objFile}`;
     const loader = new THREE.OBJLoader();
     loader.load(
       objPath,
