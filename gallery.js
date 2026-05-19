@@ -5,7 +5,7 @@ let filteredItems = [...galleryItems];
 let lightboxIndex = -1;
 
 // Featured items — first item of each category gets a wider card on "All" view
-const featuredIds = new Set([1, 33, 53, 68, 94]);
+const featuredIds = new Set([1, 33, 53, 67, 93]);
 
 // ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {

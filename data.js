@@ -89,7 +89,7 @@ const categories = [
 
 const contactInfo = {
   address: "No.274/17, New Guddahalli, Mysore Road, Bangalore Urban, Karnataka 560026, India",
-  phone: "+91 80 26744030",
+  phone: "+91 82967 99030",
   mobile: "+91 9449697772",
   email: "info@kayuandkov.com",
   website: "www.kayuandkov.com"

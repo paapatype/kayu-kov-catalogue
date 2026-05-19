@@ -137,29 +137,6 @@ body::after {
   opacity: 0.75;
 }
 
-.header-logos {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-right: 24px;
-}
-
-.header-logo-divider {
-  width: 1px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.22);
-  display: inline-block;
-}
-
-.logo-tipwood {
-  height: 22px;
-  opacity: 1;
-}
-
-.logo-tipwood:hover {
-  opacity: 0.75;
-}
-
 .header-title {
   font-size: 11px;
   font-weight: 600;
@@ -334,10 +311,20 @@ body::after {
 }
 
 .products-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.028em;
   line-height: 1.1;
+  margin: 0;
+}
+
+.products-title-logo {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 
 .products-count {
@@ -1289,22 +1276,8 @@ body::after {
     padding: 12px 16px;
   }
 
-  .header-logos {
-    gap: 7px;
-    margin-right: 6px;
-    flex-shrink: 0;
-  }
-
-  .header-logo-divider {
-    height: 12px;
-  }
-
   .logo {
-    height: 16px;
-  }
-
-  .logo-tipwood {
-    height: 11px;
+    height: 20px;
   }
 
   .header-title {
@@ -1320,6 +1293,14 @@ body::after {
     font-size: 11px;
     padding: 3px 8px;
     white-space: nowrap;
+  }
+
+  .products-title {
+    gap: 10px;
+  }
+
+  .products-title-logo {
+    height: 20px;
   }
 
   .search-container {
