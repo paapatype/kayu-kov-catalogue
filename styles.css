@@ -316,14 +316,14 @@ body::after {
   align-items: center;
   gap: 14px;
   font-size: 34px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.028em;
   line-height: 1.1;
   margin: 0;
 }
 
 .products-title-logo {
-  height: 26px;
+  height: 34px;
   width: auto;
   display: block;
 }
@@ -1301,7 +1301,7 @@ body::after {
   }
 
   .products-title-logo {
-    height: 20px;
+    height: 28px;
   }
 
   .search-container {
