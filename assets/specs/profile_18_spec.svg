@@ -1,111 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 220" fill="none">
-  <!--
-    Hollow Box Profile 150 x 25mm — Cross-Section
-    Scale: 2px per mm
-    Layout (mm): 10 wall | 39.5 ch | 6 rib | 39 ch | 6 rib | 39.5 ch | 10 wall = 150
-    Height (mm): 6 top | 13 ch | 6 bottom = 25
-  -->
-
-  <g transform="translate(55, 50)">
-    <!-- ===== PROFILE CROSS-SECTION ===== -->
-
-    <!-- Outer rectangle — solid material fill -->
-    <rect x="0" y="0" width="300" height="50"
-      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" rx="1"/>
-
-    <!-- Chamber voids -->
-    <!-- Chamber 1: x=20 (10mm wall), w=79 (39.5mm), y=12 (6mm top), h=26 (13mm) -->
-    <rect x="20" y="12" width="79" height="26" fill="#1E2D3D" rx="1"/>
-    <!-- Chamber 2: x=111 (20+79+12), w=78 (39mm) -->
-    <rect x="111" y="12" width="78" height="26" fill="#1E2D3D" rx="1"/>
-    <!-- Chamber 3: x=201 (111+78+12), w=79 (39.5mm) -->
-    <rect x="201" y="12" width="79" height="26" fill="#1E2D3D" rx="1"/>
-
-    <!-- Chamber outlines -->
-    <rect x="20" y="12" width="79" height="26" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1"/>
-    <rect x="111" y="12" width="78" height="26" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1"/>
-    <rect x="201" y="12" width="79" height="26" fill="none" stroke="rgba(232,131,58,0.35)" stroke-width="0.8" rx="1"/>
-
-    <!-- Center axis -->
-    <line x1="150" y1="-4" x2="150" y2="54" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
-
-    <!-- ===== DIMENSION LINES ===== -->
-
-    <!-- BOTTOM ROW 1: Overall width 150mm -->
-    <line x1="0" y1="55" x2="0" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="300" y1="55" x2="300" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="0" y1="63" x2="136" y2="63" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="164" y1="63" x2="300" y2="63" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="0,63 5,61 5,65" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="300,63 295,61 295,65" fill="rgba(255,255,255,0.4)"/>
-    <text x="150" y="67" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">150</text>
-
-    <!-- BOTTOM ROW 2: Internal segments -->
-    <!-- 10mm left wall -->
-    <line x1="0" y1="77" x2="0" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="20" y1="77" x2="20" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="0" y1="83" x2="20" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="0,83 4,81.5 4,84.5" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="20,83 16,81.5 16,84.5" fill="rgba(255,255,255,0.3)"/>
-    <text x="10" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">10</text>
-
-    <!-- 39.5mm chamber 1 -->
-    <line x1="99" y1="77" x2="99" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="20" y1="83" x2="99" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="59" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">39.5</text>
-
-    <!-- 6mm rib -->
-    <line x1="111" y1="77" x2="111" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="99" y1="83" x2="111" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="105" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
-
-    <!-- 39mm chamber 2 -->
-    <line x1="189" y1="77" x2="189" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="111" y1="83" x2="189" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="150" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">39</text>
-
-    <!-- 6mm rib -->
-    <line x1="201" y1="77" x2="201" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="189" y1="83" x2="201" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="195" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
-
-    <!-- 39.5mm chamber 3 -->
-    <line x1="280" y1="77" x2="280" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="201" y1="83" x2="280" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="240" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">39.5</text>
-
-    <!-- 10mm right wall -->
-    <line x1="300" y1="77" x2="300" y2="86" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="280" y1="83" x2="300" y2="83" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="280,83 284,81.5 284,84.5" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="300,83 296,81.5 296,84.5" fill="rgba(255,255,255,0.3)"/>
-    <text x="290" y="96" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">10</text>
-
-    <!-- RIGHT: Overall height 25mm -->
-    <line x1="305" y1="0" x2="316" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="305" y1="50" x2="316" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="313" y1="0" x2="313" y2="18" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="313" y1="32" x2="313" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="313,0 311,5 315,5" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="313,50 311,45 315,45" fill="rgba(255,255,255,0.4)"/>
-    <text x="313" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">25</text>
-
-    <!-- RIGHT: Wall detail 6|13|6 -->
-    <line x1="328" y1="0" x2="339" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="328" y1="12" x2="339" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="336" y1="0" x2="336" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="336,0 334.5,3 337.5,3" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="336,12 334.5,9 337.5,9" fill="rgba(255,255,255,0.3)"/>
-    <text x="349" y="9" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
-
-    <line x1="328" y1="38" x2="339" y2="38" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="328" y1="50" x2="339" y2="50" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="336" y1="38" x2="336" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="336,38 334.5,41 337.5,41" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="336,50 334.5,47 337.5,47" fill="rgba(255,255,255,0.3)"/>
-    <text x="349" y="47" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">6</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 192" fill="none">
+  <!-- Hollow Box — Cross-Section -->
+  <g>
+    <path d="M 145.4,115.0 L 158.2,115.0 L 159.7,115.0 L 231.8,115.0 L 232.0,115.0 L 244.8,115.0 L 246.4,115.0 L 324.9,115.0 L 325.3,115.0 L 345.0,115.0 L 345.0,114.8 L 345.0,103.0 L 345.0,102.5 L 345.0,77.1 L 345.0,76.8 L 345.0,65.0 L 344.6,65.0 L 324.9,65.0 L 323.3,65.0 L 244.8,65.0 L 244.6,65.0 L 231.8,65.0 L 230.3,65.0 L 158.2,65.0 L 158.0,65.0 L 145.2,65.0 L 143.6,65.0 L 65.1,65.0 L 64.7,65.0 L 45.0,65.0 L 45.0,65.2 L 45.0,77.1 L 45.0,77.6 L 45.0,103.0 L 45.0,103.2 L 45.0,115.0 L 45.4,115.0 L 65.1,115.0 L 66.7,115.0 L 145.2,115.0 L 145.4,115.0 Z" fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+    <path d="M 66.7,77.0 L 145.2,77.0 L 145.2,77.5 L 145.2,103.0 L 143.6,103.0 L 65.1,103.0 L 65.1,102.5 L 65.1,77.0 L 66.7,77.0 Z" fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+    <path d="M 159.7,77.0 L 231.8,77.0 L 231.8,77.5 L 231.8,103.0 L 230.3,103.0 L 158.2,103.0 L 158.2,102.5 L 158.2,77.0 L 159.7,77.0 Z" fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+    <path d="M 324.9,77.0 L 324.9,77.5 L 324.9,103.0 L 323.3,103.0 L 244.8,103.0 L 244.8,102.5 L 244.8,77.0 L 246.4,77.0 L 324.9,77.0 Z" fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
+    <line x1="45.0" y1="117.0" x2="45.0" y2="140.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="345.0" y1="117.0" x2="345.0" y2="140.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="45.0" y1="137.0" x2="179.0" y2="137.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="211.0" y1="137.0" x2="345.0" y2="137.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="45.0,137.0 50.0,135.5 50.0,138.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="345.0,137.0 340.0,135.5 340.0,138.5" fill="rgba(255,255,255,0.4)"/>
+<text x="195.0" y="150.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">150</text>
+    <line x1="20.0" y1="65.0" x2="43.0" y2="65.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="20.0" y1="115.0" x2="43.0" y2="115.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="23.0" y1="65.0" x2="23.0" y2="84.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="23.0" y1="96.0" x2="23.0" y2="115.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="23.0,65.0 21.5,70.0 24.5,70.0" fill="rgba(255,255,255,0.4)"/>
+<polygon points="23.0,115.0 21.5,110.0 24.5,110.0" fill="rgba(255,255,255,0.4)"/>
+<text x="23.0" y="93.3" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">25</text>
+    <line x1="45.0" y1="48.0" x2="45.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="65.0" y1="48.0" x2="65.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="45.0" y1="51.0" x2="42.2" y2="51.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="67.8" y1="51.0" x2="65.0" y2="51.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="45.0,51.0 50.0,49.5 50.0,52.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="65.0,51.0 60.0,49.5 60.0,52.5" fill="rgba(255,255,255,0.4)"/>
+<text x="55.0" y="47.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">10</text>
+    <line x1="65.0" y1="34.0" x2="65.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="144.0" y1="34.0" x2="144.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="65.0" y1="37.0" x2="85.3" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="123.7" y1="37.0" x2="144.0" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="65.0,37.0 70.0,35.5 70.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="144.0,37.0 139.0,35.5 139.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<text x="104.5" y="33.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">39.5</text>
+    <line x1="144.0" y1="20.0" x2="144.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="156.0" y1="20.0" x2="156.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="144.0" y1="23.0" x2="140.0" y2="23.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="160.0" y1="23.0" x2="156.0" y2="23.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="144.0,23.0 149.0,21.5 149.0,24.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="156.0,23.0 151.0,21.5 151.0,24.5" fill="rgba(255,255,255,0.4)"/>
+<text x="150.0" y="19.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">6</text>
+    <line x1="156.0" y1="34.0" x2="156.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="234.0" y1="34.0" x2="234.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="156.0" y1="37.0" x2="182.2" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="207.8" y1="37.0" x2="234.0" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="156.0,37.0 161.0,35.5 161.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="234.0,37.0 229.0,35.5 229.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<text x="195.0" y="33.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">39</text>
+    <line x1="234.0" y1="20.0" x2="234.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="246.0" y1="20.0" x2="246.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="234.0" y1="23.0" x2="230.0" y2="23.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="250.0" y1="23.0" x2="246.0" y2="23.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="234.0,23.0 239.0,21.5 239.0,24.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="246.0,23.0 241.0,21.5 241.0,24.5" fill="rgba(255,255,255,0.4)"/>
+<text x="240.0" y="19.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">6</text>
+    <line x1="246.0" y1="34.0" x2="246.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="325.0" y1="34.0" x2="325.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="246.0" y1="37.0" x2="266.3" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="304.7" y1="37.0" x2="325.0" y2="37.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="246.0,37.0 251.0,35.5 251.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="325.0,37.0 320.0,35.5 320.0,38.5" fill="rgba(255,255,255,0.4)"/>
+<text x="285.5" y="33.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">39.5</text>
+    <line x1="325.0" y1="48.0" x2="325.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="345.0" y1="48.0" x2="345.0" y2="63.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="325.0" y1="51.0" x2="322.2" y2="51.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="347.8" y1="51.0" x2="345.0" y2="51.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="325.0,51.0 330.0,49.5 330.0,52.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="345.0,51.0 340.0,49.5 340.0,52.5" fill="rgba(255,255,255,0.4)"/>
+<text x="335.0" y="47.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">10</text>
+    <line x1="347.0" y1="107.0" x2="362.0" y2="107.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="347.0" y1="115.0" x2="362.0" y2="115.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="359.0" y1="107.0" x2="359.0" y2="115.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="359.0,107.0 357.5,103.0 360.5,103.0" fill="rgba(255,255,255,0.4)"/>
+<polygon points="359.0,115.0 357.5,119.0 360.5,119.0" fill="rgba(255,255,255,0.4)"/>
+<text x="359.0" y="130.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">4</text>
+    <line x1="195.0" y1="53.0" x2="195.0" y2="127.0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+<line x1="33.0" y1="90.0" x2="357.0" y2="90.0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
   </g>
-
-  <!-- Unit note -->
-  <text x="230" y="195" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+  <text x="195.0" y="180" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
 </svg>

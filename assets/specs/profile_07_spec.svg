@@ -1,61 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 160" fill="none">
-  <!--
-    Serrated Profile 100 x 20mm — Cross-Section
-    Scale: 2px per mm
-    Rectangle: 200px x 40px with zigzag serrations on top face
-  -->
-  <defs>
-    <clipPath id="solidArea">
-      <rect x="0" y="0" width="200" height="48"/>
-    </clipPath>
-  </defs>
-
-  <g transform="translate(55, 35)">
-    <!-- Base rectangle — material fill -->
-    <rect x="0" y="8" width="200" height="32"
-      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" rx="1"/>
-
-    <!-- Serrated teeth on top face -->
-    <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8"
-      fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8" stroke-linejoin="round"/>
-    <path d="M 0 8 L 10 0 L 20 8 L 30 0 L 40 8 L 50 0 L 60 8 L 70 0 L 80 8 L 90 0 L 100 8 L 110 0 L 120 8 L 130 0 L 140 8 L 150 0 L 160 8 L 170 0 L 180 8 L 190 0 L 200 8 L 200 8 L 0 8 Z"
-      fill="rgba(196,129,58,0.15)"/>
-
-    <!-- Left/right edge strokes -->
-    <line x1="0" y1="8" x2="0" y2="40" stroke="#E8833A" stroke-width="1.8"/>
-    <line x1="200" y1="8" x2="200" y2="40" stroke="#E8833A" stroke-width="1.8"/>
-
-    <!-- Subtle hatching -->
-    <g clip-path="url(#solidArea)" opacity="0.06" stroke="#E8833A" stroke-width="0.5">
-      <line x1="-10" y1="10" x2="10" y2="-10"/><line x1="-10" y1="20" x2="20" y2="-10"/>
-      <line x1="-10" y1="30" x2="30" y2="-10"/><line x1="-10" y1="40" x2="40" y2="-10"/>
-      <line x1="-10" y1="50" x2="50" y2="-10"/>
-      <line x1="160" y1="50" x2="210" y2="0"/><line x1="170" y1="50" x2="210" y2="10"/>
-      <line x1="180" y1="50" x2="210" y2="20"/><line x1="190" y1="50" x2="210" y2="30"/>
-    </g>
-
-    <!-- BOTTOM: Overall width 100mm -->
-    <line x1="0" y1="45" x2="0" y2="56" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="200" y1="45" x2="200" y2="56" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="0" y1="53" x2="87" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="113" y1="53" x2="200" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="0,53 5,51 5,55" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="200,53 195,51 195,55" fill="rgba(255,255,255,0.4)"/>
-    <text x="100" y="57" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">100</text>
-
-    <!-- RIGHT: Overall height 20mm -->
-    <line x1="205" y1="0" x2="216" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="205" y1="40" x2="216" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="213" y1="0" x2="213" y2="13" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="213" y1="27" x2="213" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="213,0 211,4 215,4" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="213,40 211,36 215,36" fill="rgba(255,255,255,0.4)"/>
-    <text x="228" y="23" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">20</text>
-
-    <!-- Center axis -->
-    <line x1="100" y1="-4" x2="100" y2="44" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 172" fill="none">
+  <!-- Serrated Profile — Cross-Section -->
+  <g>
+    <path d="M 202.1,55.1 L 199.8,55.1 L 197.4,56.0 L 196.5,59.9 L 195.5,60.8 L 192.4,60.8 L 191.5,59.9 L 190.5,56.0 L 188.2,55.1 L 185.8,55.1 L 183.4,56.0 L 182.4,59.9 L 181.5,60.8 L 178.4,60.8 L 177.5,59.9 L 176.5,56.0 L 174.1,55.1 L 171.7,55.1 L 169.4,56.0 L 168.4,59.9 L 167.5,60.8 L 164.4,60.8 L 163.4,59.9 L 162.5,56.0 L 160.1,55.1 L 157.7,55.1 L 155.4,56.0 L 154.4,59.9 L 153.5,60.8 L 150.4,60.8 L 149.4,59.9 L 148.4,56.0 L 146.1,55.1 L 143.9,55.1 L 141.6,56.0 L 140.6,59.9 L 139.6,60.8 L 136.5,60.8 L 135.6,59.9 L 134.6,56.0 L 132.3,55.1 L 129.9,55.1 L 127.5,56.0 L 126.6,59.9 L 125.6,60.8 L 122.5,60.8 L 121.6,59.9 L 120.6,56.0 L 118.3,55.1 L 115.9,55.1 L 113.5,56.0 L 112.5,59.9 L 111.6,60.8 L 108.5,60.8 L 107.6,59.9 L 106.6,56.0 L 104.2,55.1 L 101.8,55.1 L 99.5,56.0 L 98.5,59.9 L 97.6,60.8 L 94.5,60.8 L 93.5,59.9 L 92.6,56.0 L 90.2,55.1 L 87.8,55.1 L 85.5,56.0 L 84.5,59.9 L 83.6,60.8 L 80.5,60.8 L 79.5,59.9 L 78.6,56.0 L 76.2,55.1 L 73.9,55.1 L 71.6,56.0 L 70.6,59.9 L 69.7,60.8 L 66.9,60.8 L 66.0,59.9 L 66.0,58.2 L 65.0,55.9 L 62.6,55.0 L 46.4,55.0 L 45.0,56.4 L 45.0,95.0 L 245.0,95.0 L 245.0,56.4 L 243.6,55.0 L 227.4,55.0 L 225.0,55.9 L 224.0,58.2 L 224.0,59.9 L 223.1,60.8 L 220.3,60.8 L 219.4,59.9 L 218.4,56.0 L 216.1,55.1 L 213.8,55.1 L 211.4,56.0 L 210.5,59.9 L 209.5,60.8 L 206.4,60.8 L 205.5,59.9 L 204.5,56.0 L 202.1,55.1 Z" fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+    <line x1="45.0" y1="97.0" x2="45.0" y2="120.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="245.0" y1="97.0" x2="245.0" y2="120.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="45.0" y1="117.0" x2="129.0" y2="117.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="161.0" y1="117.0" x2="245.0" y2="117.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="45.0,117.0 50.0,115.5 50.0,118.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="245.0,117.0 240.0,115.5 240.0,118.5" fill="rgba(255,255,255,0.4)"/>
+<text x="145.0" y="130.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">100</text>
+    <line x1="20" y1="55" x2="43" y2="55" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="20" y1="95" x2="43" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="23" y1="55" x2="23" y2="69.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <line x1="23" y1="81.0" x2="23" y2="95" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="23,55 21.5,60 24.5,60" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="23,95 21.5,90 24.5,90" fill="rgba(255,255,255,0.4)"/>
+    <text x="23" y="78.33333333333333" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">20</text>
+    <line x1="45.0" y1="38.0" x2="45.0" y2="53.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="65.0" y1="38.0" x2="65.0" y2="53.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="45.0" y1="41.0" x2="42.2" y2="41.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="67.8" y1="41.0" x2="65.0" y2="41.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="45.0,41.0 50.0,39.5 50.0,42.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="65.0,41.0 60.0,39.5 60.0,42.5" fill="rgba(255,255,255,0.4)"/>
+<text x="55.0" y="37.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">10</text>
+    <line x1="205" y1="53" x2="205" y2="37" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="221" y1="63" x2="221" y2="37" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="209" y1="37" x2="209" y2="45" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="209,37 207.5,41 210.5,41" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="209,45 207.5,41 210.5,41" fill="rgba(255,255,255,0.4)"/>
+    <text x="209" y="32" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">4</text>
+    <line x1="247" y1="55" x2="268" y2="55" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="247" y1="61" x2="268" y2="61" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <line x1="265" y1="55" x2="265" y2="61" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+    <polygon points="265,55 263.5,51 266.5,51" fill="rgba(255,255,255,0.4)"/>
+    <polygon points="265,61 263.5,65 266.5,65" fill="rgba(255,255,255,0.4)"/>
+    <text x="279" y="61.333333333333336" text-anchor="start" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">3</text>
+    <line x1="145.0" y1="33" x2="145.0" y2="107" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+    <line x1="19" y1="75.0" x2="257" y2="75.0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
   </g>
-
-  <!-- Unit note -->
-  <text x="180" y="135" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+  <text x="145.0" y="160" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
 </svg>

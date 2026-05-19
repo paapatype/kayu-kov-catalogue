@@ -1,175 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 210" fill="none">
-  <!--
-    Fluted Profile-3  145 x 18mm — Cross-Section
-    Scale: 2px per mm  →  290px wide, 36px tall
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 425 176" fill="none">
+  <!-- Fluted Profile-3 — Cross-Section -->
+  <g>
+    <path d="M 141.0,71.4 L 139.5,66.0 L 139.5,65.8 L 135.4,61.9 L 135.3,61.8 L 129.8,60.3 L 129.7,60.3 L 83.2,60.3 L 82.2,60.3 L 76.7,61.8 L 76.6,61.8 L 72.5,65.8 L 72.5,65.8 L 71.0,71.3 L 70.9,71.4 L 70.9,81.0 L 70.9,81.2 L 70.4,83.1 L 70.4,83.1 L 69.0,84.5 L 68.9,84.5 L 67.0,85.1 L 66.9,85.1 L 58.5,85.1 L 58.3,85.1 L 56.0,86.0 L 56.0,86.0 L 55.0,88.3 L 55.0,88.3 L 55.0,92.7 L 55.0,92.7 L 56.0,95.0 L 56.0,95.0 L 58.3,96.0 L 58.3,96.0 L 78.9,96.0 L 79.3,96.0 L 82.6,95.1 L 82.7,95.1 L 85.1,92.8 L 85.1,92.7 L 86.0,89.5 L 86.0,89.5 L 86.0,81.9 L 86.0,81.7 L 86.5,79.8 L 86.5,79.8 L 88.0,78.3 L 88.0,78.3 L 89.9,77.8 L 90.0,77.8 L 122.6,77.8 L 123.2,77.8 L 125.2,78.3 L 125.2,78.3 L 126.6,79.7 L 126.7,79.8 L 127.2,81.7 L 127.2,81.7 L 127.2,84.5 L 127.2,84.6 L 128.7,90.0 L 128.7,90.1 L 132.8,94.1 L 132.9,94.2 L 138.4,95.6 L 138.5,95.7 L 167.1,95.7 L 167.7,95.7 L 173.2,94.2 L 173.3,94.2 L 177.4,90.2 L 177.5,90.1 L 179.0,84.7 L 179.0,84.6 L 179.0,81.5 L 179.0,81.4 L 179.5,79.5 L 179.5,79.5 L 181.0,78.1 L 181.0,78.0 L 182.9,77.5 L 183.0,77.5 L 216.3,77.5 L 217.0,77.5 L 218.9,78.0 L 219.0,78.0 L 220.4,79.4 L 220.4,79.5 L 221.0,81.4 L 221.0,81.4 L 221.0,84.6 L 221.0,84.6 L 222.5,90.0 L 222.5,90.2 L 226.5,94.1 L 226.6,94.2 L 232.2,95.7 L 232.3,95.7 L 260.4,95.7 L 261.0,95.7 L 266.6,94.2 L 266.7,94.2 L 270.7,90.2 L 270.8,90.2 L 272.3,84.7 L 272.3,84.6 L 272.3,81.2 L 272.3,81.2 L 272.9,79.3 L 272.9,79.2 L 274.3,77.8 L 274.3,77.8 L 276.3,77.3 L 276.3,77.3 L 309.5,77.3 L 310.2,77.3 L 312.2,77.8 L 312.2,77.8 L 313.6,79.2 L 313.7,79.2 L 314.2,81.1 L 314.2,81.2 L 314.2,83.7 L 314.2,83.7 L 314.2,89.0 L 314.2,89.1 L 314.2,92.9 L 314.2,93.0 L 315.0,94.8 L 315.0,94.8 L 316.8,95.5 L 316.9,95.6 L 326.5,95.5 L 326.7,95.5 L 328.6,94.8 L 328.6,94.8 L 329.4,93.0 L 329.4,92.9 L 329.4,87.8 L 329.4,87.7 L 330.0,86.4 L 330.0,86.3 L 331.4,85.8 L 331.4,85.8 L 342.8,85.8 L 343.0,85.8 L 344.4,85.2 L 344.4,85.2 L 345.0,83.8 L 345.0,83.8 L 345.0,77.9 L 345.0,77.8 L 344.4,76.5 L 344.4,76.4 L 343.0,75.9 L 343.0,75.9 L 331.6,75.9 L 331.4,75.9 L 330.0,75.3 L 330.0,75.3 L 329.4,73.9 L 329.4,73.9 L 329.4,71.2 L 329.4,71.2 L 327.9,65.7 L 327.9,65.6 L 323.8,61.6 L 323.7,61.6 L 318.2,60.1 L 318.1,60.1 L 271.3,60.1 L 270.4,60.1 L 264.8,61.5 L 264.7,61.6 L 260.7,65.5 L 260.6,65.6 L 259.1,71.0 L 259.1,71.2 L 259.1,74.1 L 259.1,74.2 L 258.5,76.1 L 258.5,76.1 L 257.1,77.5 L 257.1,77.6 L 255.1,78.1 L 255.1,78.1 L 239.2,78.1 L 238.8,78.1 L 236.9,77.6 L 236.8,77.6 L 235.4,76.2 L 235.4,76.1 L 234.9,74.2 L 234.9,74.2 L 234.9,71.1 L 234.9,71.1 L 233.4,65.7 L 233.3,65.5 L 229.3,61.6 L 229.2,61.5 L 223.7,60.0 L 223.5,60.0 L 177.5,60.0 L 176.5,60.0 L 171.0,61.5 L 170.9,61.5 L 166.8,65.5 L 166.7,65.5 L 165.2,71.0 L 165.2,71.1 L 165.2,74.0 L 165.2,74.0 L 164.7,76.0 L 164.7,76.0 L 163.2,77.4 L 163.2,77.4 L 161.3,77.9 L 161.2,78.0 L 145.3,78.0 L 145.0,78.0 L 143.0,77.4 L 143.0,77.4 L 141.5,76.0 L 141.5,76.0 L 141.0,74.1 L 141.0,74.0 L 141.0,71.4 L 141.0,71.4 Z" fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
+    <line x1="55.0" y1="98.0" x2="55.0" y2="124.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="345.0" y1="98.0" x2="345.0" y2="124.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="55.0" y1="121.0" x2="184.0" y2="121.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="216.0" y1="121.0" x2="345.0" y2="121.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="55.0,121.0 60.0,119.5 60.0,122.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="345.0,121.0 340.0,119.5 340.0,122.5" fill="rgba(255,255,255,0.4)"/>
+<text x="200.0" y="134.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">145</text>
+    <line x1="347.0" y1="60.0" x2="409.0" y2="60.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="347.0" y1="96.0" x2="409.0" y2="96.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="405.0" y1="60.0" x2="405.0" y2="72.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="405.0" y1="84.0" x2="405.0" y2="96.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="405.0,60.0 403.5,65.0 406.5,65.0" fill="rgba(255,255,255,0.4)"/>
+<polygon points="405.0,96.0 403.5,91.0 406.5,91.0" fill="rgba(255,255,255,0.4)"/>
+<text x="405.0" y="81.3" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">18</text>
+    <line x1="163.8" y1="29.0" x2="163.8" y2="58.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="236.2" y1="29.0" x2="236.2" y2="58.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="163.8" y1="32.0" x2="187.2" y2="32.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<line x1="212.8" y1="32.0" x2="236.2" y2="32.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="163.8,32.0 168.8,30.5 168.8,33.5" fill="rgba(255,255,255,0.4)"/>
+<polygon points="236.2,32.0 231.2,30.5 231.2,33.5" fill="rgba(255,255,255,0.4)"/>
+<text x="200.0" y="28.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">35</text>
+    <line x1="34.0" y1="80.0" x2="53.0" y2="80.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="34.0" y1="96.0" x2="53.0" y2="96.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="37.0" y1="80.0" x2="37.0" y2="96.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="37.0,80.0 35.5,76.0 38.5,76.0" fill="rgba(255,255,255,0.4)"/>
+<polygon points="37.0,96.0 35.5,100.0 38.5,100.0" fill="rgba(255,255,255,0.4)"/>
+<text x="22.0" y="91.0" text-anchor="end" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">8</text>
+    <line x1="347.0" y1="75.9" x2="364.0" y2="75.9" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="347.0" y1="85.8" x2="364.0" y2="85.8" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="360.0" y1="75.9" x2="360.0" y2="85.8" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="360.0,75.9 358.5,71.9 361.5,71.9" fill="rgba(255,255,255,0.4)"/>
+<polygon points="360.0,85.8 358.5,89.8 361.5,89.8" fill="rgba(255,255,255,0.4)"/>
+<text x="367.0" y="84.0" text-anchor="start" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">5</text>
+    <line x1="347.0" y1="80.0" x2="382.0" y2="80.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<line x1="378.0" y1="80.0" x2="378.0" y2="96.0" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
+<polygon points="378.0,80.0 376.5,85.0 379.5,85.0" fill="rgba(255,255,255,0.4)"/>
+<polygon points="378.0,96.0 376.5,91.0 379.5,91.0" fill="rgba(255,255,255,0.4)"/>
+<text x="385.0" y="91.0" text-anchor="start" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">8</text>
+    <line x1="91.0" y1="64.0" x2="63.0" y2="46.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <text x="61.0" y="44.0" text-anchor="end" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">R6.5</text>
+    <line x1="200.0" y1="86.0" x2="200.0" y2="106.0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+    <text x="200.0" y="116.0" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">R6</text>
+    <line x1="200.0" y1="45.0" x2="200.0" y2="111.0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+    <line x1="40.0" y1="78.0" x2="360.0" y2="78.0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
 
-    Structure (from reference):
-    - Flat bottom plate 8mm (y=20→36)
-    - 3 deep channels opening from top, each ~26mm wide
-    - Channels go from top (y=0) down to bottom plate (y=20)
-    - Narrow 9mm webs between channels, rising only 5mm above bottom plate (to y=10)
-    - Full-height edges on left and right with R6.5 corners
-    - S-curve transitions at all channel/edge/web boundaries
-    - R6.0 curves at channel bottoms, R6.5 at top corners
-
-    Layout (px at 2px/mm):
-    49 edge | 52 ch | 18 web | 52 ch | 18 web | 52 ch | 49 edge = 290px
-  -->
-
-  <g transform="translate(70, 50)">
-    <!-- ===== PROFILE CROSS-SECTION ===== -->
-
-    <!-- Material outline — the wavy profile shape -->
-    <path d="
-      M 0,36
-      L 0,6
-      Q 0,0 6,0
-      L 30,0
-      C 36,0 43,20 49,20
-      L 101,20
-      C 101,14 104,10 107,10
-      L 113,10
-      C 116,10 119,14 119,20
-      L 171,20
-      C 171,14 174,10 177,10
-      L 183,10
-      C 186,10 189,14 189,20
-      L 241,20
-      C 247,20 254,0 260,0
-      L 284,0
-      Q 290,0 290,6
-      L 290,36
-      Z
-    " fill="rgba(196,129,58,0.15)" stroke="#E8833A" stroke-width="1.8"/>
-
-    <!-- Channel void 1 (between left edge and web 1) -->
-    <path d="
-      M 30,0
-      C 36,0 43,20 49,20
-      L 101,20
-      C 101,14 104,10 107,10
-      L 107,0
-      Z
-    " fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
-
-    <!-- Channel void 2 (between web 1 and web 2) -->
-    <path d="
-      M 113,0
-      L 113,10
-      C 116,10 119,14 119,20
-      L 171,20
-      C 171,14 174,10 177,10
-      L 177,0
-      Z
-    " fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
-
-    <!-- Channel void 3 (between web 2 and right edge) -->
-    <path d="
-      M 183,0
-      L 183,10
-      C 186,10 189,14 189,20
-      L 241,20
-      C 247,20 254,0 260,0
-      Z
-    " fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.8"/>
-
-    <!-- Subtle hatching on solid material -->
-    <g opacity="0.06" stroke="#E8833A" stroke-width="0.5">
-      <line x1="-5" y1="8" x2="8" y2="-5"/>
-      <line x1="-5" y1="18" x2="18" y2="-5"/>
-      <line x1="-5" y1="28" x2="28" y2="-5"/>
-      <line x1="-5" y1="38" x2="38" y2="-5"/>
-      <line x1="255" y1="42" x2="296" y2="1"/>
-      <line x1="265" y1="42" x2="296" y2="11"/>
-      <line x1="275" y1="42" x2="296" y2="21"/>
-      <line x1="285" y1="42" x2="296" y2="31"/>
-    </g>
-
-    <!-- ===== DIMENSION LINES ===== -->
-
-    <!-- TOP: 35.0mm channel center-to-center spacing -->
-    <line x1="72" y1="-5" x2="72" y2="-20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="145" y1="-5" x2="145" y2="-20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="72" y1="-16" x2="98" y2="-16" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
-    <line x1="119" y1="-16" x2="145" y2="-16" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
-    <polygon points="72,-16 76,-17.5 76,-14.5" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="145,-16 141,-17.5 141,-14.5" fill="rgba(255,255,255,0.3)"/>
-    <text x="108" y="-19" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">35.0</text>
-
-    <!-- BOTTOM: Overall width 145.0mm -->
-    <line x1="0" y1="41" x2="0" y2="54" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="290" y1="41" x2="290" y2="54" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="0" y1="50" x2="131" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="159" y1="50" x2="290" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="0,50 5,48 5,52" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="290,50 285,48 285,52" fill="rgba(255,255,255,0.4)"/>
-    <text x="145" y="54" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">145.0</text>
-
-    <!-- BOTTOM ROW 2: Web width 9.0 (web 1) -->
-    <line x1="101" y1="60" x2="101" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="119" y1="60" x2="119" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="101" y1="67" x2="119" y2="67" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="110" y="80" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">9.0</text>
-
-    <!-- Web width 9.0 (web 2) -->
-    <line x1="171" y1="60" x2="171" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="189" y1="60" x2="189" y2="70" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="171" y1="67" x2="189" y2="67" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <text x="180" y="80" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">9.0</text>
-
-    <!-- RIGHT: Overall height 18.0mm -->
-    <line x1="296" y1="0" x2="312" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="296" y1="36" x2="312" y2="36" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <line x1="308" y1="0" x2="308" y2="12" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <line x1="308" y1="24" x2="308" y2="36" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>
-    <polygon points="308,0 306,5 310,5" fill="rgba(255,255,255,0.4)"/>
-    <polygon points="308,36 306,31 310,31" fill="rgba(255,255,255,0.4)"/>
-    <text x="308" y="21" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)">18.0</text>
-
-    <!-- FAR RIGHT: 8.0 top (edge height from top to S-curve start) -->
-    <line x1="322" y1="0" x2="340" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="322" y1="16" x2="340" y2="16" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="334" y1="0" x2="334" y2="16" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="334,0 332.5,3 335.5,3" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="334,16 332.5,13 335.5,13" fill="rgba(255,255,255,0.3)"/>
-    <text x="346" y="11" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
-
-    <!-- FAR RIGHT: 5.0 (web height / channel zone) -->
-    <line x1="322" y1="10" x2="340" y2="10" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="322" y1="20" x2="340" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="334" y1="10" x2="334" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="334,10 332.5,13 335.5,13" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="334,20 332.5,17 335.5,17" fill="rgba(255,255,255,0.3)"/>
-    <text x="346" y="18" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">5.0</text>
-
-    <!-- FAR RIGHT: 8.0 bottom (bottom plate) -->
-    <line x1="322" y1="20" x2="340" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="322" y1="36" x2="340" y2="36" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="334" y1="20" x2="334" y2="36" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="334,20 332.5,23 335.5,23" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="334,36 332.5,33 335.5,33" fill="rgba(255,255,255,0.3)"/>
-    <text x="346" y="31" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
-
-    <!-- LEFT: 8.0 edge height -->
-    <line x1="-6" y1="0" x2="-20" y2="0" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="-6" y1="16" x2="-20" y2="16" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <line x1="-16" y1="0" x2="-16" y2="16" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-    <polygon points="-16,0 -17.5,3 -14.5,3" fill="rgba(255,255,255,0.3)"/>
-    <polygon points="-16,16 -17.5,13 -14.5,13" fill="rgba(255,255,255,0.3)"/>
-    <text x="-27" y="11" text-anchor="end" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.45)">8.0</text>
-
-    <!-- R6.5 callout (top-left corner) -->
-    <line x1="5" y1="5" x2="-20" y2="-16" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
-    <text x="-23" y="-14" text-anchor="end" font-family="-apple-system,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.5)">R6.5</text>
-
-    <!-- R6.0 callout (channel bottom curve) -->
-    <line x1="55" y1="20" x2="55" y2="40" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
-    <text x="55" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.5)">R6.0</text>
-
-    <!-- Center axis (dashed) -->
-    <line x1="145" y1="-22" x2="145" y2="42" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="8,5"/>
+    <rect x="186" y="65" width="28" height="14" fill="#1E2D3D" stroke="rgba(232,131,58,0.35)" stroke-width="0.5" rx="2"/>
+    <text x="200" y="76" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">9</text>
+    <text x="247" y="76" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.6)">9</text>
   </g>
-
-  <!-- Unit note -->
-  <text x="240" y="196" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
+  <text x="200.0" y="164" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.04em">All dimensions in mm</text>
 </svg>
