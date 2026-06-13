@@ -411,7 +411,7 @@
     },
     "20": {
       "id": 20,
-      "name": "Door Profile",
+      "name": "Door Profile Solid",
       "code": "4400000040",
       "category": "door",
       "price": 200,
@@ -435,7 +435,7 @@
     },
     "21": {
       "id": 21,
-      "name": "Door Profile",
+      "name": "Door Profile Hollow",
       "code": "4400000054",
       "category": "door",
       "price": 274,
@@ -459,7 +459,7 @@
     },
     "22": {
       "id": 22,
-      "name": "Door Profile Solid",
+      "name": "Door Profile Hollow",
       "code": "4400000031",
       "category": "door",
       "price": 397,
