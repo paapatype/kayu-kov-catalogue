@@ -922,6 +922,65 @@ document.addEventListener('visibilitychange', () => {
 
 // ========== INIT ==========
 
+// ========== WEBGL WARM-UP ==========
+// The very first 3D card otherwise pays one-time costs the later cards
+// skip: spinning up the GPU process and compiling the MeshStandardMaterial
+// shader program (the program is cached after the first compile). That is
+// why the first model — Fluted Profile-3 — appeared a beat slower than the
+// rest. We pay those costs once, up front, on a throwaway 1×1 renderer
+// that mirrors the cards' material + lights, so the program is already
+// cached by the time the first card renders. Fully guarded: best-effort,
+// and on any failure the cards behave exactly as before.
+let _webglWarmed = false;
+function prewarmWebGL() {
+  if (_webglWarmed) return;
+  _webglWarmed = true;
+  try {
+    if (typeof THREE === 'undefined' || typeof THREE.WebGLRenderer === 'undefined') return;
+    if (!isWebGLAvailable()) return;
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: !isMobile,
+      alpha: true,
+      powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: false
+    });
+    renderer.setSize(1, 1);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
+    camera.position.set(2, 2, 2);
+    camera.lookAt(0, 0, 0);
+
+    // Mirror create3DViewer's lights + material so the shader program the
+    // renderer compiles here is the same one the cards will use.
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const key = new THREE.DirectionalLight(0xffffff, 0.8);
+    key.position.set(50, 100, 50);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xE8833A, 0.3);
+    fill.position.set(-50, 50, -50);
+    scene.add(fill);
+
+    const mat = new THREE.MeshStandardMaterial({ color: 0xA67C52, roughness: 0.7, metalness: 0.1 });
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat);
+    scene.add(mesh);
+
+    if (typeof renderer.compile === 'function') renderer.compile(scene, camera);
+    renderer.render(scene, camera);
+
+    // Dispose — we only wanted the warm-up side effects (GPU process up,
+    // shader program cached).
+    mesh.geometry.dispose();
+    mat.dispose();
+    renderer.dispose();
+    if (typeof renderer.forceContextLoss === 'function') renderer.forceContextLoss();
+    console.log('[3D] WebGL pipeline pre-warmed');
+  } catch (e) {
+    /* warm-up is best-effort — never block or break the catalogue */
+  }
+}
+
 async function init() {
   // Load profile dimensions for product metadata
   await loadProfileDimensions();
@@ -941,6 +1000,13 @@ async function init() {
   document.getElementById('searchInput').addEventListener('input', handleSearch);
   document.getElementById('headerLogo').addEventListener('click', resetToAll);
   createScrollToTop();
+
+  // Warm the 3D pipeline once, off the critical path, so the first card
+  // (Fluted Profile-3) renders as fast as the rest. Deferred a tick so it
+  // runs during that first model's network fetch rather than before the
+  // grid paints — the first card's shader compile happens inside its OBJ
+  // load callback, which gives this warm-up time to win the race.
+  if (threeReady) setTimeout(prewarmWebGL, 0);
 
   console.log(`Kayu & Kov Catalogue: ${products.length} products loaded`);
   console.log(`Profile dimensions: ${profileDimensions ? Object.keys(profileDimensions).length : 0} profiles`);
