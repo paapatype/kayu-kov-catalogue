@@ -1,3 +1,12 @@
 .DS_Store
 .vscode/
 *.log
+
+# Temporary local-only tools (not for deploy)
+color-studio.html
+download-preview.html
+
+# Agent skill installs — local tooling, never part of the site
+.agents/
+.claude/skills/
+skills-lock.json

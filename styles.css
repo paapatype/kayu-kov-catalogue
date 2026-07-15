@@ -47,14 +47,36 @@
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-xl: 28px;
+  --radius-pill: 980px;
 
   /* Shadows — tuned for dark UI */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.03);
-  --shadow-card-hover: 0 12px 36px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Dark-mode shadow-as-border ring (single white ring; layered depth shadows
+     aren't visible on dark backgrounds) + ambient lift for elevation. */
+  --ring: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --ring-hover: 0 0 0 1px rgba(255, 255, 255, 0.10);
+  --shadow-card: var(--ring), 0 1px 3px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-card-hover:
+    0 0 0 1px rgba(232, 131, 58, 0.18),
+    0 18px 44px rgba(0, 0, 0, 0.34),
+    0 6px 16px rgba(0, 0, 0, 0.18);
+
+  /* Neutral image outline for dark mode — pure white at low opacity.
+     Never a tinted near-white; a tint reads as dirt on the image edge. */
+  --img-outline: 1px solid rgba(255, 255, 255, 0.10);
+
+  /* Optical centering nudge for pill/tab text.
+     System-font words without descenders (Door, Box, Channel) leave the font's
+     reserved descent space empty at the bottom of the line box, so they read as
+     sitting high even when geometrically centered. Shift the text down by this
+     amount via asymmetric padding (total padding unchanged, so height is stable).
+     Dial up/down here to taste. */
+  /* 0 = true geometric centering — client feedback: pill text must sit dead centre */
+  --pill-nudge: 0px;
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -75,6 +97,9 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Crisper, thinner text rendering on macOS — applied once at the root. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -160,9 +185,15 @@ body::after {
   color: var(--text-tertiary);
   text-decoration: none;
   padding: 5px 12px;
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   border: 1px solid transparent;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: color, background-color, border-color, scale;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.page-nav a:active {
+  scale: 0.96;
 }
 .page-nav a:hover {
   color: var(--text-secondary);
@@ -218,7 +249,9 @@ body::after {
   font-family: inherit;
   font-weight: 400;
   letter-spacing: -0.022em;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: border-color, background-color, box-shadow;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
 }
 
 .search-input::placeholder {
@@ -262,17 +295,24 @@ body::after {
 
 .category-btn {
   flex-shrink: 0;
-  padding: 7px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Vertical padding split to nudge text down for optical centering;
+     7+7 total preserved so the pill height is unchanged. */
+  padding: calc(7px + var(--pill-nudge)) 16px calc(7px - var(--pill-nudge));
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   font-family: inherit;
   letter-spacing: -0.01em;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: color, background-color, border-color, box-shadow, scale;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
@@ -284,7 +324,7 @@ body::after {
 }
 
 .category-btn:active {
-  transform: scale(0.96);
+  scale: 0.96;
 }
 
 .category-btn.active {
@@ -292,7 +332,7 @@ body::after {
   border-color: var(--orange);
   color: var(--white);
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(232, 131, 58, 0.35);
+  /* no glow — client feedback: the orange halo read as cheap */
 }
 
 /* ========== PRODUCTS CONTAINER ========== */
@@ -320,6 +360,7 @@ body::after {
   letter-spacing: -0.028em;
   line-height: 1.1;
   margin: 0;
+  text-wrap: balance;
 }
 
 .products-title-logo {
@@ -332,11 +373,25 @@ body::after {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
 }
 
 .products-count span {
   color: var(--orange);
   font-weight: 700;
+}
+
+/* Staggered header entrance — split into title + count, ~100ms apart */
+.products-header > * {
+  opacity: 0;
+  animation: enterUp 0.5s var(--ease-out) forwards;
+}
+.products-header > :nth-child(1) { animation-delay: 0.04s; }
+.products-header > :nth-child(2) { animation-delay: 0.14s; }
+
+@keyframes enterUp {
+  from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
 }
 
 /* ========== PRODUCTS GRID ========== */
@@ -373,18 +428,18 @@ body::after {
   border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition:
-    transform var(--duration-slow) var(--ease-out),
-    box-shadow var(--duration-slow) var(--ease-out),
-    border-color var(--duration-slow) var(--ease-out);
-  will-change: transform;
+  /* Shadow ring instead of a solid border — adapts to any backdrop and lifts
+     the card off the navy without a hard hairline. */
+  box-shadow: var(--shadow-card);
+  transition-property: transform, box-shadow;
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out);
 }
 
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-card-hover);
-  border-color: rgba(232, 131, 58, 0.12);
+  will-change: transform;
 }
 
 /* Glow accent on hover */
@@ -602,6 +657,7 @@ body::after {
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: -0.016em;
+  font-variant-numeric: tabular-nums;
 }
 
 .product-code {
@@ -610,6 +666,7 @@ body::after {
   font-weight: 400;
   color: var(--text-tertiary);
   letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
 }
 
 .product-price {
@@ -632,6 +689,7 @@ body::after {
   color: var(--orange);
   letter-spacing: -0.024em;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
   transition: color var(--duration-fast);
 }
 
@@ -689,6 +747,7 @@ body::after {
   line-height: 1.65;
   text-align: center;
   margin-bottom: var(--space-xl);
+  text-wrap: pretty;
 }
 
 .footer-contact {
@@ -717,7 +776,10 @@ body::after {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-sm);
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: background-color, border-color, transform, box-shadow;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .contact-link:hover {
@@ -728,7 +790,7 @@ body::after {
 }
 
 .contact-link:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.96);
 }
 
 .contact-link svg {
@@ -763,6 +825,7 @@ body::after {
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .footer-notes li {
@@ -843,10 +906,10 @@ body::after {
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 50%;
@@ -855,7 +918,9 @@ body::after {
   align-items: center;
   justify-content: center;
   z-index: 10;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition-property: background-color, border-color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -865,7 +930,7 @@ body::after {
 }
 
 .modal-close:active {
-  transform: scale(0.92);
+  scale: 0.96;
 }
 
 .modal-close svg {
@@ -914,6 +979,7 @@ body::after {
   letter-spacing: -0.024em;
   line-height: 1.15;
   margin-bottom: 4px;
+  text-wrap: balance;
 }
 
 .modal-category {
@@ -991,6 +1057,7 @@ body::after {
   font-size: 17px;
   font-weight: 600;
   color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .detail-value.code {
@@ -1026,11 +1093,13 @@ body::after {
   margin-bottom: 8px;
   color: var(--text-primary);
   letter-spacing: -0.022em;
+  text-wrap: balance;
 }
 
 .empty-state p {
   font-size: 15px;
   font-weight: 400;
+  text-wrap: pretty;
 }
 
 /* ========== SCROLL TO TOP ========== */
@@ -1048,7 +1117,9 @@ body::after {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 16px rgba(232, 131, 58, 0.35);
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: opacity, visibility, transform, box-shadow, background-color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   opacity: 0;
   visibility: hidden;
   z-index: 50;
@@ -1067,7 +1138,7 @@ body::after {
 }
 
 .scroll-top:active {
-  transform: translateY(0) scale(0.95);
+  transform: translateY(0) scale(0.96);
 }
 
 .scroll-top svg {
@@ -1080,11 +1151,13 @@ body::after {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(14px);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
@@ -1181,6 +1254,8 @@ body::after {
   object-fit: contain;
   border-radius: var(--radius-md);
   background: var(--navy-dark);
+  outline: var(--img-outline);
+  outline-offset: -1px;
 }
 
 .fallback-icon {
@@ -1233,6 +1308,9 @@ body::after {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: var(--radius-xs);
+  outline: var(--img-outline);
+  outline-offset: -1px;
 }
 
 /* ========== ACTIVE FILTER INDICATOR ========== */
@@ -1249,7 +1327,9 @@ body::after {
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: color, background-color, border-color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1320,7 +1400,7 @@ body::after {
   }
 
   .category-btn {
-    padding: 6px 14px;
+    padding: calc(6px + var(--pill-nudge)) 14px calc(6px - var(--pill-nudge));
     font-size: 12px;
   }
 
@@ -1373,7 +1453,6 @@ body::after {
   .product-card:hover {
     transform: none;
     box-shadow: var(--shadow-card);
-    border-color: rgba(255, 255, 255, 0.04);
   }
 
   .product-card:hover::after {
@@ -1406,6 +1485,792 @@ body::after {
     transform: none;
     box-shadow: 0 4px 16px rgba(232, 131, 58, 0.35);
   }
+}
+
+/* ============================================================
+   V2 BRANDED CARD DOWNLOAD
+   Card button → centred adjust panel → branded card overlay
+   ============================================================ */
+
+/* ----- per-card download: a quiet, premium action — never a lit-up bar.
+   Resting state is a calm neutral label; it only warms to orange on
+   hover/press so a grid of 55 cards reads clean, not shouty. ----- */
+.card-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 16px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.card-download-btn svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  opacity: 0.85;
+}
+.card-download-btn:hover {
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--orange);
+}
+.card-download-btn:active {
+  background: var(--orange-subtle);
+  color: var(--orange);
+}
+
+/* ----- detail-modal mirror button ----- */
+.modal-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 14px;
+  padding: 13px 18px;
+  background: var(--orange);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition-property: background-color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.modal-download-btn:hover { background: var(--orange-light); }
+.modal-download-btn:active { scale: 0.96; }
+.modal-download-btn svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* ----- centred download panel ----- */
+.dlp {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 14px;
+  padding-top: max(14px, env(safe-area-inset-top));
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+}
+.dlp.open { display: flex; }
+.dlp-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 11, 0.58);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  animation: backdropIn 0.25s var(--ease-out);
+}
+.dlp-box {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  background: var(--navy-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl), var(--ring);
+  animation: modalIn 0.35s var(--ease-out);
+}
+.dlp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dlp-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.dlp-title-text { min-width: 0; }
+.dlp-title h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dlp-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.dlp-x {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: background-color, border-color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.dlp-x:hover { background: var(--orange); border-color: var(--orange); }
+.dlp-x:active { scale: 0.96; }
+.dlp-x svg { width: 16px; height: 16px; }
+
+.dlp-stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  /* vh cap keeps the controls + Download button reachable on short/landscape
+     viewports where the touch-action:none stage would otherwise fill the screen */
+  max-height: min(340px, 48vh);
+  background: var(--navy-dark);
+  touch-action: none;
+  cursor: grab;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.dlp-stage:active { cursor: grabbing; }
+.dlp-stage canvas { display: block; width: 100% !important; height: 100% !important; }
+.dlp-stage .viewer-loading { background: var(--navy-dark); }
+.dlp-hint {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+}
+
+.dlp-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 20px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dlp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+/* display:flex above would defeat the hidden attribute — restore it */
+.dlp-row[hidden] { display: none; }
+.dlp-row > label {
+  flex: 0 0 84px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+.dlp-seg {
+  display: flex;
+  background: var(--navy-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  width: fit-content;
+}
+.dlp-seg button {
+  min-height: 34px;
+  background: none;
+  border: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 7px 13px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.dlp-seg button:last-child { border-right: 0; }
+.dlp-seg button.on { background: var(--orange); color: #fff; }
+
+.dlp-sliderrow input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+.dlp-sliderrow input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 2.5px solid var(--navy-surface);
+  cursor: pointer;
+}
+.dlp-sliderrow input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 2.5px solid var(--navy-surface);
+  cursor: pointer;
+}
+.dlp-val {
+  flex: 0 0 44px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.dlp-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 2px;
+}
+.dlp-build {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 50px;
+  background: var(--orange);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition-property: background-color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.dlp-build:hover { background: var(--orange-light); }
+.dlp-build:active { scale: 0.96; }
+.dlp-build:disabled { opacity: 0.55; cursor: default; }
+.dlp-build svg { width: 18px; height: 18px; }
+.dlp-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 16px;
+  background: var(--navy-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition-property: border-color, color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.dlp-reset:hover { border-color: var(--orange); }
+.dlp-reset:active { scale: 0.96; }
+.dlp-reset svg { width: 15px; height: 15px; }
+
+/* ----- card output overlay (the overlay itself scrolls; bg stays locked) ----- */
+.kkov {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 14px;
+  padding-top: max(14px, env(safe-area-inset-top));
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+}
+/* The dim + blur live on a pseudo-layer: backdrop-filter on .kkov itself would
+   create a containing block for fixed descendants, demoting the floating ✕
+   so it scrolls away with the card. */
+.kkov::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  /* Dim, not black-out: the catalogue stays faintly visible so it never feels
+     like the screen vanished. */
+  background: rgba(8, 13, 19, 0.66);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+.kkov.open { display: flex; }
+.kkov-box {
+  width: 100%;
+  max-width: min(500px, 96vw);
+  margin: auto;
+  /* Sit ABOVE the ::before blur layer. Without this the card is static (unpositioned)
+     while ::before is position:fixed, so the blur paints on top of the card and the
+     whole card looks blurred — only crisp during the entrance animation's transform. */
+  position: relative;
+  z-index: 1;
+  /* Fit within the viewport (minus .kkov's 14px top/bottom padding) so the
+     preview, note, and action buttons are ALWAYS on screen — never pushed
+     below the fold on short/landscape laptop viewports. overflow-y is a safety
+     net; the image's own viewport cap (below) keeps the total within this. */
+  max-height: calc(100vh - 28px);
+  max-height: calc(100dvh - 28px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--navy-surface);
+  border-radius: var(--radius-lg);
+  /* Brighter 1px edge + deep shadow so the card clearly floats above the dim. */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), var(--shadow-xl);
+  padding: 12px;
+  animation: modalIn 0.35s var(--ease-out);
+}
+
+/* ----- "Building card" loader: centred orange spinner + label (replaces the toast) ----- */
+.kkov-loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: auto;
+  padding: 44px 20px;
+  /* keep the spinner above the ::before blur too */
+  position: relative;
+  z-index: 1;
+}
+.kkov.building .kkov-loading { display: flex; }
+.kkov.building .kkov-box { display: none; }
+/* extra specificity so it beats .kkov.open .kkov-x (which shows the ✕) */
+.kkov.open.building .kkov-x { display: none; }
+.kkov-loading span {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+}
+.kkov-spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(232, 131, 58, 0.2);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.kkov-preview { margin-bottom: 12px; text-align: center; }
+.kkov-preview img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  /* Cap the (portrait) card image to the viewport minus the space the note +
+     two button rows + chrome occupy, so the whole card always fits on screen
+     without scrolling — on any laptop or phone height. */
+  max-height: calc(100dvh - 264px);
+  margin: 0 auto;
+  border-radius: 12px;
+  outline: var(--img-outline);
+  outline-offset: -1px;
+}
+/* always-visible floating close — pinned to the screen, above iOS bars */
+.kkov-x {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  right: 14px;
+  z-index: 301;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(12, 21, 29, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--white);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition-property: border-color, scale;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.kkov.open .kkov-x { display: flex; }
+.kkov-x:hover { border-color: var(--orange); }
+.kkov-x:active { scale: 0.96; }
+.kkov-x svg { width: 18px; height: 18px; }
+
+.kkov-note {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 11px;
+}
+.kkov-note label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.kkov-note label span { color: var(--text-tertiary); font-weight: 400; }
+.kkov-note textarea {
+  width: 100%;
+  resize: none;
+  height: 48px;
+  background: var(--navy-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  /* 16px minimum — anything smaller makes iOS Safari zoom the page on focus */
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+.kkov-note textarea:focus { border-color: var(--orange); }
+.kkov-note textarea::placeholder { color: var(--text-tertiary); }
+
+.kkov-acts { flex: 0 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.kkov-row { display: flex; gap: 10px; }
+.kk-abtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--navy-dark);
+  color: var(--text-primary);
+  border-radius: 13px;
+  /* sized so "Download Image" + "Download PDF" fit side-by-side even in the
+     320px desktop side column (the old 13.5px/12px let labels spill the box) */
+  padding: 0 10px;
+  height: 52px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition-property: background-color, border-color, color, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.kk-abtn:active { transform: scale(0.96); }
+.kk-abtn span { white-space: nowrap; }
+.kk-abtn svg { width: 19px; height: 19px; flex: 0 0 auto; display: block; }
+.kkov-row:first-child .kk-abtn { flex: 1; }
+.kk-abtn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+.kk-abtn.primary:hover { background: var(--orange-light); }
+.kk-abtn.ghost:hover { border-color: var(--orange); color: #fff; }
+.kk-abtn.wa {
+  flex: 1;
+  background: rgba(37, 211, 102, 0.12);
+  border-color: rgba(37, 211, 102, 0.42);
+  color: #EAFFF4;
+}
+.kk-abtn.wa svg { width: 22px; height: 22px; color: #25D366; }
+.kk-abtn.wa:hover { background: rgba(37, 211, 102, 0.2); border-color: #25D366; }
+.kk-abtn.icon { width: 56px; padding: 0; flex: 0 0 auto; }
+.kk-abtn.icon svg { width: 22px; height: 22px; }
+/* Email is a labelled button beside WhatsApp (client feedback: "it should say
+   email over there as well") — the two share the row equally, so WhatsApp is
+   also a step smaller than before. */
+.kk-abtn.email { flex: 1; color: var(--text-secondary); }
+.kk-abtn.email svg { width: 20px; height: 20px; }
+.kk-abtn.email:hover { border-color: var(--orange); color: #fff; }
+.kk-abtn.icon.close { color: var(--text-tertiary); }
+.kk-abtn.icon.close:hover { border-color: #C9485A; color: #FF9AA6; background: rgba(201, 72, 90, 0.12); }
+
+/* The right-column header and footer only earn their place in the desktop
+   two-column layout; on mobile the card sits directly above the note, so
+   they're redundant there. */
+.kkov-shead { display: none; }
+.kkov-sfoot { display: none; }
+
+/* ----- Desktop / landscape: two columns so the tall portrait card uses the
+   full height on the left and the note + buttons sit in a right column,
+   instead of a narrow card stranded in a wide box. Phones (< 720px, portrait)
+   keep the stacked layout above. ----- */
+@media (min-width: 720px) {
+  .kkov-box {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+    width: auto;                    /* hug content instead of stretching to max-width */
+    max-width: min(760px, 96vw);
+  }
+  .kkov-preview {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kkov-preview img {
+    /* the left column can use almost the whole viewport height... */
+    max-height: calc(100dvh - 56px);
+    /* ...but stay narrow enough that image + 20px gap + 320px side column + 24px
+       box padding all fit inside the box max-width, so the panel never overflows
+       horizontally on tall/large screens (the image is flex:0 0 auto and won't shrink). */
+    max-width: calc(min(760px, 96vw) - 364px);
+  }
+  /* Column composition: everything stacks from the top with tight, even gaps
+     (client feedback: no big empty space); only the brand footer is pinned to
+     the bottom edge. */
+  .kkov-side {
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .kkov-sfoot {
+    display: block;
+    margin-top: auto;
+    padding-top: 16px;
+    font-size: 10.5px; /* whole contact line must fit the 320px column */
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+  .kkov-srows { margin-top: 16px; display: flex; flex-direction: column; gap: 7px; }
+  .kkov-srow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12.5px;
+  }
+  .kkov-srow span { color: var(--text-tertiary); }
+  .kkov-srow b {
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-transform: capitalize;
+  }
+  .kkov-shead {
+    display: block;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .kkov-shead-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .kkov-shead-meta {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .kkov-shead-hint {
+    margin-top: 10px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--text-tertiary);
+  }
+  .kkov-note { margin-bottom: 14px; flex: 1 1 auto; min-height: 0; }
+  /* the tall column's spare room goes into the note box (more space to type)
+     instead of sitting as dead space between the buttons and the footer */
+  .kkov-note textarea { flex: 1 1 auto; min-height: 48px; max-height: 200px; }
+}
+
+/* ----- toast ----- */
+.kk-toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--orange);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 13px;
+  z-index: 320;
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+  pointer-events: none;
+  max-width: min(420px, 88vw);
+  text-align: center;
+}
+.kk-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ----- off-screen card build area ----- */
+#kkCardStage { position: fixed; left: -9999px; top: 0; }
+
+/* ===== Branded spec card — approved V2 design, ported verbatim ===== */
+.kkcard {
+  width: 430px;
+  background: linear-gradient(168deg, #15242F 0%, #0C1822 100%);
+  color: #EAF1F8;
+  border: 1px solid #29405A;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+.kkcard .ch {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 17px 18px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kkcard .ch .kk { height: 19px; width: auto; display: block; }
+.kkcard .ch .sep { width: 1px; height: 17px; background: rgba(255, 255, 255, 0.22); }
+.kkcard .ch .tipwrap { display: flex; align-items: center; gap: 8px; }
+.kkcard .ch .tipwrap img { height: 17px; width: auto; display: block; }
+.kkcard .ch .tipwrap em { font-style: normal; font-weight: 300; font-size: 17px; letter-spacing: 0.01em; line-height: 1; }
+.kkcard .ch .badge {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0C151D;
+  background: var(--orange);
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+.kkcard .hero { position: relative; background: #1A2634; }
+.kkcard .hero > img { display: block; width: 100%; height: 278px; object-fit: contain; }
+.kkcard .hero .tagview {
+  position: absolute;
+  left: 12px;
+  top: 11px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9FB1C2;
+  background: rgba(12, 21, 29, 0.72);
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+.kkcard .views {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 10px 14px 0;
+}
+.kkcard .views .vw {
+  background: #16242F;
+  border: 1px solid #29405A;
+  border-radius: 9px;
+  overflow: hidden;
+  text-align: center;
+}
+.kkcard .views .vw img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #1A2634; }
+.kkcard .views .vw span {
+  display: block;
+  font-size: 9px;
+  color: #869AAD;
+  padding: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.kkcard .info { padding: 16px 18px 2px; }
+.kkcard .info .nm { font-size: 21px; font-weight: 700; line-height: 1.12; }
+.kkcard .info .code {
+  font-size: 11px;
+  color: #869AAD;
+  margin-top: 3px;
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.kkcard .info .pr {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+.kkcard .info .pr .price { font-size: 30px; font-weight: 800; color: var(--orange); line-height: 1; }
+.kkcard .info .pr .price small { font-size: 12px; color: #869AAD; font-weight: 600; }
+.kkcard .info .pr .size { text-align: right; }
+.kkcard .info .pr .size .k { font-size: 9px; color: #869AAD; text-transform: uppercase; letter-spacing: 0.06em; }
+.kkcard .info .pr .size .v { font-size: 17px; font-weight: 700; }
+.kkcard .schem { padding: 14px 16px 0; }
+.kkcard .schem .lab {
+  font-size: 9px;
+  color: #869AAD;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 7px;
+}
+.kkcard .schem .svgbox {
+  background: #16242F;
+  border: 1px solid #29405A;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+.kkcard .schem .svgbox svg { max-width: 100%; height: auto; max-height: 150px; }
+.kkcard .cf {
+  margin-top: 14px;
+  padding: 11px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #869AAD;
+}
+.kkcard .cf b { color: #C7D4E0; }
+
+/* ----- small screens ----- */
+@media (max-width: 600px) {
+  .dlp, .kkov { padding-left: 10px; padding-right: 10px; }
+  /* keep the card below the floating ✕ so it never covers the card header */
+  .kkov { padding-top: max(62px, env(safe-area-inset-top)); }
+  /* reserve extra height for the 62px top padding so the stacked card + note +
+     buttons still fit without scrolling on a phone */
+  .kkov-preview img { max-height: calc(100dvh - 320px); }
+  .dlp-controls { padding: 12px 16px 16px; }
+  .dlp-head { padding: 14px 12px 12px 16px; }
+  .dlp-row > label { flex-basis: 76px; }
+  .dlp-actions { flex-wrap: wrap; }
+  .dlp-build { min-width: 100%; }
+  .dlp-reset { flex: 1; }
 }
 
 /* Reduced motion */

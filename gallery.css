@@ -14,6 +14,9 @@
   line-height: 1.1;
   color: var(--text-primary);
   margin-bottom: var(--space-sm);
+  text-wrap: balance;
+  opacity: 0;
+  animation: enterUp 0.5s var(--ease-out) 0.04s forwards;
 }
 .gallery-hero p {
   font-size: 15px;
@@ -21,6 +24,9 @@
   line-height: 1.6;
   color: var(--text-secondary);
   max-width: 520px;
+  text-wrap: pretty;
+  opacity: 0;
+  animation: enterUp 0.5s var(--ease-out) 0.14s forwards;
 }
 
 /* ---------- Filter bar ---------- */
@@ -48,17 +54,24 @@
 
 .gallery-filter-btn {
   flex-shrink: 0;
-  padding: 7px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Optical centering nudge — matches .category-btn (see styles.css --pill-nudge) */
+  padding: calc(7px + var(--pill-nudge)) 16px calc(7px - var(--pill-nudge));
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -0.01em;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: color, background-color, border-color, box-shadow, scale;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 }
 .gallery-filter-btn:hover {
   background: rgba(255, 255, 255, 0.06);
@@ -73,7 +86,7 @@
   box-shadow: 0 2px 8px rgba(232, 131, 58, 0.35);
 }
 .gallery-filter-btn:active {
-  transform: scale(0.96);
+  scale: 0.96;
 }
 
 /* ---------- Gallery count ---------- */
@@ -88,6 +101,7 @@
 .gallery-count span {
   font-weight: 700;
   color: var(--orange);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Gallery grid — editorial layout ---------- */
@@ -106,16 +120,17 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--navy-surface);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  /* Shadow ring instead of a hard border — see styles.css --shadow-card. */
+  box-shadow: var(--shadow-card);
   cursor: pointer;
-  transition: transform var(--duration-slow) var(--ease-out),
-              box-shadow var(--duration-slow),
-              border-color var(--duration-slow);
+  transition-property: transform, box-shadow;
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out);
 }
 .gallery-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
-  border-color: rgba(232, 131, 58, 0.12);
+  will-change: transform;
 }
 
 .gallery-card-image {
@@ -129,6 +144,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  outline: var(--img-outline);
+  outline-offset: -1px;
   transition: transform 0.6s var(--ease-out);
 }
 .gallery-card:hover .gallery-card-image img {
@@ -172,6 +189,7 @@
   letter-spacing: -0.022em;
   color: var(--text-primary);
   line-height: 1.25;
+  text-wrap: balance;
 }
 .gallery-card-app {
   font-size: 12px;
@@ -229,6 +247,8 @@
   max-height: 75vh;
   object-fit: contain;
   background: var(--navy-dark);
+  outline: var(--img-outline);
+  outline-offset: -1px;
 }
 .lightbox-placeholder {
   width: 70vw;
@@ -253,6 +273,7 @@
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.022em;
+  text-wrap: balance;
 }
 .lightbox-caption-meta {
   font-size: 12px;
@@ -263,8 +284,8 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(8px);
@@ -275,15 +296,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: background-color, border-color, scale;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   z-index: 2;
+  -webkit-tap-highlight-color: transparent;
 }
 .lightbox-close:hover {
   background: var(--orange);
   border-color: var(--orange);
 }
 .lightbox-close:active {
-  transform: scale(0.92);
+  scale: 0.96;
 }
 .lightbox-close svg {
   width: 16px;
@@ -307,12 +331,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-out);
+  transition-property: background-color, border-color, scale;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
   z-index: 2;
+  -webkit-tap-highlight-color: transparent;
 }
 .lightbox-nav:hover {
   background: rgba(0, 0, 0, 0.6);
   border-color: rgba(255, 255, 255, 0.2);
+}
+.lightbox-nav:active {
+  scale: 0.96;
 }
 .lightbox-nav.prev { left: 12px; }
 .lightbox-nav.next { right: 12px; }
@@ -381,7 +411,7 @@
   }
   .gallery-filter-btn {
     font-size: 12px;
-    padding: 6px 14px;
+    padding: calc(6px + var(--pill-nudge)) 14px calc(6px - var(--pill-nudge));
   }
   .gallery-count {
     padding: var(--space-sm) 16px;
@@ -416,8 +446,7 @@
   }
   .gallery-card:hover {
     transform: none;
-    box-shadow: none;
-    border-color: rgba(255, 255, 255, 0.04);
+    box-shadow: var(--shadow-card);
   }
   .gallery-card:hover .gallery-card-image img {
     transform: none;
@@ -434,11 +463,18 @@
   }
 }
 
-/* Card fade-in animation */
+/* Card fade-in animation — split + staggered with a soft blur */
 @keyframes galleryFadeIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
 }
 .gallery-card {
   animation: galleryFadeIn 0.5s var(--ease-out) both;
 }
+.gallery-card:nth-child(1) { animation-delay: 0.04s; }
+.gallery-card:nth-child(2) { animation-delay: 0.09s; }
+.gallery-card:nth-child(3) { animation-delay: 0.14s; }
+.gallery-card:nth-child(4) { animation-delay: 0.19s; }
+.gallery-card:nth-child(5) { animation-delay: 0.24s; }
+.gallery-card:nth-child(6) { animation-delay: 0.29s; }
+.gallery-card:nth-child(n+7) { animation-delay: 0.32s; }

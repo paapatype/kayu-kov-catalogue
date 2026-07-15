@@ -146,6 +146,114 @@
     </div>
   </div>
 
+  <!-- Download Card Panel — adjust the 3D view, then build the branded card -->
+  <div class="dlp" id="dlPanel" aria-hidden="true">
+    <div class="dlp-backdrop"></div>
+    <div class="dlp-box" role="dialog" aria-modal="true" aria-label="Download product card">
+      <div class="dlp-head">
+        <div class="dlp-title">
+          <span class="serial-badge" id="dlpBadge"></span>
+          <div class="dlp-title-text">
+            <h3 id="dlpName"></h3>
+            <span class="dlp-meta" id="dlpMeta"></span>
+          </div>
+        </div>
+        <button class="dlp-x" id="dlpClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="dlp-stage" id="dlpStage">
+        <div class="viewer-loading"><div class="spinner"></div></div>
+        <div class="dlp-hint">Drag to angle the profile</div>
+      </div>
+      <div class="dlp-controls">
+        <div class="dlp-row">
+          <label>Mode</label>
+          <div class="dlp-seg" id="dlpSeg" role="group" aria-label="Rotation mode">
+            <button type="button" data-m="free" class="on" aria-pressed="true">Freehand</button>
+            <button type="button" data-m="slider" aria-pressed="false">X / Y sliders</button>
+          </div>
+        </div>
+        <div class="dlp-row dlp-sliderrow" id="dlpRowX" hidden>
+          <label for="dlpRotX">X rotation</label>
+          <input type="range" id="dlpRotX" min="-90" max="90" value="20" aria-valuetext="20 degrees">
+          <span class="dlp-val" id="dlpRotXv">20°</span>
+        </div>
+        <div class="dlp-row dlp-sliderrow" id="dlpRowY" hidden>
+          <label for="dlpRotY">Y rotation</label>
+          <input type="range" id="dlpRotY" min="-180" max="180" value="35" aria-valuetext="35 degrees">
+          <span class="dlp-val" id="dlpRotYv">35°</span>
+        </div>
+        <div class="dlp-actions">
+          <button class="dlp-build" id="dlpBuild">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11"/><path d="m8 11 4 4 4-4"/><path d="M5 21h14"/></svg>
+            <span>Download card</span>
+          </button>
+          <button class="dlp-reset" id="dlpReset">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Reset view</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Branded card output overlay -->
+  <div class="kkov" id="kkOv" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Card preview">
+    <button class="kkov-x" id="kkOvX" aria-label="Close preview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="kkov-loading" id="kkOvLoading" role="status" aria-live="polite">
+      <div class="kkov-spinner" aria-hidden="true"></div>
+      <span>Building card…</span>
+    </div>
+    <div class="kkov-box">
+      <div class="kkov-preview" id="kkOvPreview"></div>
+      <div class="kkov-side">
+      <div class="kkov-shead">
+        <div class="kkov-shead-name" id="kkSideName"></div>
+        <div class="kkov-shead-meta" id="kkSideMeta"></div>
+        <div class="kkov-shead-hint">Share this card with your customer</div>
+        <div class="kkov-srows" id="kkSideRows"></div>
+      </div>
+      <div class="kkov-note">
+        <label for="kkNote">Note <span>— sent with WhatsApp / Email</span></label>
+        <textarea id="kkNote" maxlength="300" placeholder="Add a note for the customer…"></textarea>
+      </div>
+      <div class="kkov-acts">
+        <div class="kkov-row">
+          <button class="kk-abtn primary" id="kkActImage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11"/><path d="m8 11 4 4 4-4"/><path d="M5 21h14"/></svg>
+            <span>Download Image</span>
+          </button>
+          <button class="kk-abtn ghost" id="kkActPdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-5"/><path d="m9.5 15.5 2.5 2.5 2.5-2.5"/></svg>
+            <span>Download PDF</span>
+          </button>
+        </div>
+        <div class="kkov-row">
+          <button class="kk-abtn wa" id="kkActWa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.74-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.76.95-.93 1.15-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.91-2.18-.24-.57-.48-.49-.66-.5-.17-.01-.37-.01-.56-.01-.2 0-.51.07-.78.37-.27.3-1.02 1-1.02 2.43 0 1.43 1.05 2.81 1.19 3 .15.2 2.06 3.14 4.99 4.41.7.3 1.24.48 1.66.62.7.22 1.33.19 1.83.12.56-.08 1.74-.71 1.98-1.4.24-.69.24-1.27.17-1.4-.07-.12-.27-.19-.56-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.36 9.36 0 0 1-1.43-4.99c0-5.18 4.22-9.39 9.41-9.39 2.51 0 4.87.98 6.64 2.75a9.32 9.32 0 0 1 2.75 6.65c0 5.18-4.22 9.39-9.4 9.39zm8-17.4A11.27 11.27 0 0 0 12.04 1C5.84 1 .8 6.04.8 12.23c0 1.97.51 3.9 1.5 5.6L.7 23.4l5.7-1.5a11.2 11.2 0 0 0 5.35 1.36h.01c6.2 0 11.24-5.04 11.24-11.23a11.17 11.17 0 0 0-3.3-7.93z"/></svg>
+            <span>WhatsApp</span>
+          </button>
+          <button class="kk-abtn email" id="kkActEmail" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+            <span>Email</span>
+          </button>
+          <button class="kk-abtn icon close" id="kkActClose" aria-label="Close" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="kkov-sfoot" id="kkSideFoot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Off-screen build area for the branded card + toast -->
+  <div id="kkCardStage" aria-hidden="true"></div>
+  <div class="kk-toast" id="kkToast" role="status" aria-live="polite"></div>
+
   <!-- Three.js for 3D rendering -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
