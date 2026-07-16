@@ -1571,6 +1571,7 @@ function showCardOverlay(p, canvas, pngUrl) {
     if (dlViewer) { dlViewer.destroy(); dlViewer = null; }
   }
   document.getElementById('kkNote').value = '';
+  kkCloseMailMenu(); // always start a fresh card on the share row, not the mail chooser
   const sideName = document.getElementById('kkSideName');
   const sideMeta = document.getElementById('kkSideMeta');
   const sideRows = document.getElementById('kkSideRows');
@@ -1604,6 +1605,7 @@ function closeCardOverlay() {
   if (!ov || !ov.classList.contains('open')) return;
   ov.classList.remove('open');
   ov.setAttribute('aria-hidden', 'true');
+  kkCloseMailMenu(); // reset the mail chooser so the next open shows the share row
   unlockScroll();
   // The panel was torn down on hand-off, so return focus to the card that opened it.
   if (_dlPrevFocus && _dlPrevFocus.focus) { try { _dlPrevFocus.focus(); } catch (e) { /* best-effort */ } }
@@ -1689,11 +1691,28 @@ function kkOpenMail(provider) {
   kkCloseMailMenu();
 }
 
-function kkCloseMailMenu() {
-  const m = document.getElementById('kkMailMenu');
-  if (!m || m.hidden) return;
-  m.hidden = true;
-  document.getElementById('kkActEmail').setAttribute('aria-expanded', 'false');
+// Swap the share row (WhatsApp/Email/Close) for the mail-provider row, in place.
+function kkOpenMailMenu() {
+  const share = document.getElementById('kkShareRow');
+  const mail = document.getElementById('kkMailRow');
+  if (!share || !mail || !mail.hidden) return;
+  share.hidden = true;
+  mail.hidden = false;
+  document.getElementById('kkActEmail').setAttribute('aria-expanded', 'true');
+  const first = mail.querySelector('.kk-mailopt');
+  if (first) first.focus();
+}
+function kkCloseMailMenu(focusEmail) {
+  const share = document.getElementById('kkShareRow');
+  const mail = document.getElementById('kkMailRow');
+  if (!mail || mail.hidden) return;
+  mail.hidden = true;
+  if (share) share.hidden = false;
+  const email = document.getElementById('kkActEmail');
+  if (email) {
+    email.setAttribute('aria-expanded', 'false');
+    if (focusEmail) email.focus();
+  }
 }
 
 // ---------- wiring (idempotent; index.html only — these nodes don't exist on gallery.html) ----------
@@ -1730,23 +1749,19 @@ function kkCloseMailMenu() {
   document.getElementById('kkActPdf').addEventListener('click', kkDownloadPDF);
   document.getElementById('kkActWa').addEventListener('click', () => kkShare('whatsapp'));
   document.getElementById('kkActClose').addEventListener('click', closeCardOverlay);
-  // Email opens a provider picker rather than a mailto: that may go nowhere.
-  const mailBtn = document.getElementById('kkActEmail');
-  const mailMenu = document.getElementById('kkMailMenu');
-  mailBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    const open = mailMenu.hidden;
-    mailMenu.hidden = !open;
-    mailBtn.setAttribute('aria-expanded', String(open));
-  });
-  mailMenu.addEventListener('click', e => {
+  // Email swaps the share row in place for the provider chooser (covers nothing).
+  document.getElementById('kkActEmail').addEventListener('click', kkOpenMailMenu);
+  document.getElementById('kkMailBack').addEventListener('click', () => kkCloseMailMenu(true));
+  document.getElementById('kkMailRow').addEventListener('click', e => {
     const b = e.target.closest('button[data-mail]');
     if (b) kkOpenMail(b.dataset.mail);
   });
-  // dismiss on outside click or Escape (Escape must not also close the overlay)
-  document.addEventListener('click', () => kkCloseMailMenu());
+  // Escape backs out of the chooser first (only then does it close the overlay).
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !mailMenu.hidden) { e.stopPropagation(); kkCloseMailMenu(); }
+    if (e.key === 'Escape' && !document.getElementById('kkMailRow').hidden) {
+      e.stopPropagation();
+      kkCloseMailMenu(true);
+    }
   }, true);
   // brand/contact footer pinned at the bottom of the desktop side column —
   // derived from the share constants so there is a single source of truth
