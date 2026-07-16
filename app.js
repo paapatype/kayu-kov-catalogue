@@ -1639,10 +1639,8 @@ const KK_EMAIL = 'info@kayuandkov.com';
 
 let _kkSharing = false;
 // The WhatsApp / Email buttons open a message ADDRESSED TO Kayu & Kov (an enquiry
-// funnel), so we go straight to wa.me/<number> and mailto:<email> — the native
-// share sheet is intentionally not used here because it can't fix the recipient.
-// wa.me/mailto can't carry an attachment, so the card image is downloaded for the
-// sender to attach.
+// funnel), so we target wa.me/<number> and the chosen provider's compose window
+// directly — the native share sheet can't fix the recipient.
 // The message body for both channels. This is a customer→Kayu & Kov enquiry, so
 // it deliberately does NOT reference attaching the card image: the company
 // already has its own product card, and nobody needs to send it back to them.
