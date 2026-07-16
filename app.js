@@ -1643,25 +1643,59 @@ let _kkSharing = false;
 // share sheet is intentionally not used here because it can't fix the recipient.
 // wa.me/mailto can't carry an attachment, so the card image is downloaded for the
 // sender to attach.
+// The message body for both channels. This is a customer→Kayu & Kov enquiry, so
+// it deliberately does NOT reference attaching the card image: the company
+// already has its own product card, and nobody needs to send it back to them.
+function kkShareText() {
+  const p = _kkProduct;
+  const note = (document.getElementById('kkNote').value || '').trim();
+  const details = `${p.name} — ${p.dimensions} — ₹${formatPrice(p.price)}\nTipwood Exterior Profile · Kayu & Kov\nkayuandkov.com`;
+  return note ? `${note}\n\n${details}` : details;
+}
+
 function kkShare(kind) {
   const p = _kkProduct;
-  if (!p || !_kkPng || _kkSharing) return; // debounce double-taps (avoid double download + double tab)
+  if (!p || _kkSharing) return; // debounce double-taps (avoid opening two tabs)
   _kkSharing = true;
   setTimeout(() => { _kkSharing = false; }, 1200);
 
-  // The customer note (if any) leads the message; product details follow.
-  const note = (document.getElementById('kkNote').value || '').trim();
-  const details = `${p.name} — ${p.dimensions} — ₹${formatPrice(p.price)}\nTipwood Exterior Profile · Kayu & Kov\nkayuandkov.com`;
-  const text = note ? `${note}\n\n${details}` : details;
-
-  kkDlData(_kkPng, kkFname(p) + '.png', ''); // silent download; the share toast below is the confirmation
   if (kind === 'whatsapp') {
-    window.open('https://wa.me/' + KK_WHATSAPP + '?text=' + encodeURIComponent('Hi Kayu & Kov, I’d like to enquire about this profile:\n\n' + text + '\n\n(product card image downloaded — attaching it here)'), '_blank');
-  } else {
-    const subject = 'Enquiry: ' + p.name + ' — ' + p.dimensions;
-    window.open('mailto:' + KK_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text + '\n\n(product card image downloaded — please attach it)'), '_blank');
+    window.open('https://wa.me/' + KK_WHATSAPP + '?text=' +
+      encodeURIComponent('Hi Kayu & Kov, I’d like to enquire about this profile:\n\n' + kkShareText()), '_blank');
+    kkToast('Opening WhatsApp…');
   }
-  kkToast('Card downloaded — attach it in the opened chat');
+}
+
+// Open the chosen provider's real compose window, prefilled.
+// A bare mailto: is unreliable: browsers only route it when a mail app or a
+// registered handler exists, so on a desktop where mail lives in a browser tab
+// it silently does nothing (and window.open leaves a dead blank tab). The
+// webmail deep links below always work, so we let the sender pick.
+function kkOpenMail(provider) {
+  const p = _kkProduct;
+  if (!p) return;
+  const to = KK_EMAIL;
+  const subject = 'Enquiry: ' + p.name + ' — ' + p.dimensions;
+  const body = kkShareText();
+  const su = encodeURIComponent(subject), bd = encodeURIComponent(body), t = encodeURIComponent(to);
+  if (provider === 'gmail') {
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${t}&su=${su}&body=${bd}`, '_blank');
+    kkToast('Opening Gmail…');
+  } else if (provider === 'outlook') {
+    window.open(`https://outlook.live.com/mail/0/deeplink/compose?to=${t}&subject=${su}&body=${bd}`, '_blank');
+    kkToast('Opening Outlook…');
+  } else {
+    // Same-tab navigation hands off to the OS handler without stranding a blank tab.
+    window.location.href = `mailto:${to}?subject=${su}&body=${bd}`;
+  }
+  kkCloseMailMenu();
+}
+
+function kkCloseMailMenu() {
+  const m = document.getElementById('kkMailMenu');
+  if (!m || m.hidden) return;
+  m.hidden = true;
+  document.getElementById('kkActEmail').setAttribute('aria-expanded', 'false');
 }
 
 // ---------- wiring (idempotent; index.html only — these nodes don't exist on gallery.html) ----------
@@ -1697,8 +1731,25 @@ function kkShare(kind) {
   document.getElementById('kkActImage').addEventListener('click', kkDownloadImage);
   document.getElementById('kkActPdf').addEventListener('click', kkDownloadPDF);
   document.getElementById('kkActWa').addEventListener('click', () => kkShare('whatsapp'));
-  document.getElementById('kkActEmail').addEventListener('click', () => kkShare('email'));
   document.getElementById('kkActClose').addEventListener('click', closeCardOverlay);
+  // Email opens a provider picker rather than a mailto: that may go nowhere.
+  const mailBtn = document.getElementById('kkActEmail');
+  const mailMenu = document.getElementById('kkMailMenu');
+  mailBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = mailMenu.hidden;
+    mailMenu.hidden = !open;
+    mailBtn.setAttribute('aria-expanded', String(open));
+  });
+  mailMenu.addEventListener('click', e => {
+    const b = e.target.closest('button[data-mail]');
+    if (b) kkOpenMail(b.dataset.mail);
+  });
+  // dismiss on outside click or Escape (Escape must not also close the overlay)
+  document.addEventListener('click', () => kkCloseMailMenu());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !mailMenu.hidden) { e.stopPropagation(); kkCloseMailMenu(); }
+  }, true);
   // brand/contact footer pinned at the bottom of the desktop side column —
   // derived from the share constants so there is a single source of truth
   const foot = document.getElementById('kkSideFoot');

@@ -2012,6 +2012,45 @@ body::after {
 .kk-abtn.email { flex: 1; color: var(--text-secondary); }
 .kk-abtn.email svg { width: 20px; height: 20px; }
 .kk-abtn.email:hover { border-color: var(--orange); color: #fff; }
+/* ----- email provider picker ----- */
+.kk-mailwrap { position: relative; flex: 1; display: flex; }
+.kk-mailwrap .kk-abtn.email { flex: 1; }
+.kk-mailmenu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  min-width: 100%;
+  white-space: nowrap;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 2px;
+  /* No entrance animation: a small picker should just be there, and borrowing
+     the modal's scale/translate entrance left it rendering semi-transparent. */
+  background: var(--navy-surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), var(--shadow-xl);
+}
+.kk-mailmenu[hidden] { display: none; }
+.kk-mailmenu button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.kk-mailmenu button:hover { background: rgba(232, 131, 58, 0.16); color: #fff; }
+.kk-mailmenu button:active { scale: 0.98; }
+
 .kk-abtn.icon.close { color: var(--text-tertiary); }
 .kk-abtn.icon.close:hover { border-color: #C9485A; color: #FF9AA6; background: rgba(201, 72, 90, 0.12); }
 
