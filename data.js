@@ -20,10 +20,10 @@ const products = [
   { id: 16, name: "Cladding Profile", dimensions: "98 x 15mm", code: "4400000691", price: 185, category: "cladding" },
   { id: 17, name: "Louver", dimensions: "150 x 35mm", code: "4400000051", price: 350, category: "louver" },
   { id: 18, name: "Hollow Box", dimensions: "150 x 25mm", code: "4400000010", price: 380, category: "hollow-box" },
-  { id: 19, name: "Solid Box", dimensions: "150 x 25mm", code: "4400000011", price: 685, category: "solid-box" },
-  { id: 20, name: "Door Profile Solid", dimensions: "100 x 20 x 6mm", code: "4400000040", price: 200, category: "door" },
+  { id: 19, name: "Solid Box", dimensions: "100 x 20mm", code: "4400000011", price: 685, category: "solid-box" },
+  { id: 20, name: "Door Profile Solid", dimensions: "100 x 20mm", code: "4400000040", price: 397, category: "door" },
   { id: 21, name: "Door Profile Hollow", dimensions: "100 x 20 x 6mm", code: "4400000054", price: 274, category: "door" },
-  { id: 22, name: "Door Profile Hollow", dimensions: "100 x 20 x 6mm", code: "4400000031", price: 397, category: "door" },
+  { id: 22, name: "Door Profile Hollow", dimensions: "100 x 20 x 4mm", code: "4400000031", price: 200, category: "door" },
 
   // Page 3 - Items 23-36
   { id: 23, name: "Door Profile", dimensions: "85 x 31mm", code: "4400000265", price: 315, category: "door" },
