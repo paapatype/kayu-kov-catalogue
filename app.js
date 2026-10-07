@@ -23,7 +23,6 @@ async function loadProfileDimensions() {
         name: p.name,
         code: p.code,
         category: p.category,
-        price: p.price,
         dimensions: parseDimensionString(p.dimensions),
         verified: false
       };
@@ -503,10 +502,6 @@ function create3DViewer(container, productId) {
 
 // ========== HELPER FUNCTIONS ==========
 
-function formatPrice(price) {
-  return price.toLocaleString('en-IN');
-}
-
 function formatCategory(category) {
   return category.split('-').map(word =>
     word.charAt(0).toUpperCase() + word.slice(1)
@@ -536,10 +531,6 @@ function renderProductCard(product) {
         <div class="product-meta">
           <span class="product-dimensions">${product.dimensions}</span>
           <span class="product-code">${product.code}</span>
-        </div>
-        <div class="product-price">
-          <span class="price-label">/RFT</span>
-          <span class="price-value">&#8377;${formatPrice(product.price)}</span>
         </div>
       </div>
       <button class="card-download-btn" onclick="event.stopPropagation();openDownloadPanel(${product.id})" aria-label="Download card — ${product.name}">
@@ -820,10 +811,6 @@ function openModal(productId) {
         <span class="detail-label">Product Code</span>
         <span class="detail-value code">${product.code}</span>
       </div>
-      <div class="detail-row">
-        <span class="price-label">/RFT</span>
-        <span class="detail-value price">&#8377;${formatPrice(product.price)}</span>
-      </div>
     </div>
     <button class="modal-download-btn" onclick="openDownloadPanel(${product.id})">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11"/><path d="m8 11 4 4 4-4"/><path d="M5 21h14"/></svg>
@@ -1074,7 +1061,7 @@ function kkToast(msg) {
 // ---------- filename convention (fixed — never user-editable) ----------
 function kkKebab(s) { return s.trim().replace(/\s+/g, '-').replace(/[^A-Za-z0-9\-]/g, ''); }
 function kkSizeSafe(s) { return s.replace(/\s+/g, '').replace(/[×x]/gi, 'x').replace(/[^A-Za-z0-9.\-]/g, ''); }
-function kkFname(p) { return `kayuandkov_${kkKebab(p.name)}_Rs${p.price}_${kkSizeSafe(p.dimensions)}`; }
+function kkFname(p) { return `kayuandkov_${kkKebab(p.name)}_${kkSizeSafe(p.dimensions)}`; } // name+size is unique across all 55
 function kkNowStamp() {
   return new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
@@ -1353,7 +1340,7 @@ function openDownloadPanel(id) {
 
   document.getElementById('dlpBadge').textContent = p.id;
   document.getElementById('dlpName').textContent = p.name;
-  document.getElementById('dlpMeta').textContent = `${p.dimensions} · ₹${formatPrice(p.price)}/RFT`;
+  document.getElementById('dlpMeta').textContent = p.dimensions;
 
   panel.classList.add('open');
   panel.setAttribute('aria-hidden', 'false');
@@ -1530,8 +1517,8 @@ async function buildProfileCard() {
         <div class="nm">${p.name}</div>
         <div class="code">Code ${p.code}</div>
         <div class="pr">
-          <div class="price">₹${p.price}<small> /RFT</small></div>
           <div class="size"><div class="k">Size</div><div class="v">${p.dimensions}</div></div>
+          <div class="cat"><div class="k">Category</div><div class="v">${formatCategory(p.category)}</div></div>
         </div>
       </div>
       <div class="schem"><div class="lab">Cross-section</div><div class="svgbox">${svg}</div></div>
@@ -1576,7 +1563,7 @@ function showCardOverlay(p, canvas, pngUrl) {
   const sideMeta = document.getElementById('kkSideMeta');
   const sideRows = document.getElementById('kkSideRows');
   if (sideName) sideName.textContent = p.name;
-  if (sideMeta) sideMeta.textContent = `${p.dimensions} · ₹${formatPrice(p.price)}/RFT`;
+  if (sideMeta) sideMeta.textContent = p.dimensions;
   if (sideRows) {
     sideRows.innerHTML = '';
     [['Code', p.code], ['Category', (p.category || '').replace(/-/g, ' ')]].forEach(([k, val]) => {
@@ -1649,7 +1636,7 @@ let _kkSharing = false;
 function kkShareText() {
   const p = _kkProduct;
   const note = (document.getElementById('kkNote').value || '').trim();
-  const details = `${p.name} — ${p.dimensions} — ₹${formatPrice(p.price)}\nTipwood Exterior Profile · Kayu & Kov\nkayuandkov.com`;
+  const details = `${p.name} — ${p.dimensions}\nTipwood Exterior Profile · Kayu & Kov\nkayuandkov.com`;
   return note ? `${note}\n\n${details}` : details;
 }
 

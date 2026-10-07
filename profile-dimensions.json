@@ -35,7 +35,6 @@
       "name": "Fluted Profile-3",
       "code": "4400000665",
       "category": "fluted",
-      "price": 348,
       "shapeType": "fluted",
       "dimensions": {
         "width": 145,
@@ -57,7 +56,6 @@
       "name": "Hollow Box Profile",
       "code": "4400000661",
       "category": "hollow-box",
-      "price": 395,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 100,
@@ -80,7 +78,6 @@
       "name": "Cladding Profile",
       "code": "4400000664",
       "category": "cladding",
-      "price": 184,
       "shapeType": "cladding",
       "dimensions": {
         "width": 112,
@@ -103,7 +100,6 @@
       "name": "C Channel Profile",
       "code": "4400000660",
       "category": "c-channel",
-      "price": 170,
       "shapeType": "c_channel",
       "dimensions": {
         "width": 50,
@@ -125,7 +121,6 @@
       "name": "Rod Profile",
       "code": "4400000668",
       "category": "rod",
-      "price": 173,
       "shapeType": "cylinder_solid",
       "dimensions": {
         "diameter": 25
@@ -141,7 +136,6 @@
       "name": "C Channel Profile",
       "code": "4400000670",
       "category": "c-channel",
-      "price": 157,
       "shapeType": "c_channel",
       "dimensions": {
         "width": 100,
@@ -163,7 +157,6 @@
       "name": "Serrated Profile",
       "code": "4400000671",
       "category": "serrated",
-      "price": 399,
       "shapeType": "serrated",
       "dimensions": {
         "width": 100,
@@ -185,7 +178,6 @@
       "name": "Strip",
       "code": "4400000685",
       "category": "strip",
-      "price": 308,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 50,
@@ -202,7 +194,6 @@
       "name": "Sheet Profile",
       "code": "4400000680",
       "category": "sheet",
-      "price": 169,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 100,
@@ -219,7 +210,6 @@
       "name": "Sheet Profile",
       "code": "4400000681",
       "category": "sheet",
-      "price": 210,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 100,
@@ -236,7 +226,6 @@
       "name": "Sheet Profile",
       "code": "4400000689",
       "category": "sheet",
-      "price": 252,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 100,
@@ -253,7 +242,6 @@
       "name": "Sheet Profile",
       "code": "4400000688",
       "category": "sheet",
-      "price": 254,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 150,
@@ -270,7 +258,6 @@
       "name": "Sheet Profile",
       "code": "4400000687",
       "category": "sheet",
-      "price": 318,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 150,
@@ -287,7 +274,6 @@
       "name": "Sheet Profile",
       "code": "4400000686",
       "category": "sheet",
-      "price": 378,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 150,
@@ -304,7 +290,6 @@
       "name": "Cladding Profile",
       "code": "4400000690",
       "category": "cladding",
-      "price": 117,
       "shapeType": "cladding",
       "dimensions": {
         "width": 58,
@@ -327,7 +312,6 @@
       "name": "Cladding Profile",
       "code": "4400000691",
       "category": "cladding",
-      "price": 185,
       "shapeType": "cladding",
       "dimensions": {
         "width": 98,
@@ -350,7 +334,6 @@
       "name": "Louver",
       "code": "4400000051",
       "category": "louver",
-      "price": 350,
       "shapeType": "louver_elliptic",
       "dimensions": {
         "width": 150,
@@ -373,7 +356,6 @@
       "name": "Hollow Box",
       "code": "4400000010",
       "category": "hollow-box",
-      "price": 380,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 150,
@@ -397,7 +379,6 @@
       "name": "Solid Box",
       "code": "4400000011",
       "category": "solid-box",
-      "price": 685,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 150,
@@ -414,7 +395,6 @@
       "name": "Door Profile Solid",
       "code": "4400000040",
       "category": "door",
-      "price": 200,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 100,
@@ -438,7 +418,6 @@
       "name": "Door Profile Hollow",
       "code": "4400000054",
       "category": "door",
-      "price": 274,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 100,
@@ -462,7 +441,6 @@
       "name": "Door Profile Hollow",
       "code": "4400000031",
       "category": "door",
-      "price": 397,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 100,
@@ -479,7 +457,6 @@
       "name": "Door Profile",
       "code": "4400000265",
       "category": "door",
-      "price": 315,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 85,
@@ -501,7 +478,6 @@
       "name": "Door Frame Profile",
       "code": "4400000025",
       "category": "door",
-      "price": 347,
       "shapeType": "stepped",
       "dimensions": {
         "width": 85,
@@ -522,7 +498,6 @@
       "name": "Single Door Frame",
       "code": "4400000044",
       "category": "door",
-      "price": 335,
       "shapeType": "stepped",
       "dimensions": {
         "width": 85,
@@ -543,7 +518,6 @@
       "name": "Sheet Profile",
       "code": "4400000052",
       "category": "sheet",
-      "price": 134,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 100,
@@ -560,7 +534,6 @@
       "name": "Sheet Profile",
       "code": "4400000020",
       "category": "sheet",
-      "price": 437,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 200,
@@ -577,7 +550,6 @@
       "name": "Sheet Profile",
       "code": "4400000029",
       "category": "sheet",
-      "price": 304,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 200,
@@ -594,7 +566,6 @@
       "name": "Sheet Profile",
       "code": "4400000034",
       "category": "sheet",
-      "price": 899,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 400,
@@ -611,7 +582,6 @@
       "name": "Sheet Profile",
       "code": "4400000035",
       "category": "sheet",
-      "price": 518,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 400,
@@ -628,7 +598,6 @@
       "name": "Strip",
       "code": "4400000583",
       "category": "strip",
-      "price": 119,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 55,
@@ -645,7 +614,6 @@
       "name": "Strip Profile",
       "code": "4400000053",
       "category": "strip",
-      "price": 187,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 80,
@@ -662,7 +630,6 @@
       "name": "Strip",
       "code": "4400000027",
       "category": "strip",
-      "price": 265,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 40,
@@ -679,7 +646,6 @@
       "name": "Hollow Strip Profile",
       "code": "4400000055",
       "category": "hollow-strip",
-      "price": 160,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 40,
@@ -701,7 +667,6 @@
       "name": "Hollow Strip",
       "code": "4400000048",
       "category": "hollow-strip",
-      "price": 187,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 50,
@@ -723,7 +688,6 @@
       "name": "Strip",
       "code": "4400000047",
       "category": "strip",
-      "price": 108,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 45,
@@ -740,7 +704,6 @@
       "name": "L-Angle",
       "code": "4400000024",
       "category": "l-angle",
-      "price": 69,
       "shapeType": "l_angle",
       "dimensions": {
         "width": 30,
@@ -758,7 +721,6 @@
       "name": "L-Angle",
       "code": "4400000045",
       "category": "l-angle",
-      "price": 81,
       "shapeType": "l_angle",
       "dimensions": {
         "width": 40,
@@ -776,7 +738,6 @@
       "name": "Louver",
       "code": "4400000005",
       "category": "louver",
-      "price": 115,
       "shapeType": "ellipse",
       "dimensions": {
         "width": 75,
@@ -797,7 +758,6 @@
       "name": "Solid Louver",
       "code": "4400000043",
       "category": "solid-louver",
-      "price": 278,
       "shapeType": "ellipse",
       "dimensions": {
         "width": 75,
@@ -816,7 +776,6 @@
       "name": "Round Pipe",
       "code": "4400000036",
       "category": "round-pipe",
-      "price": 383,
       "shapeType": "cylinder_hollow",
       "dimensions": {
         "diameter": 80,
@@ -833,7 +792,6 @@
       "name": "C-Channel",
       "code": "4400000582",
       "category": "c-channel",
-      "price": 164,
       "shapeType": "c_channel",
       "dimensions": {
         "width": 100,
@@ -855,7 +813,6 @@
       "name": "C-Channel",
       "code": "4400000012",
       "category": "c-channel",
-      "price": 164,
       "shapeType": "c_channel",
       "dimensions": {
         "width": 84,
@@ -878,7 +835,6 @@
       "name": "I-Beam Profile",
       "code": "4400000590",
       "category": "i-beam",
-      "price": 80,
       "shapeType": "i_beam",
       "dimensions": {
         "width": 38,
@@ -898,7 +854,6 @@
       "name": "Rod Profile",
       "code": "4400000007",
       "category": "rod",
-      "price": 53,
       "shapeType": "cylinder_solid",
       "dimensions": {
         "diameter": 9
@@ -914,7 +869,6 @@
       "name": "Rod Profile",
       "code": "4400000026",
       "category": "rod",
-      "price": 48,
       "shapeType": "cylinder_solid",
       "dimensions": {
         "diameter": 8
@@ -930,7 +884,6 @@
       "name": "Rod Profile",
       "code": "4400000667",
       "category": "rod",
-      "price": 46,
       "shapeType": "cylinder_solid",
       "dimensions": {
         "diameter": 6
@@ -946,7 +899,6 @@
       "name": "Square Profile",
       "code": "4400000058",
       "category": "square",
-      "price": 233,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 50,
@@ -968,7 +920,6 @@
       "name": "Strip Profile",
       "code": "4400000057",
       "category": "strip",
-      "price": 119,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 80,
@@ -985,7 +936,6 @@
       "name": "Square Profile",
       "code": "4400000578",
       "category": "square",
-      "price": 573,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 100,
@@ -1007,7 +957,6 @@
       "name": "Square Box Profile",
       "code": "4400000586",
       "category": "square",
-      "price": 1290,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 150,
@@ -1034,7 +983,6 @@
       "name": "Strip Profile",
       "code": "4400000581",
       "category": "strip",
-      "price": 104,
       "shapeType": "rectangle",
       "dimensions": {
         "width": 60,
@@ -1051,7 +999,6 @@
       "name": "Railing Profile",
       "code": "4400000060",
       "category": "railing",
-      "price": 257,
       "shapeType": "railing",
       "dimensions": {
         "width": 65,
@@ -1073,7 +1020,6 @@
       "name": "Hollow Box Profile",
       "code": "4400000591",
       "category": "hollow-box",
-      "price": 625,
       "shapeType": "hollow_rectangle",
       "dimensions": {
         "width": 150,
@@ -1095,7 +1041,6 @@
       "name": "Round Pipe Profile",
       "code": "4400000588",
       "category": "round-pipe",
-      "price": 752,
       "shapeType": "cylinder_hollow",
       "dimensions": {
         "diameter": 150,
